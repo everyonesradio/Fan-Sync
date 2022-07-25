@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const AwesomeLink = ({
+const AwesomeLink = ({
   imageUrl,
   url,
   title,
@@ -32,3 +32,5 @@ export const AwesomeLink = ({
     </div>
   );
 };
+
+export default AwesomeLink;

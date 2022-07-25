@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import { links } from '../data/links';
 
-export default function Home() {
+const Home = () => {
   return (
     <div>
       <Head>
-        <title>Awesome Links</title>
+        <title>SGaWD Fan License</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -38,3 +38,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default Home;
