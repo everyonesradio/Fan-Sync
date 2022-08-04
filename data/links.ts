@@ -1,4 +1,4 @@
-export const links = [
+const links = [
   {
     category: "Open Source",
     description: "Fullstack React framework",
@@ -34,3 +34,5 @@ export const links = [
     url: "https://apollographql.com",
   },
 ];
+
+export default links;
