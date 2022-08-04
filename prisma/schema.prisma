@@ -17,6 +17,7 @@ model User {
   email     String?  @unique
   image     String?
   role      Role     @default(USER)
+  bookmarks Link[]
 }
 
 enum Role {
@@ -25,12 +26,13 @@ enum Role {
 }
 
 model Link {
-  id          String   @id @default(uuid())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  title       String
-  description String
-  url         String
-  imageUrl    String
-  category    String
+  id           String   @id @default(uuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  title        String
+  description  String
+  url          String
+  imageUrl     String
+  category     String
+  users        User[]
 }
