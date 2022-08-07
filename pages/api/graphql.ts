@@ -8,6 +8,11 @@ const apolloServer = new ApolloServer({ typeDefs, resolvers });
 const loadServer = apolloServer.start();
 
 export default cors(async function handler(req, res) {
+  if (req.method === "OPTIONS") {
+    res.end();
+    return false;
+  }
+  
   await loadServer;
 
   await apolloServer.createHandler({ 
