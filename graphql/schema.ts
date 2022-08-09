@@ -1,6 +1,6 @@
 import { gql } from "apollo-server-micro";
 
-export const typeDefs = gql`
+const typeDefs = gql`
   type Link {
     id: String
     title: String
@@ -14,4 +14,6 @@ export const typeDefs = gql`
   type Query {
     links: [Link]!
   }
-`
+`;
+
+export default typeDefs;
