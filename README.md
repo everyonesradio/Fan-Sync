@@ -1,3 +1,5 @@
-# Awesome Links - part-1
+# SGaWD Fan-License
 
-This branch has the same starting point as [this article](https://prisma.io/blog/fullstack-nextjs-graphql-prisma-oklidw1rhw)
+This project centers around a user database for super fans of Lagos musician, SGaWD.
+Fans who registser for the service will have access to exclusive promos and content,
+as well as a 3D collectible fan license.
