@@ -1,5 +1,5 @@
 import { objectType, extendType } from 'nexus';
-import  {User } from './User';
+import  { User } from './User';
 
 export const Link = objectType({
   name: 'Link',
