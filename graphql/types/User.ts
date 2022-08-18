@@ -22,9 +22,9 @@ export const User = objectType({
       },
     });
   }
-})
+});
 
 const Role = enumType({
   name: 'Role',
   members: ['USER', 'ADMIN']
-})
+});
