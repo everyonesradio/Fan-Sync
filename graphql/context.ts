@@ -5,7 +5,7 @@ export type Context = {
   prisma: PrismaClient
 }
 
-export async function createContext({ req, res }): Promise<Context> {
+export async function createContext({ _req, _res }): Promise<Context> {
   return {
     prisma,
   }
