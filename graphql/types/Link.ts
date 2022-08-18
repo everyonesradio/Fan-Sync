@@ -24,3 +24,15 @@ export const Link = objectType({
     })
   }
 })
+
+export const LinksQuery = extendType({
+  type: 'Query',
+  definition(t) {
+    t.nonNull.list.field('links', {
+      type: 'Link',
+      resolve(_parent, _args, ctx) {
+        return ctx.prisma.link.findMany();
+      },
+    });
+  },
+});
