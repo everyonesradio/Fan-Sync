@@ -1,7 +1,26 @@
 import Head from 'next/head';
 import links from '../data/links';
+import { gql, useQuery } from '@apollo/client';
+
+const AllLinksQuery = gql`
+  query {
+    links {
+      id
+      title
+      url
+      description
+      imageUrl
+      category
+    }
+  }
+`
 
 const Home = () => {
+  const { data, loading, error } = useQuery(AllLinksQuery)
+
+  if (loading) return <p>Loading...</p>
+  if (error) return <p>Oops, something went wrong: {error.message}</p>
+
   return (
     <div>
       <Head>
@@ -11,7 +30,7 @@ const Home = () => {
 
       <div className="container mx-auto max-w-5xl my-20">
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {links.map((link) => (
+          {data?.links.map((link) => (
             <li key={link.id} className="shadow  max-w-md  rounded">
               <img className="shadow-sm" src={link.imageUrl} />
               <div className="p-5 flex flex-col space-y-2">
