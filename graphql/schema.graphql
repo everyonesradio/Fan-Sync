@@ -13,7 +13,7 @@ type Link {
 }
 
 type Query {
-  ok: Boolean!
+  links: [Link]!
 }
 
 enum Role {
