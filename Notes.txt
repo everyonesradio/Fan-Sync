@@ -1,0 +1,12 @@
+#Unit Tests and Integration Tests w/ Jest
+-------------------------------------------------
+- Unit testing react components (https://medium.com/javascript-scene/unit-testing-react-components-aeda9a44aae2)
+- Jest documentation (https://jestjs.io/docs/getting-started)
+- Jest cheat sheet (https://devhints.io/jest)
+- Testing in Next.js (https://nextjs.org/docs/testing)
+
+#3D License w/ Three.js & WebGL
+- Three.js documentation (https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene)
+- Yugam 3D card on codepen (https://codepen.io/pizza3/pen/pobevYW)
+- Rare programmer tutorial (https://www.rareprogrammer.com/cool-ghost-card-using-threejs)
+- 3D credit card repo (https://github.com/lnardon/3DCreditCard)
