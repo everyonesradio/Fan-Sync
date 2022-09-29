@@ -53,6 +53,9 @@ export const Response = objectType({
   },
 });
 
+// Client sends a request, this can either be the first req,
+// send another req, which will contain a cursor
+
 export const LinksQuery = extendType({
   type: 'Query',
   definition(t) {
@@ -63,7 +66,7 @@ export const LinksQuery = extendType({
         after: stringArg(),
       },
       async resolve(_, args, ctx) {
-        let queryResults = null
+        let queryResults = null;
 
         if (args.after) {
           // Check if there is a cursor as the argument
@@ -73,20 +76,20 @@ export const LinksQuery = extendType({
             cursor: {
               id: args.after, // the cursor
             },
-          })
+          });
         } else {
           // If no cursor, this means that this is the first request
           // and we will return the first items in the database
           queryResults = await ctx.prisma.link.findMany({
             take: args.first,
-          })
+          });
         }
         // If the initial request returns links
         if (queryResults.length > 0) {
           // get last element in previous result set
-          const lastLinkInResults = queryResults[queryResults.length - 1]
+          const lastLinkInResults = queryResults[queryResults.length - 1];
           // cursor we'll return in subsequent requests
-          const myCursor = lastLinkInResults.id
+          const myCursor = lastLinkInResults.id;
 
           // Query after the cursor to check if we have nextPage
           const secondQueryResults = await ctx.prisma.link.findMany({
@@ -94,10 +97,7 @@ export const LinksQuery = extendType({
             cursor: {
               id: myCursor,
             },
-            orderBy: {
-              index: 'asc',
-            },
-          })
+          });
           // Return response
           const result = {
             pageInfo: {
@@ -119,8 +119,8 @@ export const LinksQuery = extendType({
             hasNextPage: false,
           },
           edges: [],
-        }
+        };
       },
-    })
+    });
   },
 });
