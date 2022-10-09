@@ -1,9 +1,9 @@
 import { PrismaClient } from '@prisma/client';
-import { links } from '../data/links';
+import links from '../data/links';
 
 const prisma = new PrismaClient();
 
-async function main() {
+const main = async () => {
   await prisma.user.create({
     data: {
       email: 'test@gmail.com',

@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { gql, useQuery } from '@apollo/client';
 import Link from 'next/link';
-import { AwesomeLink } from '../components/AwesomeLink';
+import AwesomeLink from '../components/AwesomeLink';
 
 const AllLinksQuery = gql`
   query allLinksQuery($first: Int, $after: String) {
@@ -25,7 +25,7 @@ const AllLinksQuery = gql`
   }
 `;
 
-function Home() {
+const Home = () => {
   const { data, loading, error, fetchMore } = useQuery(AllLinksQuery, {
     variables: { first: 3 },
   });
