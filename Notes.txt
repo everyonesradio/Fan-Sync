@@ -12,7 +12,7 @@
 - Rare programmer tutorial (https://www.rareprogrammer.com/cool-ghost-card-using-threejs)
 - 3D credit card repo (https://github.com/lnardon/3DCreditCard)
 
-State Management w/ React Context API
+#State Management w/ React Context API
 -------------------------------------------------
 - React context documentation (https://reactjs.org/docs/context.html)
 - Understanding state management in Next.js (https://blog.logrocket.com/guide-state-management-next-js/)
