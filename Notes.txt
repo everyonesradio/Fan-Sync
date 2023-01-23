@@ -17,3 +17,6 @@
 - React context documentation (https://reactjs.org/docs/context.html)
 - Understanding state management in Next.js (https://blog.logrocket.com/guide-state-management-next-js/)
 - Using React Context for state management in Next.js (https://www.netlify.com/blog/2020/12/01/using-react-context-for-state-management-in-next.js/)
+
+#Next.js & PostgresSQL tutorial
+- Fullstack App With TypeScript, PostgreSQL, Next.js, Prisma & GraphQL: Data Modeling (https://www.prisma.io/blog/fullstack-nextjs-graphql-prisma-oklidw1rhw)
