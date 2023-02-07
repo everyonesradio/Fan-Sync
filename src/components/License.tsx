@@ -7,6 +7,7 @@ import { easing } from "maath";
 import getUuid from "uuid-by-string";
 import { OrbitControls, Html } from "@react-three/drei";
 
+//Read three.js docs and make a rotating card
 /*
 //HTML Functionality
 const Box = () => {
