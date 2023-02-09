@@ -1,11 +1,10 @@
 import * as THREE from "three";
-import { useEffect, useRef, useState } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { useCursor, MeshReflectorMaterial, Image, Text, Environment, } from "@react-three/drei";
+import { ReactElement, useEffect, useRef, useState } from "react";
+import { Canvas, useFrame, useThree, useLoader } from "@react-three/fiber";
+import { useCursor, MeshReflectorMaterial, Text, Environment, OrbitControls } from "@react-three/drei";
 import { useRoute, useLocation } from "wouter";
 import { easing } from "maath";
 import getUuid from "uuid-by-string";
-import { OrbitControls, Html } from "@react-three/drei";
 
 //Read three.js docs and make a rotating card
 /*
@@ -78,6 +77,8 @@ const Sphere = (props: JSX.IntrinsicElements["mesh"]) => {
       </Canvas>
 */
 
+// Need to detail the errors coming from here
+
 const GOLDENRATIO = 1.61803398875;
 
 const Frames = ({
@@ -85,6 +86,7 @@ const Frames = ({
   p = new THREE.Vector3(),
   ...images
 }) => {
+  console.log(images)
   // This reference gives us direct access to the THREE.Mesh object
   const ref = useRef<any>(null!);
   const clicked = useRef<any>(null!);
@@ -111,23 +113,56 @@ const Frames = ({
   return (
     <group
       ref={ref}
-      onClick={(e) => (
-        e.stopPropagation(),
-        setLocation(
-          clicked.current === e.object ? "/" : "/item/" + e.object.name
-        )
-      )}
+      onClick={(e) => {
+        e.stopPropagation();
+        setLocation(clicked.current === e.object ? "/" : "/item/" + e.object.name);
+      }}
       onPointerMissed={() => setLocation("/")}
     >
-      {images.map((props: any) => <Frame key={props.url} {...props} /> /* prettier-ignore */
-      )}
+     {Object.keys(images).map((props: any) => {
+  return <Frame key={props .url} {...props} /> 
+})}
     </group>
   );
 };
 
+interface ImageProps {
+  position: [number, number, number];
+  url: string;
+  raycast?: () => null;
+  alt: string;
+  ref: any;
+}
+
+const Image = ({ position, url, raycast, alt }: ImageProps): ReactElement => {
+  const { camera } = useThree();
+  const texture = useLoader(THREE.TextureLoader, url);
+
+  return (
+    <mesh
+      position={position}
+      raycast={raycast}
+      onPointerOver={(e) => {
+        e.stopPropagation();
+        camera.zoom = 1.2;
+        camera.updateProjectionMatrix();
+      }}
+      onPointerOut={(e) => {
+        e.stopPropagation();
+        camera.zoom = 1;
+        camera.updateProjectionMatrix();
+      }}
+    >
+      <planeGeometry args={[0.5, 0.5, 2, 2]} />
+      <meshBasicMaterial map={texture} />
+    </mesh>
+  );
+};
+
 type FrameProps = {
-  url: any;
-  c?: THREE.Color | undefined;
+  url: string;
+  c?: THREE.Color;
+  props?: any;
 };
 
 const Frame: React.FunctionComponent<FrameProps> = ({ url, c = new THREE.Color(), ...props }) => {
@@ -158,19 +193,15 @@ const Frame: React.FunctionComponent<FrameProps> = ({ url, c = new THREE.Color()
       0.1,
       dt
     );
-    console.log("url", url);
-    console.log("name", name);
-    console.log("isActive", isActive);
-
-    console.log("image.current.material.zoom", image.current.material.zoom);
-    console.log("image.current.scale", image.current.scale);
-    console.log("frame.current.material.color", frame.current.material.color);
   });
   return (
     <group {...props}>
       <mesh
         name={name}
-        onPointerOver={(e) => (e.stopPropagation(), hover(true))}
+        onPointerOver={(e) => {
+          e.stopPropagation()
+          hover(true);
+        }}
         onPointerOut={() => hover(false)}
         scale={[1, GOLDENRATIO, 0.05]}
         position={[0, GOLDENRATIO / 2, 0]}
