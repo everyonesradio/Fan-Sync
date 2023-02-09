@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import License from '@/components/License'
+import Test from '@/components/test'
 import styles from '@/styles/Home.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -34,7 +35,7 @@ export default function Home() {
       <main className={styles.main}>
         <div>
           <h1 className="text-9xl font-sans">Fan License</h1>
-          <License images={images}/>
+          <Test images={images}/>
         </div>
       </main>
     </>
