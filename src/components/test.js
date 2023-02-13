@@ -6,7 +6,7 @@ import {
   MeshReflectorMaterial,
   Image,
   Text,
-  Environment,
+  Environment, OrbitControls
 } from "@react-three/drei";
 import { useRoute, useLocation } from "wouter";
 import { easing } from "maath";
