@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { Inter } from "next/font/google"
-import License from '@/components/License'
+// import License from '@/components/License'
 import Test from '@/components/test'
 import styles from '@/styles/Home.module.css'
 
@@ -23,7 +23,7 @@ const images: any = [
   // { position: [2, 0, 2.75], rotation: [0, -Math.PI / 2.5, 0], url: pexel(1738986) }
 ]
 
-export default function Home() {
+const Home = () => {
   return (
     <>
       <Head>
@@ -42,3 +42,5 @@ export default function Home() {
     
   );
 }
+
+export default Home;
