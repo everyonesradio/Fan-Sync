@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Inter } from '@next/font/google'
+import { Inter } from "next/font/google"
 import License from '@/components/License'
 import Test from '@/components/test'
 import styles from '@/styles/Home.module.css'
