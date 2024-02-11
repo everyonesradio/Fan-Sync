@@ -9,7 +9,7 @@ type ConnectionStatus = {
 export const getServerSideProps: GetServerSideProps<ConnectionStatus> = async () => {
   try {
     const client = await clientPromise;
-    const db = client.db("sample_mflix")
+    const db = client.db("fanbase")
     return {
       props: { isConnected: true },
     };
