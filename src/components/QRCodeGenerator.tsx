@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import QRcode from "react-qr-code"
 
-const LicenseCode = () => {
+const QRCodeGenerator = () => {
   const [value, setValue] = useState<string>('');
   const [background, setBackground] = useState<string>('#FFFFFF');
   const [foreground, setForeground] = useState<string>('#000000');
@@ -21,4 +21,4 @@ const LicenseCode = () => {
   )
 }
 
-export default LicenseCode;
+export default QRCodeGenerator;
