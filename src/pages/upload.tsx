@@ -4,16 +4,16 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "@/lib/firebase/firebase";
 
 const Upload = () => {
-  const [fileUpload, setFileUpload] = useState<FileList | null>(null);
+  const [imageUpload, setImageUpload] = useState<FileList | null>(null);
   const upload = () => {
     // code to handle file upload
-    console.log(fileUpload);
-    if (fileUpload !== null) {
-      const fileRef = ref(storage, `avatars/${fileUpload[0].name}`);
-      uploadBytes(fileRef, fileUpload[0]).then((snapshot) => {
+    console.log(imageUpload);
+    if (imageUpload !== null) {
+      const imageRef = ref(storage, `avatars/${imageUpload[0].name}`);
+      uploadBytes(imageRef, imageUpload[0]).then((snapshot) => {
         // TODO: Add progress bar
-        getDownloadURL(snapshot.ref).then((downloadURL) => {
-          console.log(`File available at ${downloadURL}`);
+        getDownloadURL(snapshot.ref).then((imageURL) => {
+          console.log(`File available at ${imageURL}`);
         });
       }).catch((error) => {
         console.error(error);
@@ -26,7 +26,7 @@ const Upload = () => {
     <div className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="container mt-5">
         <div className="col-lg-8 offset-lg-2">
-          <input type='file' onChange={(e) => setFileUpload(e.target.files)}></input>
+          <input type='file' onChange={(e) => setImageUpload(e.target.files)}></input>
           <button onClick={upload}>Upload</button>
         </div>
       </div>
