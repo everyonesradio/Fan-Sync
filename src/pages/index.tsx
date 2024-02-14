@@ -1,3 +1,4 @@
+import React from "react";
 import clientPromise from "@/lib/mongodb";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import Meta from "@/components/Meta";
