@@ -2,6 +2,8 @@ import React from "react";
 import clientPromise from "@/lib/mongodb";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import Meta from "@/components/Meta";
+import { Button } from '@react95/core';
+import { Access229 } from '@react95/icons';
 
 type ConnectionStatus = {
   isConnected: boolean;
@@ -28,7 +30,7 @@ const Home = ({ isConnected }: InferGetServerSidePropsType<typeof getServerSideP
       <Meta />
       <div className="flex min-h-screen flex-col items-center justify-between p-24">
         <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-          <h1 className="fixed left-0 top-0 flex w-full justify-center text-3xl italic font-bold font-mono border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
+          <h1 className="fixed left-0 top-0 flex w-full justify-center text-3xl italic font-bold  border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
             MEET SGaWD...
           </h1>
           {isConnected ? (
@@ -41,9 +43,11 @@ const Home = ({ isConnected }: InferGetServerSidePropsType<typeof getServerSideP
             </h2>
           )}
         </div>
+        <br />
+        <Access229 />
+        <Button>Create Your License</Button>
       </div>
     </main>
-    
   );
 }
 
