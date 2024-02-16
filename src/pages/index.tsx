@@ -2,8 +2,9 @@ import React from "react";
 import clientPromise from "@/lib/mongodb";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import Meta from "@/components/Meta";
-import { Button } from '@react95/core';
-import { Access229 } from '@react95/icons';
+import WelcomeSection from "@/views/WelcomeSection";
+import AboutSection from "@/views/AboutSection";
+import CardSection from "@/views/CardSection";
 
 type ConnectionStatus = {
   isConnected: boolean;
@@ -11,8 +12,7 @@ type ConnectionStatus = {
 
 export const getServerSideProps: GetServerSideProps<ConnectionStatus> = async () => {
   try {
-    const client = await clientPromise;
-    const db = client.db("fanbase")
+    await clientPromise;
     return {
       props: { isConnected: true },
     };
@@ -28,24 +28,10 @@ const Home = ({ isConnected }: InferGetServerSidePropsType<typeof getServerSideP
   return (
     <main>
       <Meta />
-      <div className="flex min-h-screen flex-col items-center justify-between p-24">
-        <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-          <h1 className="fixed left-0 top-0 flex w-full justify-center text-3xl italic font-bold  border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-            MEET SGaWD...
-          </h1>
-          {isConnected ? (
-            <h2 className="flex justify-center text-xl font-bold">
-              You are connected to MongoDB
-            </h2>
-          ) : (
-            <h2 className="flex justify-center text-xl font-bold">
-              Could not connect to MongoDB
-            </h2>
-          )}
-        </div>
-        <br />
-        <Access229 />
-        <Button>Create Your License</Button>
+      <div className="snap-y snap-mandatory h-screen w-screen overflow-scroll scrollbar-hide">
+        <WelcomeSection />
+        <AboutSection />
+        <CardSection isConnected={isConnected}/>
       </div>
     </main>
   );
