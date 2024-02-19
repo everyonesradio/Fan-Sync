@@ -8,7 +8,7 @@ import CardSection from "@/views/CardSection";
 
 type ConnectionStatus = {
   isConnected: boolean;
-}
+};
 
 export const getServerSideProps: GetServerSideProps<ConnectionStatus> = async () => {
   try {
@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps<ConnectionStatus> = async ()
     return {
       props: { isConnected: false },
     };
-  }
+  };
 };
 
 const Home = ({ isConnected }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -35,6 +35,6 @@ const Home = ({ isConnected }: InferGetServerSidePropsType<typeof getServerSideP
       </div>
     </main>
   );
-}
+};
 
 export default Home;
