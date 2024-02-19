@@ -8,7 +8,7 @@ const withTM = require('next-transpile-modules')([
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['firebasestorage.googleapis.com'],
+    domains: ['firebasestorage.googleapis.com', 'i.scdn.co'],
   },
 }
 
