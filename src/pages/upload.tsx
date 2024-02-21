@@ -25,7 +25,11 @@ const Upload = () => {
 
       const data = await response.json();
       setImageURL(data.fileURL);
-      const licenseID = uuidv4(); // Generate a new UUID for the license ID
+      
+      // Use the licenseID from the context instead of generating a new one
+      if (!licenseID) {
+        throw new Error('License ID is not set');
+      }
 
       // Send the licenseID and imageURL to the server to update the MongoDB document
       const updateResponse = await fetch('/api/updateLicense', {
