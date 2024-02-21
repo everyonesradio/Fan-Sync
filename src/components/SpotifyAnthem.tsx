@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ArtistCatalog, Album  } from '@/types/catalog';
-import { Input, List, Button } from '@react95/core';
+import { ArtistCatalog, Album  } from "@/types/catalog";
+import { Input, List, Button } from "@react95/core";
 import Image from "next/image";
 
 type SpotifyAnthemProps = {
@@ -14,7 +14,7 @@ const SpotifyAnthem: React.FC<SpotifyAnthemProps>  = ({ artistCatalog }) => {
 
   useEffect(() => {
     setOriginalAlbums(artistCatalog.items);
-    console.log(artistCatalog.items)
+    // console.log(artistCatalog.items)
   }, [artistCatalog]);
 
   useEffect(() => {
