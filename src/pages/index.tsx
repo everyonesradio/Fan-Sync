@@ -1,6 +1,6 @@
 import React from "react";
-import clientPromise from "@/lib/mongodb";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
+import clientPromise from "@/lib/mongodb";
 import Meta from "@/components/Meta";
 import WelcomeSection from "@/views/WelcomeSection";
 import AboutSection from "@/views/AboutSection";
