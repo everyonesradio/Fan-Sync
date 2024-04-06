@@ -34,3 +34,14 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+.photo-bg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px; 
+  height: 250px; 
+  border-radius: 50%; 
+  background-color: white;
+  margin: 0 auto; 
+}

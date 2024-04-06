@@ -12,7 +12,11 @@ export const getStaticProps: GetStaticProps<{ artistCatalog: ArtistCatalog }> = 
 };
 
 const anthem = ({ artistCatalog }: { artistCatalog: ArtistCatalog }) => {
-  return <SpotifyAnthem artistCatalog={artistCatalog} />;
+  return( 
+    <div>
+      <SpotifyAnthem artistCatalog={artistCatalog} />
+    </div>
+  );
 };
 
 export default anthem;
