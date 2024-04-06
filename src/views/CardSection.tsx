@@ -20,7 +20,7 @@ const CardSection = ({ isConnected }: any)  => {
   const xTranslation = useMotionValue(0);
 
   useEffect(() => {
-    let controls
+    let controls: any
     let finalPosition = -width / 2 - 8;
 
     controls = animate(xTranslation, [0, finalPosition], {
