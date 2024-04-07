@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import Image from 'next/image';
 import SignatureCanvas from "react-signature-canvas";
 
-const Signature = () => {
+const FanSignature = () => {
   const sigCanvas = useRef<SignatureCanvas>(null);
   const [imageURL, setImageURL] = useState<string | null>(null);
 
@@ -51,4 +51,4 @@ const Signature = () => {
   )
 };
 
-export default Signature;
+export default FanSignature;
