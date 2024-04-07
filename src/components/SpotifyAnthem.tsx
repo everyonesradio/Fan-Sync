@@ -80,7 +80,7 @@ const SpotifyAnthem: React.FC<SpotifyAnthemProps>  = ({ artistCatalog }) => {
         )}
       </div>
       {selectedAnthem && <MediaPlayer selectedAnthem={selectedAnthem} />}
-      <Button onClick={() => router.push('/license')}>Next</Button>
+      <Button onClick={() => router.push('/signature')}>Next</Button>
     </div>
   );
 };
