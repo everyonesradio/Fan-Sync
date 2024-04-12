@@ -1,51 +1,51 @@
 import React, { useRef, useState } from "react";
-import Image from 'next/image';
 import SignatureCanvas from "react-signature-canvas";
+import { useLicense } from "@/components/context/LicenseContext";
+import { Frame, Button } from "@react95/core";
 
 const FanSignature = () => {
   const sigCanvas = useRef<SignatureCanvas>(null);
-  const [imageURL, setImageURL] = useState<string | null>(null);
+  const { licenseID } = useLicense();
 
-  const saveSignature = () => {
-      const trimmedCanvas = sigCanvas.current?.getTrimmedCanvas();
-      const URL = trimmedCanvas ? trimmedCanvas.toDataURL("image/png") : null;
-      console.log(URL)
-      setImageURL(URL);
+  const saveSignature = async () => {
+    const trimmedCanvas = sigCanvas.current?.getTrimmedCanvas();
+    const image = trimmedCanvas ? trimmedCanvas.toDataURL("image/png") : null;
+
+    // Call API route to save the signature image and update the MongoDB document
+    const response = await fetch('/api/updateSignature', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ imageURL: image, uuid: licenseID }),
+    });
+
+    if (!response.ok) {
+      console.error('Failed to update signature');
+    }
   };
 
   const clearCanvas = () => sigCanvas.current?.clear();
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-24">
+    <div className="flex flex-col items-center justify-between p-24">
       <div className="container mt-5">
-        <h1>Your Signature Here</h1>
-        <SignatureCanvas 
-          penColor='black' 
-          canvasProps={{className : "w-full h-48"}}
-          ref={sigCanvas}  
-        />
-        <hr />
-        <button  
-          className="border-none ml-auto text-gray-500 p-0 block mt-1 mb-auto bg-gray-300 hover:bg-transparent hover:text-black"
-          onClick={() => { clearCanvas() }}
-        >
-          Clear
-        </button>
-        <button className="create" onClick={saveSignature}>
-          Save
-        </button>
-      </div>
-      <br />
-      <div className="signature-preview">
-      { imageURL && (
-        <Image
-          src={imageURL}
-          alt="signature"
-          width={500} // Set the desired width
-          height={200} // Set the desired height
-          className="signature"
-        />
-      )}
+        <Frame>
+         <SignatureCanvas 
+           penColor='black' 
+           canvasProps={{className : "w-full h-48"}}
+           ref={sigCanvas}  
+         />
+        </Frame>
+        <br />
+        <div className="flex justify-center space-x-4">
+          <Button className="hover:bg-transparent" onClick={saveSignature}>
+            Save
+          </Button>
+          <Button className="hover:bg-transparent" onClick={() => { clearCanvas() }}>
+            Clear
+          </Button>
+        </div>
       </div>
     </div>
   )
