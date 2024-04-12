@@ -14,11 +14,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const client = await clientPromise;
-    const db = client.db('fanbase'); // No need to specify the database name explicitly
-    const collection = db.collection('fans'); // Replace with your actual collection name
+    const db = client.db('fanbase');
+    const collection = db.collection('fans');
     const result = await collection.insertOne({
       uuid: licenseID,
-      imageURL: imageURL,
+      profile_picture: imageURL,
       timestamp: new Date(),
     });
 

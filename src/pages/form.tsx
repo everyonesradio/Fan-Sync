@@ -25,7 +25,7 @@ const Form = () => {
         username,
         email,
         dob,
-        location: "Arlington, VA",
+        location
       }),
     });
 
