@@ -35,7 +35,7 @@ const Upload = () => {
          }
    
          // Send the licenseID and imageURL to the server to update the MongoDB document
-         const updateResponse = await fetch('/api/updateLicense', {
+         const updateResponse = await fetch('/api/createLicense', {
            method: 'POST',
            headers: {
              'Content-Type': 'application/json',

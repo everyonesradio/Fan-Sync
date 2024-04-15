@@ -1,9 +1,9 @@
 import React from "react";
 import Image from "next/image";
-import { Album } from "@/types/catalog";
+import { Catalog } from "@/types/catalog";
 
 type MediaPlayerProps = {
- selectedAnthem: Album;
+ selectedAnthem: Catalog;
 };
 
 const upperCase = (string: string) => {
@@ -11,7 +11,7 @@ const upperCase = (string: string) => {
 };
 
 const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
- return (
+  return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg m-4 bg-white">
       <Image className="w-full" src={selectedAnthem.images[0].url} alt="Album Cover" width={100} height={100} />
       <div className="px-6 py-4">
@@ -21,7 +21,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
         </p>
       </div>
     </div>
- );
+  );
 };
 
 export default MediaPlayer;

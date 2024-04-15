@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ArtistCatalog, Album } from "@/types/catalog";
+import { useLicense } from "@/components/context/LicenseContext";
+import { ArtistCatalog, Catalog } from "@/types/catalog";
 import { Input, List, Button } from "@react95/core";
 import MediaPlayer from "@/components/MediaPlayer";
 
@@ -11,8 +12,9 @@ type SpotifyAnthemProps = {
 
 const SpotifyAnthem: React.FC<SpotifyAnthemProps>  = ({ artistCatalog }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<Album[]>([]);
-  const [selectedAnthem, setSelectedAnthem] = useState<Album | null>(null);
+  const [searchResults, setSearchResults] = useState<Catalog[]>([]);
+  const [selectedAnthem, setSelectedAnthem] = useState<Catalog | null>(null);
+  const { licenseID } = useLicense();
   const router = useRouter();
 
   useEffect(() => {
@@ -36,6 +38,34 @@ const SpotifyAnthem: React.FC<SpotifyAnthemProps>  = ({ artistCatalog }) => {
   const upperCase = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
+
+  const handleNext = async () => {
+    if (!selectedAnthem) {
+       alert('Please select an anthem first.');
+       return;
+    }
+   
+    try {
+       const response = await fetch('/api/updateAnthem', {
+         method: 'POST',
+         headers: {
+           'Content-Type': 'application/json',
+         },
+         body: JSON.stringify({ licenseID, selectedAnthem }),
+       });
+   
+       if (!response.ok) {
+         throw new Error('Failed to save anthem');
+       }
+   
+       const data = await response.json();
+       console.log(data);
+       router.push('/signature');
+    } catch (error) {
+       console.error('Error saving anthem:', error);
+       alert('Failed to save anthem. Please try again.');
+    }
+   };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
@@ -67,7 +97,7 @@ const SpotifyAnthem: React.FC<SpotifyAnthemProps>  = ({ artistCatalog }) => {
                         <span>{upperCase(item.album_type)} - {item.release_date.split('-')[0]}</span>
                       </div>
                     </List.Item>
-                    {index !== searchResults.length -   1 && <List.Divider />}
+                    {index !== searchResults.length - 1 && <List.Divider />}
                   </React.Fragment>
                 ))
               ) : (
@@ -80,7 +110,7 @@ const SpotifyAnthem: React.FC<SpotifyAnthemProps>  = ({ artistCatalog }) => {
         )}
       </div>
       {selectedAnthem && <MediaPlayer selectedAnthem={selectedAnthem} />}
-      <Button onClick={() => router.push('/signature')}>Next</Button>
+      <Button onClick={handleNext}>Next</Button>
     </div>
   );
 };
