@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ArtistCatalog, Album } from "@/types/catalog";
+import { ArtistCatalog, Catalog } from "@/types/catalog";
 import { Input, List, Button } from "@react95/core";
 import MediaPlayer from "@/components/MediaPlayer";
 
@@ -11,8 +11,8 @@ type SpotifyAnthemProps = {
 
 const SpotifyAnthem: React.FC<SpotifyAnthemProps>  = ({ artistCatalog }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<Album[]>([]);
-  const [selectedAnthem, setSelectedAnthem] = useState<Album | null>(null);
+  const [searchResults, setSearchResults] = useState<Catalog[]>([]);
+  const [selectedAnthem, setSelectedAnthem] = useState<Catalog | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -67,7 +67,7 @@ const SpotifyAnthem: React.FC<SpotifyAnthemProps>  = ({ artistCatalog }) => {
                         <span>{upperCase(item.album_type)} - {item.release_date.split('-')[0]}</span>
                       </div>
                     </List.Item>
-                    {index !== searchResults.length -   1 && <List.Divider />}
+                    {index !== searchResults.length - 1 && <List.Divider />}
                   </React.Fragment>
                 ))
               ) : (
