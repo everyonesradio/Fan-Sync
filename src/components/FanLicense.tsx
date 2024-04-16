@@ -1,12 +1,68 @@
 import React from "react";
+import Image from "next/image";
+import Card from "@/components/3DLicenseCard";
+import { FanData } from "@/types/fanData";
+import { FaSpotify } from "react-icons/fa";
 
-const FanLicense: React.FC = () => {
-  // Fan data will be displayed here, as well as the card selection feature
+interface FanLicenseProps {
+  fanData: FanData | null;
+ }
+ 
+ const FanLicense: React.FC<FanLicenseProps> = ({ fanData }) => {
+  if (!fanData) {
+     return <p>Loading fan data...</p>;
+  };
+
+  const upperCase = (string: string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  };
+
+  const truncateString = (str: string, maxLength: number) => {
+    if (str.length > maxLength) {
+       return `${str.substring(0, maxLength)}...`;
+    }
+    return str;
+  };
+
   return (
-    <div className="w-72 h-96 bg-red-400 rounded-xl p-4 border-4 border-white flex justify-center items-center text-center text-white">
-      3D card effect with react and framer motion
-    </div>
+    <Card       
+      style={{
+        width: '300px',
+        height: '450px',
+        backgroundColor: '#F56565',
+        padding: '1rem',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        color: '#FFFFFF'
+      }}
+      onClick={() => console.log('Card clicked')}
+    >
+      <>
+        <div className="flex flex-col space-y-2 items-center">
+          <Image
+            src={fanData.profile_picture}
+            alt="Profile picture"
+            height={120}
+            width={120}
+            className="rounded-full aspect-square object-cover"
+          />
+          <p className="font-bold text-lg">{fanData.username}</p>
+          <p>Location: {fanData.location}</p>
+          <p>Date of Birth: {fanData.dob}</p>
+          <p>NO. {fanData.uuid}</p>
+          <div className="flex items-center space-x-2 bg-black rounded-full border-2 border-white py-1 px-7">
+            <div className="space-y-1">
+              <p className="truncate font-bold">&quot;{truncateString(fanData.anthem.name, 20)}&quot;</p>
+              <p>{fanData.anthem.release_date.split('-')[0]} - {upperCase(fanData.anthem.album_type)}</p>
+            </div>
+            <FaSpotify className="text-3xl"/>
+          </div>
+        </div>
+      </>
+    </Card>
   );
 };
 
-export default FanLicense;
+export default FanLicense; 
