@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo } from 'react';
 import { v4 as uuidv4 } from "uuid";
 
 interface LicenseContextValue {
@@ -26,8 +26,10 @@ export const LicenseProvider: React.FC<LicenseProviderProps> = ({ children }) =>
     setLicenseID(newLicenseId);
   }, []);
 
+  const licenseValue = useMemo(() => ({ licenseID, setLicenseID }), [licenseID, setLicenseID]);
+
   return (
-    <LicenseContext.Provider value={{ licenseID, setLicenseID }}>
+    <LicenseContext.Provider value={licenseValue}>
       {children}
     </LicenseContext.Provider>
   );
@@ -41,18 +43,17 @@ const generateLicenseId = () => {
   let letters = '';
   let digits = '';
 
-  // Iterate through the UUID string without hyphens
-  for (let i =  0; i < mixedString.length; i++) {
-    const char = mixedString[i];
-    // Check if the character is a letter and we haven't collected  3 letters yet
-    if (char.match(/[a-z]/i) && letters.length < 3) {
+  // Iterate through the UUID string without hyphens using a for-of loop
+  for (const char of mixedString) {
+    // Check if the character is a letter and we haven't collected 3 letters yet
+    if (/[a-z]/i.exec(char) && letters.length < 3) {
       letters += char;
     }
-    // Check if the character is a digit and we haven't collected  8 digits yet
-    else if (char.match(/[0-9]/) && digits.length < 8) {
+    // Check if the character is a digit and we haven't collected 8 digits yet
+    else if (/\d/.exec(char) && digits.length < 8) {
       digits += char;
     }
-    // Stop the loop if we have collected  3 letters and  8 digits
+    // Stop the loop if we have collected 3 letters and 8 digits
     if (letters.length === 3 && digits.length === 8) {
       break;
     };

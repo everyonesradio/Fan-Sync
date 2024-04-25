@@ -32,6 +32,12 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head />
+          <link rel="preload" href="/images/card-1.png" as="image" />
+          <link rel="preload" href="/images/card-2.png" as="image" />
+          <link rel="preload" href="/images/card-3.png" as="image" />
+          <link rel="preload" href="/images/card-4.png" as="image" />
+          <link rel="preload" href="/images/card-5.png" as="image" />
+          <link rel="preload" href="/images/card-6.png" as="image" />
         <body>
           <Main />
           <NextScript />

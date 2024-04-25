@@ -8,7 +8,7 @@ import { Button } from '@react95/core';
 const Upload = () => {
   const [imageUpload, setImageUpload] = useState<FileList | null>(null);
   const [imageURL, setImageURL] = useState<string | null>(null);
-  const { licenseID, setLicenseID } = useLicense();
+  const { licenseID } = useLicense();
   const router = useRouter();
 
   const upload = async (files: FileList | null) => {

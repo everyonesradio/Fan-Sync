@@ -6,9 +6,10 @@ import { FaSpotify } from "react-icons/fa";
 
 interface FanLicenseProps {
   fanData: FanData | null;
+  selectedBg: string | null;
  }
  
- const FanLicense: React.FC<FanLicenseProps> = ({ fanData }) => {
+ const FanLicense: React.FC<FanLicenseProps> = ({ fanData, selectedBg }) => {
   if (!fanData) {
      return <p>Loading fan data...</p>;
   };
@@ -29,24 +30,27 @@ interface FanLicenseProps {
       style={{
         width: '300px',
         height: '450px',
-        backgroundColor: '#F56565',
+        backgroundColor: 'rgba(245, 101, 101, 0)',
+        backgroundImage: `url(${selectedBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
         padding: '1rem',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        color: '#FFFFFF'
+        color: '#FFFFFF',
+        transition: 'background-image 0.4s ease-in-out'
       }}
-      onClick={() => console.log('Card clicked')}
     >
-      <>
+      <div>
         <div className="flex flex-col space-y-2 items-center">
           <Image
             src={fanData.profile_picture}
             alt="Profile picture"
             height={120}
             width={120}
-            className="rounded-full aspect-square object-cover"
+            className="rounded-full aspect-square object-cover border-2 border-white"
           />
           <p className="font-bold text-lg">{fanData.username}</p>
           <p>Location: {fanData.location}</p>
@@ -60,7 +64,7 @@ interface FanLicenseProps {
             <FaSpotify className="text-3xl"/>
           </div>
         </div>
-      </>
+      </div>
     </Card>
   );
 };
