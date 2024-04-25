@@ -1,7 +1,6 @@
 import React from "react";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import clientPromise from "@/lib/mongodb";
-import Meta from "@/components/Meta";
 import WelcomeSection from "@/views/WelcomeSection";
 import AboutSection from "@/views/AboutSection";
 import CardSection from "@/views/CardSection";
@@ -27,7 +26,6 @@ export const getServerSideProps: GetServerSideProps<ConnectionStatus> = async ()
 const Home = ({ isConnected }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <main>
-      <Meta />
       <div className="snap-y snap-mandatory h-screen w-screen overflow-scroll scrollbar-hide">
         <WelcomeSection />
         <AboutSection />
