@@ -1,19 +1,27 @@
 import React, { useState, useEffect } from "react";
+import Image from 'next/image';
 import { useLicense } from "@/components/context/LicenseContext";
 import FanLicense from "@/components/FanLicense";
 import { FanData } from "@/types/fanData";
 
+
+const license = [
+  "/images/card-1.png",
+  "/images/card-2.png",
+  "/images/card-3.png",
+  "/images/card-4.png",
+  "/images/card-5.png",
+  "/images/card-6.png",
+];
+
 const License = () => {
   const { licenseID } = useLicense();
   const [fanData, setFanData] = useState<FanData | null>(null);
-  const licenseBackgrounds = [
-    "/images/card-1.png",
-    "/images/card-2.png",
-    "/images/card-3.png",
-    "/images/card-4.png",
-    "/images/card-5.png",
-    "/images/card-6.png",
-  ];
+  const [selectedBg, setSelectedBg] = useState<string | null>(license[0]);
+
+  const handleImageClick = (image: string) => {
+    setSelectedBg(image);
+ };
 
   useEffect(() => {
     const fetchFanData = async () => {
@@ -37,13 +45,18 @@ const License = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
       <h1 className="font-bold text-5xl text-center p-8">Share Your License</h1> 
-      <FanLicense fanData={fanData}/>
+      <FanLicense fanData={fanData} selectedBg={selectedBg} />
       <div className="flex justify-around items-center mt-6">
-        {Array.from({ length: 6 }).map((_, index) => (
-          <div
-            key={index}
-            className="w-8 h-8 rounded-full bg-white mx-2"
-          />
+        {license.map((background) => (
+          <button key={background} className="w-8 h-8 mx-2" onClick={() => handleImageClick(background)}>
+            <Image
+              src={background}
+              alt={"License Background"}
+              width={100}
+              height={100}
+              className="rounded-full aspect-square object-cover hover:border-white hover:border-2"
+            />
+          </button>
         ))}
       </div>
     </div>
