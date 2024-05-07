@@ -1,5 +1,11 @@
-import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document';
-import { ServerStyleSheet } from 'styled-components';
+import Document, {
+  Html,
+  Head,
+  Main,
+  NextScript,
+  DocumentContext,
+} from "next/document";
+import { ServerStyleSheet } from "styled-components";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -30,14 +36,14 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="en">
+      <Html lang='en'>
         <Head />
-          <link rel="preload" href="/images/card-1.png" as="image" />
-          <link rel="preload" href="/images/card-2.png" as="image" />
-          <link rel="preload" href="/images/card-3.png" as="image" />
-          <link rel="preload" href="/images/card-4.png" as="image" />
-          <link rel="preload" href="/images/card-5.png" as="image" />
-          <link rel="preload" href="/images/card-6.png" as="image" />
+        <link rel='preload' href='/images/card-1.png' as='image' />
+        <link rel='preload' href='/images/card-2.png' as='image' />
+        <link rel='preload' href='/images/card-3.png' as='image' />
+        <link rel='preload' href='/images/card-4.png' as='image' />
+        <link rel='preload' href='/images/card-5.png' as='image' />
+        <link rel='preload' href='/images/card-6.png' as='image' />
         <body>
           <Main />
           <NextScript />

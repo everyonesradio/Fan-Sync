@@ -12,43 +12,48 @@ const FanSignature = () => {
     const image = trimmedCanvas ? trimmedCanvas.toDataURL("image/png") : null;
 
     // Call API route to save the signature image and update the MongoDB document
-    const response = await fetch('/api/updateSignature', {
-      method: 'POST',
+    const response = await fetch("/api/updateSignature", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ imageURL: image, uuid: licenseID }),
     });
 
     if (!response.ok) {
-      console.error('Failed to update signature');
+      console.error("Failed to update signature");
     }
   };
 
   const clearCanvas = () => sigCanvas.current?.clear();
 
   return (
-    <div className="flex flex-col items-center justify-between p-24">
-      <div className="container mt-5">
+    <div className='flex flex-col items-center justify-between p-24'>
+      <div className='container mt-5'>
         <Frame>
-         <SignatureCanvas 
-           penColor='black' 
-           canvasProps={{className : "w-full h-48"}}
-           ref={sigCanvas}  
-         />
+          <SignatureCanvas
+            penColor='black'
+            canvasProps={{ className: "w-full h-48" }}
+            ref={sigCanvas}
+          />
         </Frame>
         <br />
-        <div className="flex justify-center space-x-4">
-          <Button className="hover:bg-transparent" onClick={saveSignature}>
+        <div className='flex justify-center space-x-4'>
+          <Button className='hover:bg-transparent' onClick={saveSignature}>
             Save
           </Button>
-          <Button className="hover:bg-transparent" onClick={() => { clearCanvas() }}>
+          <Button
+            className='hover:bg-transparent'
+            onClick={() => {
+              clearCanvas();
+            }}
+          >
             Clear
           </Button>
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default FanSignature;

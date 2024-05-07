@@ -9,7 +9,9 @@ type ConnectionStatus = {
   isConnected: boolean;
 };
 
-export const getServerSideProps: GetServerSideProps<ConnectionStatus> = async () => {
+export const getServerSideProps: GetServerSideProps<
+  ConnectionStatus
+> = async () => {
   try {
     await clientPromise;
     return {
@@ -20,16 +22,18 @@ export const getServerSideProps: GetServerSideProps<ConnectionStatus> = async ()
     return {
       props: { isConnected: false },
     };
-  };
+  }
 };
 
-const Home = ({ isConnected }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Home = ({
+  isConnected,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   return (
     <main>
-      <div className="snap-y snap-mandatory h-screen w-screen overflow-scroll scrollbar-hide">
+      <div className='snap-y snap-mandatory h-screen w-screen overflow-scroll scrollbar-hide'>
         <WelcomeSection />
         <AboutSection />
-        <CardSection isConnected={isConnected}/>
+        <CardSection isConnected={isConnected} />
       </div>
     </main>
   );

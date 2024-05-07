@@ -1,9 +1,16 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { storage } from "@/lib/firebase/firebase";
-import { formidableConfig, formidablePromise, fileConsumer } from "@/lib/formidable";
+import {
+  formidableConfig,
+  formidablePromise,
+  fileConsumer,
+} from "@/lib/formidable";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-export default async function filePOST(req: NextApiRequest, res: NextApiResponse) {
+export default async function filePOST(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const chunks: never[] = [];
   const { fields, files } = await formidablePromise(req, {
     ...formidableConfig,
@@ -12,10 +19,12 @@ export default async function filePOST(req: NextApiRequest, res: NextApiResponse
   const file = files.file;
   const fileBuffer = Buffer.concat(chunks);
   if (!file || !file[0]) {
-    return res.status(400).json({ error: 'No File Provided' });
+    return res.status(400).json({ error: "No File Provided" });
   }
-  if (file[0].size >  5 *  1024 *  1024) {
-    return res.status(400).json({ error: 'File size exceeds the limit of  5 MB.' });
+  if (file[0].size > 5 * 1024 * 1024) {
+    return res
+      .status(400)
+      .json({ error: "File size exceeds the limit of  5 MB." });
   }
 
   try {
@@ -24,7 +33,7 @@ export default async function filePOST(req: NextApiRequest, res: NextApiResponse
     const { fullPath } = metadata;
     if (!fullPath) {
       return res.status(403).json({
-        error: 'There was some error while uploading the file.',
+        error: "There was some error while uploading the file.",
       });
     }
     const fileURL = await getDownloadURL(storageRef); // Get the download URL
@@ -35,7 +44,7 @@ export default async function filePOST(req: NextApiRequest, res: NextApiResponse
     console.log(tmp);
     return res.status(500).send(tmp);
   }
-};
+}
 
 // Disable parsing the body by Next.js default behavior
 export const config = {

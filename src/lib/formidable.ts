@@ -12,8 +12,9 @@ export const formidableConfig = {
 };
 
 export function formidablePromise(
-  req: NextApiRequest, opts?: Parameters<typeof formidable>[0]): 
-  Promise<{ fields: formidable.Fields; files: formidable.Files }> {
+  req: NextApiRequest,
+  opts?: Parameters<typeof formidable>[0]
+): Promise<{ fields: formidable.Fields; files: formidable.Files }> {
   return new Promise((accept, reject) => {
     const form = formidable(opts);
     form.parse(req, (err, fields, files) => {
@@ -23,12 +24,12 @@ export function formidablePromise(
       return accept({ fields, files });
     });
   });
-};
+}
 
 export const fileConsumer = <T = unknown>(acc: T[]) => {
   const writable = new Writable({
     write: (chunk, _enc, next) => {
-      acc.push(chunk)
+      acc.push(chunk);
       next();
     },
   });
