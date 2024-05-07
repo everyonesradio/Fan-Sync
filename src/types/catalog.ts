@@ -1,9 +1,9 @@
 export type Artist = {
   id: string;
   name: string;
- };
- 
- export type Catalog = {
+};
+
+export type Catalog = {
   id: string;
   name: string;
   preview_url: string;
@@ -13,8 +13,8 @@ export type Artist = {
   album_type: string;
   album_group: string;
   release_date: string;
- };
- 
- export type ArtistCatalog = {
+};
+
+export type ArtistCatalog = {
   items: Catalog[];
- };
+};

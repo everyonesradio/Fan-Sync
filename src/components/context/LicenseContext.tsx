@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useMemo } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 interface LicenseContextValue {
@@ -17,7 +17,9 @@ const LicenseContext = createContext<LicenseContextValue>({
 
 export const useLicense = () => useContext(LicenseContext);
 
-export const LicenseProvider: React.FC<LicenseProviderProps> = ({ children }) => {
+export const LicenseProvider: React.FC<LicenseProviderProps> = ({
+  children,
+}) => {
   const [licenseID, setLicenseID] = useState<string | null>(null);
 
   // Generate a License ID when the component mounts
@@ -26,7 +28,10 @@ export const LicenseProvider: React.FC<LicenseProviderProps> = ({ children }) =>
     setLicenseID(newLicenseId);
   }, []);
 
-  const licenseValue = useMemo(() => ({ licenseID, setLicenseID }), [licenseID, setLicenseID]);
+  const licenseValue = useMemo(
+    () => ({ licenseID, setLicenseID }),
+    [licenseID, setLicenseID]
+  );
 
   return (
     <LicenseContext.Provider value={licenseValue}>
@@ -39,9 +44,9 @@ export const LicenseProvider: React.FC<LicenseProviderProps> = ({ children }) =>
 const generateLicenseId = () => {
   // Generate a UUID
   const uuid = uuidv4();
-  const mixedString = uuid.replace(/-/g, ''); // Remove hyphens from the UUID
-  let letters = '';
-  let digits = '';
+  const mixedString = uuid.replace(/-/g, ""); // Remove hyphens from the UUID
+  let letters = "";
+  let digits = "";
 
   // Iterate through the UUID string without hyphens using a for-of loop
   for (const char of mixedString) {
@@ -56,11 +61,11 @@ const generateLicenseId = () => {
     // Stop the loop if we have collected 3 letters and 8 digits
     if (letters.length === 3 && digits.length === 8) {
       break;
-    };
-  };
+    }
+  }
 
-   // Combine the letters and digits
-   const id = letters + digits;
-   const formattedId = id.toUpperCase();
-   return formattedId;
-}
+  // Combine the letters and digits
+  const id = letters + digits;
+  const formattedId = id.toUpperCase();
+  return formattedId;
+};

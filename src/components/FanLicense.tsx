@@ -7,12 +7,12 @@ import { FaSpotify } from "react-icons/fa";
 interface FanLicenseProps {
   fanData: FanData | null;
   selectedBg: string | null;
- }
- 
- const FanLicense: React.FC<FanLicenseProps> = ({ fanData, selectedBg }) => {
+}
+
+const FanLicense: React.FC<FanLicenseProps> = ({ fanData, selectedBg }) => {
   if (!fanData) {
-     return <p>Loading fan data...</p>;
-  };
+    return <p>Loading fan data...</p>;
+  }
 
   const upperCase = (string: string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -20,48 +20,53 @@ interface FanLicenseProps {
 
   const truncateString = (str: string, maxLength: number) => {
     if (str.length > maxLength) {
-       return `${str.substring(0, maxLength)}...`;
+      return `${str.substring(0, maxLength)}...`;
     }
     return str;
   };
 
   return (
-    <Card       
+    <Card
       style={{
-        width: '300px',
-        height: '450px',
-        backgroundColor: 'rgba(245, 101, 101, 0)',
+        width: "300px",
+        height: "450px",
+        backgroundColor: "rgba(245, 101, 101, 0)",
         backgroundImage: `url(${selectedBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        padding: '1rem',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        textAlign: 'center',
-        color: '#FFFFFF',
-        transition: 'background-image 0.4s ease-in-out'
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        padding: "1rem",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        color: "#FFFFFF",
+        transition: "background-image 0.4s ease-in-out",
       }}
     >
       <div>
-        <div className="flex flex-col space-y-2 items-center">
+        <div className='flex flex-col space-y-2 items-center'>
           <Image
             src={fanData.profile_picture}
-            alt="Profile picture"
+            alt='Profile picture'
             height={120}
             width={120}
-            className="rounded-full aspect-square object-cover border-2 border-white"
+            className='rounded-full aspect-square object-cover border-2 border-white'
           />
-          <p className="font-bold text-lg">{fanData.username}</p>
+          <p className='font-bold text-lg'>{fanData.username}</p>
           <p>Location: {fanData.location}</p>
           <p>Date of Birth: {fanData.dob}</p>
           <p>NO. {fanData.uuid}</p>
-          <div className="flex items-center space-x-2 bg-black rounded-full border-2 border-white py-1 px-7">
-            <div className="space-y-1">
-              <p className="truncate font-bold">&quot;{truncateString(fanData.anthem.name, 20)}&quot;</p>
-              <p>{fanData.anthem.release_date.split('-')[0]} - {upperCase(fanData.anthem.album_type)}</p>
+          <div className='flex items-center space-x-2 bg-black rounded-full border-2 border-white py-1 px-7'>
+            <div className='space-y-1'>
+              <p className='truncate font-bold'>
+                &quot;{truncateString(fanData.anthem.name, 20)}&quot;
+              </p>
+              <p>
+                {fanData.anthem.release_date.split("-")[0]} -{" "}
+                {upperCase(fanData.anthem.album_type)}
+              </p>
             </div>
-            <FaSpotify className="text-3xl"/>
+            <FaSpotify className='text-3xl' />
           </div>
         </div>
       </div>
@@ -69,4 +74,4 @@ interface FanLicenseProps {
   );
 };
 
-export default FanLicense; 
+export default FanLicense;
