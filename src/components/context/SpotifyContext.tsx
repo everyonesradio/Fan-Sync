@@ -1,4 +1,10 @@
-import React, { createContext, ReactNode, useContext, useState, useMemo } from "react";
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useState,
+  useMemo,
+} from "react";
 import type { ArtistCatalog } from "@/types/catalog";
 
 interface SpotifyContextType {
@@ -20,8 +26,12 @@ interface SpotifyProviderProps {
   children: ReactNode;
 }
 
-export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) => {
-  const [artistCatalog, setArtistCatalog] = useState<ArtistCatalog>({ items: [] });
+export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({
+  children,
+}) => {
+  const [artistCatalog, setArtistCatalog] = useState<ArtistCatalog>({
+    items: [],
+  });
 
   const contextValue = useMemo(
     () => ({ artistCatalog, setArtistCatalog }),

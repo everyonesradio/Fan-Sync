@@ -35,7 +35,9 @@ const fetchTracks = async (albumId: string): Promise<any[]> => {
   }
 };
 
-export const getServerSideProps: GetServerSideProps<ArtistCatalog> = async () => {
+export const getServerSideProps: GetServerSideProps<
+  ArtistCatalog
+> = async () => {
   try {
     // Get all tracks in an artist's catalog
     const artistId = "4ufHiOJK9tL0y3QfNwGJ6l";
@@ -117,7 +119,7 @@ const Home = ({
 
   useEffect(() => {
     const fetchData = async () => {
-      const fetchedData: ArtistCatalog = { items }; 
+      const fetchedData: ArtistCatalog = { items };
       setArtistCatalog(fetchedData);
     };
 
@@ -125,13 +127,13 @@ const Home = ({
   }, [items, setArtistCatalog]);
 
   return (
-      <main>
-        <div className='snap-y snap-mandatory h-screen w-screen overflow-scroll scrollbar-hide'>
-          <WelcomeSection />
-          <AboutSection />
-          <CardSection />
-        </div>
-      </main>
+    <main>
+      <div className='snap-y snap-mandatory h-screen w-screen overflow-scroll scrollbar-hide'>
+        <WelcomeSection />
+        <AboutSection />
+        <CardSection />
+      </div>
+    </main>
   );
 };
 
