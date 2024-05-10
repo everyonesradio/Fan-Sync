@@ -1,13 +1,10 @@
 import React from "react";
 import Image from "next/image";
+import { upperCase } from '@/util/upper-case';
 import { Catalog } from "@/types/catalog";
 
 type MediaPlayerProps = {
   selectedAnthem: Catalog;
-};
-
-const upperCase = (string: string) => {
-  return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
 const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
