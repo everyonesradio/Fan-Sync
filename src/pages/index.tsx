@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import SpotifyAPI from "@/lib/spotify";
-import { SpotifyProvider } from "@/components/context/SpotifyContext";
+import { useSpotify } from "@/components/context/SpotifyContext";
 import { ArtistCatalog } from "@/types/catalog";
 import WelcomeSection from "@/views/WelcomeSection";
 import AboutSection from "@/views/AboutSection";
@@ -113,8 +113,18 @@ export const getServerSideProps: GetServerSideProps<ArtistCatalog> = async () =>
 const Home = ({
   items,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const { setArtistCatalog } = useSpotify();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedData: ArtistCatalog = { items }; 
+      setArtistCatalog(fetchedData);
+    };
+
+    fetchData();
+  }, [items, setArtistCatalog]);
+
   return (
-    <SpotifyProvider artistCatalog={{ items }}>
       <main>
         <div className='snap-y snap-mandatory h-screen w-screen overflow-scroll scrollbar-hide'>
           <WelcomeSection />
@@ -122,7 +132,6 @@ const Home = ({
           <CardSection />
         </div>
       </main>
-    </SpotifyProvider>
   );
 };
 
