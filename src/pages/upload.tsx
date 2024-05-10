@@ -47,8 +47,7 @@ const Upload = () => {
           throw new Error(`Update error! status: ${updateResponse.status}`);
         }
 
-        const updateResult = await updateResponse.json();
-        console.log("Updated document:", updateResult.document);
+        await updateResponse.json();
       } catch (error) {
         console.error("Error:", error);
       }
