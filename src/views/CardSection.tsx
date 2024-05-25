@@ -5,7 +5,7 @@ import Card from "@/components/Card";
 import useMeasure from "react-use-measure";
 import { Button } from "@react95/core";
 
-const CardSection = ({ isConnected }: any) => {
+const CardSection = () => {
   const router = useRouter();
   const cards = [
     "/images/card-1.png",
@@ -52,15 +52,6 @@ const CardSection = ({ isConnected }: any) => {
           ))}
         </motion.div>
         <div className='flex flex-col items-center justify-center space-y-2'>
-          {isConnected ? (
-            <h2 className='text-xl font-bold text-center'>
-              You are connected to MongoDB
-            </h2>
-          ) : (
-            <h2 className='text-xl font-bold text-center'>
-              Could not connect to MongoDB
-            </h2>
-          )}
           <Button onClick={() => router.push("/upload")}>
             Create Your License
           </Button>

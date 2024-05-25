@@ -1,111 +1,137 @@
-import React from "react";
-import { GetStaticProps } from "next";
-import SpotifyAPI from "@/lib/spotify";
-import { ArtistCatalog } from "@/types/catalog";
-import SpotifyAnthem from "@/components/SpotifyAnthem";
+// ** React/Next.js Imports
+import React, { useState, useEffect } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
-// Fetch artist albums
-const fetchAlbums = async (artistId: string): Promise<any[]> => {
-  try {
-    const response = await SpotifyAPI.artists.albums(
-      artistId,
-      undefined,
-      undefined,
-      50,
-      0
-    );
-    return response.items;
-  } catch (error) {
-    console.error("Failed to fetch albums:", error);
-    return [];
-  }
-};
+// ** Custom Components
+import { useSpotify } from "@/components/context/SpotifyContext";
+import { useLicense } from "@/components/context/LicenseContext";
+import MediaPlayer from "@/components/MediaPlayer";
 
-// Fetch tracks for an album
-const fetchTracks = async (albumId: string): Promise<any[]> => {
-  try {
-    const response = await SpotifyAPI.albums.tracks(albumId, undefined, 50, 0);
-    return response.items;
-  } catch (error) {
-    console.error(`Failed to fetch tracks for album ${albumId}:`, error);
-    return [];
-  }
-};
+// ** Third-Party Imports
+import { Input, List, Button } from "@react95/core";
 
-export const getStaticProps: GetStaticProps<{
-  artistCatalog: ArtistCatalog;
-}> = async () => {
-  // Get all tracks in an artist's catalog
-  const artistId = "4ufHiOJK9tL0y3QfNwGJ6l";
-  const artistName = "SGaWD";
+// ** Util Imports
+import { upperCase } from '@/util/upper-case';
 
-  const albumsResponse = await fetchAlbums(artistId);
-  let allTracks: any[] = [];
+// ** Types
+import { Catalog } from "@/types/catalog";
 
-  for (const album of albumsResponse) {
-    const tracksResponse = await fetchTracks(album.id);
-
-    // If the album contains a track that the artist appears on,
-    // implement logic to select the track that the artist is featured on
-    if (album.album_group === "appears_on" && tracksResponse.length > 1) {
-      const featureTrack = tracksResponse.find((track) =>
-        track.artists.some(
-          (artist: { id: string; name: string }) =>
-            artist.id === artistId && artist.name === artistName
-        )
+const Anthem: React.FC = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<Catalog[]>([]);
+  const [selectedAnthem, setSelectedAnthem] = useState<Catalog | null>(null);
+  const { artistCatalog } = useSpotify();
+  const { licenseID } = useLicense();
+  const router = useRouter();
+  
+  useEffect(() => {
+    const originalAlbums = artistCatalog.items;
+    // Filter the original albums based on the search query
+    if (searchQuery) {
+      const filteredResults = originalAlbums.filter((result) =>
+        result.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      if (featureTrack) {
-        allTracks.push({
-          id: featureTrack.id,
-          name: featureTrack.name,
-          preview_url: featureTrack.preview_url,
-          track_url: featureTrack.external_urls.spotify,
-          artists: featureTrack.artists.map(
-            (artist: { id: any; name: any }) => ({
-              id: artist.id,
-              name: artist.name,
-            })
-          ),
-          images: album.images,
-          album_type: album.album_type,
-          album_group: album.album_group,
-          release_date: album.release_date,
-        });
-      }
+      setSearchResults(filteredResults);
     } else {
-      // For other albums, add track/album details to artist catalog
-      tracksResponse.forEach((track) => {
-        allTracks.push({
-          id: track.id,
-          name: track.name,
-          preview_url: track.preview_url,
-          track_url: track.external_urls.spotify,
-          artists: track.artists.map((artist: { id: any; name: any }) => ({
-            id: artist.id,
-            name: artist.name,
-          })),
-          images: album.images,
-          album_type: album.album_type,
-          album_group: album.album_group,
-          release_date: album.release_date,
-        });
-      });
+      setSearchResults(originalAlbums); // reset the search results to the original list
     }
-  }
+  }, [artistCatalog, searchQuery]);
 
-  const artistCatalog: ArtistCatalog = {
-    items: allTracks,
+  const handleSearch = (e: any) => {
+    const query = e.target.value;
+    setSearchQuery(query);
   };
 
-  return { props: { artistCatalog } };
-};
+  const handleNext = async () => {
+    if (!selectedAnthem) {
+      alert("Please select an anthem first.");
+      return;
+    };
 
-const Anthem: React.FC<{ artistCatalog: ArtistCatalog }> = ({
-  artistCatalog,
-}) => {
+    try {
+      const data = await fetch("/api/updateAnthem", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ licenseID, selectedAnthem }),
+      });
+
+      if (!data.ok) {
+        throw new Error("Failed to save anthem");
+      };
+
+      await data.json();
+      router.push("/signature");
+    } catch (error) {
+      console.error("Error saving anthem:", error);
+      alert("Failed to save anthem. Please try again.");
+    };
+  };
+
   return (
-    <div>
-      <SpotifyAnthem artistCatalog={artistCatalog} />
+    <div className='min-h-screen flex flex-col items-center justify-center'>
+      <h1 className='font-bold text-5xl text-center p-8'>
+        Choose Your SGaWD Anthem
+      </h1>
+      <div>
+        <Input
+          placeholder='Your Anthem'
+          value={searchQuery}
+          onKeyPress={(e: any) => {
+            if (e.key == "Enter") {
+              handleSearch(e);
+            }
+          }}
+          onChange={handleSearch}
+          className='mb-4'
+        />
+        <Button onClick={handleSearch} className='mb-4'>
+          Search
+        </Button>
+        {searchQuery && (
+          <div className='max-h-64 overflow-auto scrollbar-hide'>
+            <List>
+              {searchResults.length > 0 ? (
+                searchResults.map((item, index) => (
+                  <React.Fragment key={item.id}>
+                    <List.Item
+                      icon={
+                        <Image
+                          alt='Album Cover'
+                          src={item.images[0].url}
+                          width={40}
+                          height={40}
+                        />
+                      }
+                      onClick={() => {
+                        setSelectedAnthem(item);
+                        setSearchQuery("");
+                      }}
+                    >
+                      <div className='flex flex-col items-start font-bold pl-2'>
+                        <span>{item.name}</span>
+                        <span>
+                          {upperCase(item.album_type)} -{" "}
+                          {item.release_date.split("-")[0]}
+                        </span>
+                      </div>
+                    </List.Item>
+                    {index !== searchResults.length - 1 && <List.Divider />}
+                  </React.Fragment>
+                ))
+              ) : (
+                <div className='p-4 text-center text-gray-500'>
+                  Item not found
+                </div>
+              )}
+            </List>
+          </div>
+        )}
+      </div>
+      {selectedAnthem && <MediaPlayer selectedAnthem={selectedAnthem} />}
+      <Button onClick={handleNext}>Next</Button>
     </div>
   );
 };

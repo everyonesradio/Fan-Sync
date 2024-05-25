@@ -3,6 +3,7 @@ import Image from "next/image";
 import Card from "@/components/3DLicenseCard";
 import { FanData } from "@/types/fanData";
 import { FaSpotify } from "react-icons/fa";
+import { upperCase } from '@/util/upper-case';
 
 interface FanLicenseProps {
   fanData: FanData | null;
@@ -13,10 +14,6 @@ const FanLicense: React.FC<FanLicenseProps> = ({ fanData, selectedBg }) => {
   if (!fanData) {
     return <p>Loading fan data...</p>;
   }
-
-  const upperCase = (string: string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
 
   const truncateString = (str: string, maxLength: number) => {
     if (str.length > maxLength) {
@@ -42,6 +39,7 @@ const FanLicense: React.FC<FanLicenseProps> = ({ fanData, selectedBg }) => {
         color: "#FFFFFF",
         transition: "background-image 0.4s ease-in-out",
       }}
+      onClick={() => window.open(fanData.anthem.track_url, "_blank")}
     >
       <div>
         <div className='flex flex-col space-y-2 items-center'>
