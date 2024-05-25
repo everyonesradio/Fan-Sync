@@ -1,12 +1,21 @@
+// ** React/Next.js Imports
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
+// ** Custom Components
 import { useSpotify } from "@/components/context/SpotifyContext";
 import { useLicense } from "@/components/context/LicenseContext";
 import MediaPlayer from "@/components/MediaPlayer";
-import { upperCase } from '@/util/upper-case';
-import { Catalog } from "@/types/catalog";
+
+// ** Third-Party Imports
 import { Input, List, Button } from "@react95/core";
+
+// ** Util Imports
+import { upperCase } from '@/util/upper-case';
+
+// ** Types
+import { Catalog } from "@/types/catalog";
 
 const Anthem: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
