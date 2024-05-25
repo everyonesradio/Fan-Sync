@@ -5,12 +5,12 @@ import FanLicense from "@/components/FanLicense";
 import { FanData } from "@/types/fanData";
 
 const license = [
-  "/images/card-1.png",
-  "/images/card-2.png",
-  "/images/card-3.png",
-  "/images/card-4.png",
-  "/images/card-5.png",
-  "/images/card-6.png",
+  "/images/licenses/001.png",
+  "/images/licenses/002.png",
+  "/images/licenses/003.png",
+  "/images/licenses/004.png",
+  "/images/licenses/005.png",
+  "/images/licenses/006.png",
 ];
 
 const License = () => {
