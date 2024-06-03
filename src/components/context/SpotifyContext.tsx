@@ -30,7 +30,7 @@ interface SpotifyProviderProps {
 
 export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) => {
   // Initialize state from local storage if available
-  const initialArtistCatalog = JSON.parse(localStorage.getItem('artistCatalog') || '{}');
+  const initialArtistCatalog = typeof window!== 'undefined'? JSON.parse(localStorage.getItem('artistCatalog') || '{}') : {};
   const [artistCatalog, setArtistCatalog] = useState<ArtistCatalog>(initialArtistCatalog);
 
   // Debounce the local storage update to improve performance
