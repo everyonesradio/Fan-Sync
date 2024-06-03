@@ -4,8 +4,10 @@ import React, {
   useContext,
   useState,
   useMemo,
+  useEffect
 } from "react";
 import type { ArtistCatalog } from "@/types/catalog";
+import { debounce } from "lodash";
 
 interface SpotifyContextType {
   artistCatalog: ArtistCatalog;
@@ -26,17 +28,21 @@ interface SpotifyProviderProps {
   children: ReactNode;
 }
 
-export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({
-  children,
-}) => {
-  const [artistCatalog, setArtistCatalog] = useState<ArtistCatalog>({
-    items: [],
-  });
+export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) => {
+  // Initialize state from local storage if available
+  const initialArtistCatalog = JSON.parse(localStorage.getItem('artistCatalog') || '{}');
+  const [artistCatalog, setArtistCatalog] = useState<ArtistCatalog>(initialArtistCatalog);
 
-  const contextValue = useMemo(
-    () => ({ artistCatalog, setArtistCatalog }),
-    [artistCatalog, setArtistCatalog]
-  );
+  // Debounce the local storage update to improve performance
+  const updateLocalStorage= debounce(() => {
+    localStorage.setItem('artistCatalog', JSON.stringify(artistCatalog));
+  }, 500);
+
+  useEffect(() => {
+    updateLocalStorage();
+  }, [artistCatalog, updateLocalStorage]);
+
+  const contextValue = useMemo(() => ({ artistCatalog, setArtistCatalog }), [artistCatalog, setArtistCatalog]);
 
   return (
     <SpotifyContext.Provider value={contextValue}>
