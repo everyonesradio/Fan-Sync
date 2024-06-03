@@ -54,11 +54,11 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
           {upperCase(selectedAnthem.album_type)} -{" "}
           {selectedAnthem.release_date.split("-")[0]}
         </p>
-        {/* Audio Playback */}
+        {/* Audio Playback: Flagged for now
         <audio ref={audioRef} style={{ display: 'none' }}>
           <source src={selectedAnthem.preview_url} type="audio/mpeg" />
           Your browser does not support the audio element.
-        </audio>
+        </audio> */}
       </div>
     </div>
   );
