@@ -1,9 +1,18 @@
+// ** React/Next.js Imports
 import React from "react";
 import Image from "next/image";
+
+// ** Custom Components
 import Card from "@/components/3DLicenseCard";
-import { FanData } from "@/types/fanData";
+
+// ** Third-Party Imports
 import { FaSpotify } from "react-icons/fa";
+
+// ** Util Imports
 import { upperCase } from '@/util/upper-case';
+
+// ** Types
+import { FanData } from "@/types/fanData";
 
 interface FanLicenseProps {
   fanData: FanData | null;
@@ -36,21 +45,21 @@ const FanLicense: React.FC<FanLicenseProps> = ({ fanData, selectedBg }) => {
         justifyContent: "center",
         alignItems: "center",
         textAlign: "center",
-        color: "#FFFFFF",
+        color: "rgba(245, 101, 101, 0)",
         transition: "background-image 0.4s ease-in-out",
       }}
       onClick={() => window.open(fanData.anthem.track_url, "_blank")}
     >
       <div>
-        <div className='flex flex-col space-y-2 items-center'>
+        <div className='flex flex-col space-y-2 items-center text-white'>
           <Image
             src={fanData.profile_picture}
             alt='Profile picture'
             height={120}
             width={120}
-            className='rounded-full aspect-square object-cover border-2 border-white'
+            className='rounded-full aspect-square object-cover border-4 border-white'
           />
-          <p className='font-bold text-lg'>{fanData.username}</p>
+          <p className='font-bold text-xl'>{fanData.username}</p>
           <p>Location: {fanData.location}</p>
           <p>Date of Birth: {fanData.dob}</p>
           <p>NO. {fanData.uuid}</p>
