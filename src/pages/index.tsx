@@ -1,11 +1,18 @@
+// ** React/Next.js Imports
 import React, { useEffect } from "react";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
-import SpotifyAPI from "@/lib/spotify";
-import { useSpotify } from "@/components/context/SpotifyContext";
-import { ArtistCatalog } from "@/types/catalog";
+
+// ** Custom Components
 import WelcomeSection from "@/views/WelcomeSection";
 import AboutSection from "@/views/AboutSection";
 import CardSection from "@/views/CardSection";
+
+// ** Spotify Imports
+import SpotifyAPI from "@/lib/spotify";
+import { useSpotify } from "@/components/context/SpotifyContext";
+
+// ** Types
+import { ArtistCatalog } from "@/types/catalog";
 
 // Fetch artist albums
 const fetchAlbums = async (artistId: string): Promise<any[]> => {
