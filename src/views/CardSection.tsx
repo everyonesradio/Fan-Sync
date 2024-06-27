@@ -39,9 +39,9 @@ const CardSection = () => {
   }, [width, xTranslation]);
 
   return (
-    <div className='snap-start bg-green-200 w-screen h-screen flex items-center justify-center text-8xl'>
+    <div className='snap-start bg-[#D9D9D9] w-screen h-screen flex items-center justify-center text-8xl'>
       <div className='flex flex-col items-center justify-center space-y-4'>
-        <h3 className='font-bold p-8'>Join the Seddy Siren Club</h3>
+        <h3 className='font-medium p-8'>Join the Seddy Siren Club</h3>
         <motion.div
           className='left-0 flex gap-12'
           ref={ref}
