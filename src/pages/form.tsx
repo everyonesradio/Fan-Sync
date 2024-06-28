@@ -38,8 +38,8 @@ const Form = () => {
   };
 
   return (
-    <div className='flex flex-col items-center justify-center min-h-screen p-8'>
-      <h1 className='font-bold text-5xl text-center p-8'>
+    <div className='flex flex-col bg-black items-center justify-center min-h-screen p-8'>
+      <h1 className='font-bold text-5xl text-center text-white p-8'>
         Personal Information
       </h1>
       <form onSubmit={handleSubmit} className='w-full max-w-md flex flex-col'>
