@@ -21,11 +21,11 @@ const CardSection = () => {
 
   useEffect(() => {
     let controls: any;
-    let finalPosition = -width / 2 - 8;
+    let finalPosition = (-width/2) - 6;
 
     controls = animate(xTranslation, [0, finalPosition], {
       ease: "linear",
-      duration: 15,
+      duration: 20,
       repeat: Infinity,
       repeatType: "loop",
       repeatDelay: 0,
