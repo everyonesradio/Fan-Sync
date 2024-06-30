@@ -18,25 +18,37 @@ const CardSection = () => {
 
   let [ref, { width }] = useMeasure();
   const xTranslation = useMotionValue(0);
-
+  
   useEffect(() => {
     let controls: any;
-    let finalPosition = (-width/2) - 6;
+    let intervalId: NodeJS.Timeout;
+    
+    const finalPosition = -(width / 2) - 6 * (cards.length * 2);
 
     controls = animate(xTranslation, [0, finalPosition], {
       ease: "linear",
-      duration: 20,
+      duration: 15,
       repeat: Infinity,
       repeatType: "loop",
       repeatDelay: 0,
     });
 
+    // Trying Automatic cycling logic
+    const automateCarousel = () => { 
+      const currPosition = xTranslation.get();
+      const nextPosition = currPosition + width;
+      xTranslation.set(nextPosition);
+    };
+
+    intervalId = setInterval(automateCarousel, 1000);
+
     return () => {
       if (controls) {
         controls.stop();
       }
+      clearInterval(intervalId);
     };
-  }, [width, xTranslation]);
+  }, [width]);
 
   return (
     <div className='snap-start bg-[#D9D9D9] w-screen h-screen flex items-center justify-center text-8xl'>
@@ -52,7 +64,7 @@ const CardSection = () => {
           ))}
         </motion.div>
         <div className='flex flex-col items-center justify-center space-y-2'>
-          <Button onClick={() => router.push("/upload")}>
+          <Button className="hover:bg-slate-300" onClick={() => router.push("/upload")}>
             Create Your License
           </Button>
         </div>

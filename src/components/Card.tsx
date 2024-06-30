@@ -11,6 +11,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
       <Image
         src={card}
         alt='Card Image'
+        loading='lazy'
         fill
         style={{ objectFit: "contain" }}
       />
