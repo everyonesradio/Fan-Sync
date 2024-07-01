@@ -39,11 +39,11 @@ const FanSignature = () => {
         </Frame>
         <br />
         <div className='flex justify-center space-x-4'>
-          <Button className='hover:bg-transparent' onClick={saveSignature}>
+          <Button className='hover:bg-slate-300' onClick={saveSignature}>
             Save
           </Button>
           <Button
-            className='hover:bg-transparent'
+            className='hover:bg-slate-300'
             onClick={() => {
               clearCanvas();
             }}

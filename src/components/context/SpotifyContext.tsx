@@ -4,7 +4,7 @@ import React, {
   useContext,
   useState,
   useMemo,
-  useEffect
+  useEffect,
 } from "react";
 import type { ArtistCatalog } from "@/types/catalog";
 import { debounce } from "lodash";
@@ -28,21 +28,30 @@ interface SpotifyProviderProps {
   children: ReactNode;
 }
 
-export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({ children }) => {
+export const SpotifyProvider: React.FC<SpotifyProviderProps> = ({
+  children,
+}) => {
   // Initialize state from local storage if available
-  const initialArtistCatalog = typeof window!== 'undefined'? JSON.parse(localStorage.getItem('artistCatalog') || '{}') : {};
-  const [artistCatalog, setArtistCatalog] = useState<ArtistCatalog>(initialArtistCatalog);
+  const initialArtistCatalog =
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("artistCatalog") || "{}")
+      : {};
+  const [artistCatalog, setArtistCatalog] =
+    useState<ArtistCatalog>(initialArtistCatalog);
 
   // Debounce the local storage update to improve performance
-  const updateLocalStorage= debounce(() => {
-    localStorage.setItem('artistCatalog', JSON.stringify(artistCatalog));
+  const updateLocalStorage = debounce(() => {
+    localStorage.setItem("artistCatalog", JSON.stringify(artistCatalog));
   }, 500);
 
   useEffect(() => {
     updateLocalStorage();
   }, [artistCatalog, updateLocalStorage]);
 
-  const contextValue = useMemo(() => ({ artistCatalog, setArtistCatalog }), [artistCatalog, setArtistCatalog]);
+  const contextValue = useMemo(
+    () => ({ artistCatalog, setArtistCatalog }),
+    [artistCatalog, setArtistCatalog]
+  );
 
   return (
     <SpotifyContext.Provider value={contextValue}>

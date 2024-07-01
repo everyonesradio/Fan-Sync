@@ -49,8 +49,10 @@ const License = () => {
   }, [licenseID]);
 
   return (
-    <div className='min-h-screen flex flex-col items-center justify-center'>
-      <h1 className='font-bold text-5xl text-center p-8'>Share Your License</h1>
+    <div className='min-h-screen flex flex-col bg-black items-center justify-center'>
+      <h1 className='font-bold text-5xl text-center text-white p-8'>
+        Share Your License
+      </h1>
       <FanLicense fanData={fanData} selectedBg={selectedBg} />
       <div className='flex justify-around items-center mt-6'>
         {license.map((background) => (

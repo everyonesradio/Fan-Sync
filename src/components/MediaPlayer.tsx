@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 
 // ** Util Imports
-import { upperCase } from '@/util/upper-case';
+import { upperCase } from "@/util/upper-case";
 
 // ** Types
 import { Catalog } from "@/types/catalog";
@@ -19,22 +19,22 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
   useEffect(() => {
     // Capture the current value of the ref
     let audioElement = audioRef.current;
-  
+
     // Check if the audio element is available and not null
     if (audioElement && selectedAnthem?.preview_url) {
       // Play the audio automatically
       audioElement.play();
     }
-  
+
     // Optional: Handle what happens after the audio ends
     const handleAudioEnded = () => {
       console.log("Audio ended");
     };
-  
+
     // Use the captured value in the cleanup function
     return () => {
       if (audioElement) {
-        audioElement.removeEventListener('ended', handleAudioEnded);
+        audioElement.removeEventListener("ended", handleAudioEnded);
       }
     };
   }, [selectedAnthem]); // Ensure dependencies are correctly listed
