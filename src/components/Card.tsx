@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-
 interface CardProps {
   card: string;
 }
@@ -11,8 +10,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
       <Image
         src={card}
         alt='Card Image'
-        loading='lazy'
-        fill
+        layout='fill'
         style={{ objectFit: "contain" }}
       />
     </div>

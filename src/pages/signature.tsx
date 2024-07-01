@@ -10,7 +10,7 @@ const Signature = () => {
     <div className='min-h-screen flex flex-col bg-black items-center justify-center'>
       <h1 className='font-bold text-5xl text-center text-white p-8'>Your Signature</h1>
       <FanSignature />
-      <Button onClick={() => router.push("/license")}>Next</Button>
+      <Button className='hover:bg-slate-300'onClick={() => router.push("/license")}>Next</Button>
     </div>
   );
 };

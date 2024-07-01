@@ -87,7 +87,7 @@ const Anthem: React.FC = () => {
           onChange={handleSearch}
           className='mb-4'
         />
-        <Button onClick={handleSearch} className='mb-4'>
+        <Button onClick={handleSearch} className='hover:bg-slate-300 mb-4'>
           Search
         </Button>
         {searchQuery && (
@@ -131,7 +131,7 @@ const Anthem: React.FC = () => {
         )}
       </div>
       {selectedAnthem && <MediaPlayer selectedAnthem={selectedAnthem} />}
-      <Button onClick={handleNext}>Next</Button>
+      <Button className='hover:bg-slate-300' onClick={handleNext}>Next</Button>
     </div>
   );
 };

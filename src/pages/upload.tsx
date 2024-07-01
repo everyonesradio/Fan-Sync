@@ -97,7 +97,7 @@ const Upload = () => {
           />
         </div>
       </div>
-      <Button onClick={() => router.push("/form")}>Next</Button>
+      <Button className='hover:bg-slate-300'  onClick={() => router.push("/form")}>Next</Button>
     </div>
   );
 };
