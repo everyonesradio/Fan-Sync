@@ -13,11 +13,11 @@ interface FormErrors {
 const Form = () => {
   const router = useRouter();
   const { licenseID } = useLicense();
-  const [fullname, setFullname] = useState('');
-  const [username, setUsername] = useState('@');
-  const [email, setEmail] = useState('');
-  const [dob, setDob] = useState('');
-  const [location, setLocation] = useState('');
+  const [fullname, setFullname] = useState("");
+  const [username, setUsername] = useState("@");
+  const [email, setEmail] = useState("");
+  const [dob, setDob] = useState("");
+  const [location, setLocation] = useState("");
   const [errors, setErrors] = useState<FormErrors>({});
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -39,7 +39,7 @@ const Form = () => {
       errors.email = "Email is invalid";
     }
 
-    if(!username) {
+    if (!username) {
       errors.username = "Username is required";
     } else if (!/@\S+/.test(username)) {
       errors.username = "Username is invalid";
@@ -136,7 +136,11 @@ const Form = () => {
           onChange={(e: any) => setLocation(e.target.value)}
         />
         {errors.location && <p className='text-red-500'>{errors.location}</p>}
-        <Button type='submit' disabled={!isFormValid} className='hover:bg-slate-300 mt-8'>
+        <Button
+          type='submit'
+          disabled={!isFormValid}
+          className='hover:bg-slate-300 mt-8'
+        >
           Next
         </Button>
       </form>

@@ -12,7 +12,7 @@ import MediaPlayer from "@/components/MediaPlayer";
 import { Input, List, Button } from "@react95/core";
 
 // ** Util Imports
-import { upperCase } from '@/util/upper-case';
+import { upperCase } from "@/util/upper-case";
 
 // ** Types
 import { Catalog } from "@/types/catalog";
@@ -24,7 +24,7 @@ const Anthem: React.FC = () => {
   const { artistCatalog } = useSpotify();
   const { licenseID } = useLicense();
   const router = useRouter();
-  
+
   useEffect(() => {
     const originalAlbums = artistCatalog.items;
     // Filter the original albums based on the search query
@@ -47,7 +47,7 @@ const Anthem: React.FC = () => {
     if (!selectedAnthem) {
       alert("Please select an anthem first.");
       return;
-    };
+    }
 
     try {
       const data = await fetch("/api/updateAnthem", {
@@ -60,14 +60,14 @@ const Anthem: React.FC = () => {
 
       if (!data.ok) {
         throw new Error("Failed to save anthem");
-      };
+      }
 
       await data.json();
       router.push("/signature");
     } catch (error) {
       console.error("Error saving anthem:", error);
       alert("Failed to save anthem. Please try again.");
-    };
+    }
   };
 
   return (
@@ -131,7 +131,9 @@ const Anthem: React.FC = () => {
         )}
       </div>
       {selectedAnthem && <MediaPlayer selectedAnthem={selectedAnthem} />}
-      <Button className='hover:bg-slate-300' onClick={handleNext}>Next</Button>
+      <Button className='hover:bg-slate-300' onClick={handleNext}>
+        Next
+      </Button>
     </div>
   );
 };

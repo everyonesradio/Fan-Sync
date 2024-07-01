@@ -138,8 +138,8 @@ const Home = ({
     <main>
       <div className='snap-y snap-mandatory h-screen w-screen overflow-scroll scrollbar-hide'>
         <WelcomeSection />
-        {/* <AboutSection /> */}
-        <ProjectSection />
+        <AboutSection />
+        {/* <ProjectSection /> */}
         <CardSection />
       </div>
     </main>

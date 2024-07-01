@@ -55,11 +55,14 @@ const CardSection = () => {
         <h3 className='font-medium p-8'>Join the Seddy Siren Club</h3>
         <div className='left-0 flex gap-12 overflow-hidden'>
           {[...cards].map((item, idx) => (
-             <Card card={item} key={idx} />
+            <Card card={item} key={idx} />
           ))}
         </div>
         <div className='flex flex-col items-center justify-center space-y-2'>
-          <Button className='hover:bg-slate-300' onClick={() => router.push("/upload")}>
+          <Button
+            className='hover:bg-slate-300'
+            onClick={() => router.push("/upload")}
+          >
             Create Your License
           </Button>
         </div>

@@ -10,7 +10,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
       <Image
         src={card}
         alt='Card Image'
-        layout='fill'
+        fill={true}
         style={{ objectFit: "contain" }}
       />
     </div>
