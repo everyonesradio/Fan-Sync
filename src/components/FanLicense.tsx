@@ -9,7 +9,7 @@ import Card from "@/components/3DLicenseCard";
 import { FaSpotify } from "react-icons/fa";
 
 // ** Util Imports
-import { upperCase } from '@/util/upper-case';
+import { upperCase } from "@/util/upper-case";
 
 // ** Types
 import { FanData } from "@/types/fanData";

@@ -63,9 +63,9 @@ const Upload = () => {
   };
 
   return (
-    <div className='flex min-h-screen flex-col items-center justify-between p-24'>
+    <div className='flex min-h-screen bg-black flex-col items-center justify-between p-24'>
       <div className='container mt-5'>
-        <h1 className='font-bold text-5xl text-center p-8'>
+        <h1 className='font-bold text-5xl text-center p-8 text-white'>
           Upload Your Photo
         </h1>
         <div className='col-lg-8 offset-lg-2'>
@@ -97,7 +97,12 @@ const Upload = () => {
           />
         </div>
       </div>
-      <Button onClick={() => router.push("/form")}>Next</Button>
+      <Button
+        className='hover:bg-slate-300'
+        onClick={() => router.push("/form")}
+      >
+        Next
+      </Button>
     </div>
   );
 };

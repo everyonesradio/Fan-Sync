@@ -14,10 +14,12 @@ export default function App({ Component, pageProps }: AppProps) {
         <GlobalStyle />
         <LicenseProvider>
           <SpotifyProvider>
-            <Component {...pageProps} />
+            <div className='overflow=x-hidden'>
+              <Component {...pageProps} />
+            </div>
           </SpotifyProvider>
         </LicenseProvider>
       </ThemeProvider>
     </>
   );
-};
+}

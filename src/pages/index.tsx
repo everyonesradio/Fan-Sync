@@ -5,6 +5,7 @@ import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 // ** Custom Components
 import WelcomeSection from "@/views/WelcomeSection";
 import AboutSection from "@/views/AboutSection";
+import ProjectSection from "@/views/ProjectSection";
 import CardSection from "@/views/CardSection";
 
 // ** Spotify Imports
@@ -138,6 +139,7 @@ const Home = ({
       <div className='snap-y snap-mandatory h-screen w-screen overflow-scroll scrollbar-hide'>
         <WelcomeSection />
         <AboutSection />
+        {/* <ProjectSection /> */}
         <CardSection />
       </div>
     </main>
