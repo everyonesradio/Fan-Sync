@@ -69,7 +69,7 @@ const Upload = () => {
           Upload Your Photo
         </h1>
         <div className='col-lg-8 offset-lg-2'>
-          <div
+          <button
             className='photo-bg flex justify-center items-center w-50 h-50 bg-white rounded-full'
             onClick={handleDivClick}
           >
@@ -84,7 +84,7 @@ const Upload = () => {
             ) : (
               <HiUser size={200} />
             )}
-          </div>
+          </button>
           {/* Hidden file input */}
           <input
             type='file'
@@ -98,8 +98,9 @@ const Upload = () => {
         </div>
       </div>
       <Button
-        className='hover:bg-slate-300'
+        className={`${!imageUpload ? "bg-gray text-red-300" : "hover:bg-slate-300"}`}
         onClick={() => router.push("/form")}
+        disabled={!imageUpload}
       >
         Next
       </Button>

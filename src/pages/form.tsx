@@ -20,9 +20,14 @@ const Form = () => {
   const [location, setLocation] = useState("");
   const [errors, setErrors] = useState<FormErrors>({});
   const [isFormValid, setIsFormValid] = useState(false);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   useEffect(() => {
-    validateForm();
+    if (!isInitialLoad) {
+      validateForm();
+    } else {
+      setIsInitialLoad(false);
+    }
   }, [fullname, email, username, dob, location]);
 
   // Validate form
@@ -102,6 +107,7 @@ const Form = () => {
           className='mb-4'
           value={fullname}
           onChange={(e: any) => setFullname(e.target.value)}
+          required
         />
         {errors.fullname && <p className='text-red-500'>{errors.fullname}</p>}
         <Input
@@ -110,6 +116,7 @@ const Form = () => {
           className='mb-4'
           value={email}
           onChange={(e: any) => setEmail(e.target.value)}
+          required
         />
         {errors.email && <p className='text-red-500'>{errors.email}</p>}
         <Input
@@ -118,6 +125,7 @@ const Form = () => {
           className='mb-4'
           value={username}
           onChange={(e: any) => setUsername(e.target.value)}
+          required
         />
         {errors.username && <p className='text-red-500'>{errors.username}</p>}
         <Input
@@ -126,6 +134,7 @@ const Form = () => {
           className='mb-4'
           value={dob}
           onChange={(e: any) => setDob(e.target.value)}
+          required
         />
         {errors.dob && <p className='text-red-500'>{errors.dob}</p>}
         <Input
@@ -134,6 +143,7 @@ const Form = () => {
           className='mb-4'
           value={location}
           onChange={(e: any) => setLocation(e.target.value)}
+          required
         />
         {errors.location && <p className='text-red-500'>{errors.location}</p>}
         <Button
