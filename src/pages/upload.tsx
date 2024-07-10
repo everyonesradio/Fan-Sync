@@ -98,9 +98,10 @@ const Upload = () => {
         </div>
       </div>
       <Button
-        className={`${!imageUpload ? "bg-gray text-red-300" : "hover:bg-slate-300"}`}
+        className={`${!imageUpload ? "" : "hover:bg-slate-300 "} `}
         onClick={() => router.push("/form")}
         disabled={!imageUpload}
+        style={{ color: !imageUpload ? "lightgray" : "black" }}
       >
         Next
       </Button>

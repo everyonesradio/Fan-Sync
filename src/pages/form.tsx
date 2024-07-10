@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Input, Button } from "@react95/core";
 import { useLicense } from "@/components/context/LicenseContext";
@@ -22,13 +22,13 @@ const Form = () => {
   const [isFormValid, setIsFormValid] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
-  useEffect(() => {
-    if (!isInitialLoad) {
-      validateForm();
-    } else {
-      setIsInitialLoad(false);
-    }
-  }, [fullname, email, username, dob, location]);
+  // useEffect(() => {
+  //   if (!isInitialLoad) {
+  //     validateForm();
+  //   } else {
+  //     setIsInitialLoad(false);
+  //   }
+  // }, [fullname, email, username, dob, location]);
 
   // Validate form
   const validateForm = () => {
@@ -66,24 +66,87 @@ const Form = () => {
     setIsFormValid(Object.keys(errors).length === 0);
   };
 
+  const validateField = (name: string, value: string) => {
+    let fieldErrors = { ...errors };
+    console.log("validating: ", name);
+
+    switch (name) {
+      case "fullname":
+        if (!value) {
+          fieldErrors.fullname = "Full name is required";
+        } else {
+          delete fieldErrors.fullname;
+        }
+        break;
+      case "email":
+        if (!value) {
+          fieldErrors.email = "Email is required";
+        } else if (!/\S+@\S+\.\S+/.test(value)) {
+          fieldErrors.email = "Email is invalid";
+        } else {
+          delete fieldErrors.email;
+        }
+        break;
+      case "username":
+        if (!value) {
+          fieldErrors.username = "Username is required";
+        } else if (!/@\S+/.test(value)) {
+          fieldErrors.username = "Username is invalid";
+        } else {
+          delete fieldErrors.username;
+        }
+        break;
+      case "dob":
+        if (!value) {
+          fieldErrors.dob = "Date of Birth is required";
+        } else if (!/\d{2}\/\d{2}\/\d{4}/.test(value)) {
+          fieldErrors.dob = "Date of Birth is invalid";
+        } else {
+          delete fieldErrors.dob;
+        }
+        break;
+      case "location":
+        if (!value) {
+          fieldErrors.location = "Location is required";
+        } else if (!/\S+, \S+/.test(value) && !/\S+,\S+/.test(value)) {
+          fieldErrors.location = "Location is invalid";
+        } else {
+          delete fieldErrors.location;
+        }
+        break;
+      default:
+        break;
+    }
+
+    setErrors(fieldErrors);
+    setIsFormValid(Object.keys(fieldErrors).length === 0);
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    console.log("target: ", e.type);
+    console.log("blurry:", name, value);
+    validateField(name, value);
+  };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const response = await fetch("/api/updateUserInfo", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        uuid: licenseID,
-        fullname,
-        username,
-        email,
-        dob,
-        location,
-      }),
-    });
-
+    validateForm();
     if (isFormValid) {
+      const response = await fetch("/api/updateUserInfo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          uuid: licenseID,
+          fullname,
+          username,
+          email,
+          dob,
+          location,
+        }),
+      });
       if (response.ok) {
         router.push("/anthem");
       } else {
@@ -102,54 +165,71 @@ const Form = () => {
       </h1>
       <form onSubmit={handleSubmit} className='w-full max-w-md flex flex-col'>
         <Input
+          name='fullname'
           placeholder='Full Name'
           fullWidth
           className='mb-4'
           value={fullname}
-          onChange={(e: any) => setFullname(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setFullname(e.target.value)
+          }
+          onBlur={handleBlur}
+          onFocus={handleBlur}
           required
         />
         {errors.fullname && <p className='text-red-500'>{errors.fullname}</p>}
         <Input
+          name='email'
           placeholder='Email'
           fullWidth
           className='mb-4'
           value={email}
           onChange={(e: any) => setEmail(e.target.value)}
+          onBlur={handleBlur}
           required
         />
         {errors.email && <p className='text-red-500'>{errors.email}</p>}
         <Input
+          name='username'
           placeholder='Username'
           fullWidth
           className='mb-4'
           value={username}
           onChange={(e: any) => setUsername(e.target.value)}
+          onBlur={handleBlur}
           required
         />
         {errors.username && <p className='text-red-500'>{errors.username}</p>}
         <Input
+          name='dob'
           placeholder='Date of Birth (MM/DD/YYYY)'
           fullWidth
           className='mb-4'
           value={dob}
           onChange={(e: any) => setDob(e.target.value)}
+          onBlur={handleBlur}
           required
         />
         {errors.dob && <p className='text-red-500'>{errors.dob}</p>}
         <Input
+          name='location'
           placeholder='Location (City, Country)'
           fullWidth
           className='mb-4'
           value={location}
-          onChange={(e: any) => setLocation(e.target.value)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setLocation(e.target.value)
+          }
+          onBlur={handleBlur}
           required
         />
         {errors.location && <p className='text-red-500'>{errors.location}</p>}
         <Button
           type='submit'
           disabled={!isFormValid}
-          className='hover:bg-slate-300 mt-8'
+          className={`mt-8 ${!isFormValid ? "text-gray-400" : "hover:bg-slate-300 text-black"}`}
+
+          // style={{ color: !isFormValid ? "lightgray" : "black" }}
         >
           Next
         </Button>
