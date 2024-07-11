@@ -68,8 +68,6 @@ const Form = () => {
 
   const validateField = (name: string, value: string) => {
     let fieldErrors = { ...errors };
-    console.log("validating: ", name);
-
     switch (name) {
       case "fullname":
         if (!value) {
@@ -122,20 +120,12 @@ const Form = () => {
     setIsFormValid(Object.keys(fieldErrors).length === 0);
   };
 
-  const handleClick = () => {
-    console.log("yoooo");
-    validateForm();
-  };
-
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log("target: ", e.type);
-    console.log("blurry:", name, value);
     validateField(name, value);
   };
 
   const handleSubmit = async (e: any) => {
-    console.log("yooo");
     e.preventDefault();
     validateForm();
     if (isFormValid) {
