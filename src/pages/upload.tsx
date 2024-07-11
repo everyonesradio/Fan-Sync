@@ -63,7 +63,7 @@ const Upload = () => {
   };
 
   return (
-    <div className='flex min-h-screen bg-black flex-col items-center justify-between p-24'>
+    <div className='flex min-h-screen bg-black flex-col items-center justify-evenly p-24'>
       <div className='container mt-5'>
         <h1 className='font-bold text-5xl text-center p-8 text-white'>
           Upload Your Photo
@@ -98,7 +98,7 @@ const Upload = () => {
         </div>
       </div>
       <Button
-        className={`${!imageUpload ? "" : "hover:bg-slate-300 "} `}
+        className={`${!imageUpload ? "" : "hover:bg-slate-300 w-52"} `}
         onClick={() => router.push("/form")}
         disabled={!imageUpload}
         style={{ color: !imageUpload ? "lightgray" : "black" }}
