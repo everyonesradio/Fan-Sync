@@ -74,7 +74,7 @@ const Upload = () => {
             onClick={handleDivClick}
           >
             {imageURL ? (
-              <Image
+              <img
                 src={imageURL}
                 alt='Uploaded Image'
                 height={250}

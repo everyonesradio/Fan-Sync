@@ -122,6 +122,11 @@ const Form = () => {
     setIsFormValid(Object.keys(fieldErrors).length === 0);
   };
 
+  const handleClick = () => {
+    console.log("yoooo");
+    validateForm();
+  };
+
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     console.log("target: ", e.type);
@@ -130,6 +135,7 @@ const Form = () => {
   };
 
   const handleSubmit = async (e: any) => {
+    console.log("yooo");
     e.preventDefault();
     validateForm();
     if (isFormValid) {
@@ -168,54 +174,68 @@ const Form = () => {
           name='fullname'
           placeholder='Full Name'
           fullWidth
-          className='mb-4'
+          className={`${errors.fullname ? "mb-0" : "mb-4"}`}
           value={fullname}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setFullname(e.target.value)
           }
           onBlur={handleBlur}
-          onFocus={handleBlur}
+          // onfocusout={handleBlur}
           required
         />
-        {errors.fullname && <p className='text-red-500'>{errors.fullname}</p>}
+        {errors.fullname && (
+          <p className='mb-4 indent-0.5 font-bold text-red-500'>
+            {errors.fullname}
+          </p>
+        )}
         <Input
           name='email'
           placeholder='Email'
           fullWidth
-          className='mb-4'
+          className={`${errors.email ? "mb-0" : "mb-4"}`}
           value={email}
           onChange={(e: any) => setEmail(e.target.value)}
           onBlur={handleBlur}
           required
         />
-        {errors.email && <p className='text-red-500'>{errors.email}</p>}
+        {errors.email && (
+          <p className='mb-4 indent-0.5 font-bold text-red-500'>
+            {errors.email}
+          </p>
+        )}
         <Input
           name='username'
           placeholder='Username'
           fullWidth
-          className='mb-4'
+          className={`${errors.username ? "mb-0" : "mb-4"}`}
           value={username}
           onChange={(e: any) => setUsername(e.target.value)}
           onBlur={handleBlur}
           required
         />
-        {errors.username && <p className='text-red-500'>{errors.username}</p>}
+        {errors.username && (
+          <p className='mb-4 indent-0.5 font-bold text-red-500'>
+            {errors.username}
+          </p>
+        )}
         <Input
           name='dob'
           placeholder='Date of Birth (MM/DD/YYYY)'
           fullWidth
-          className='mb-4'
+          className={`${errors.dob ? "mb-0" : "mb-4"}`}
           value={dob}
           onChange={(e: any) => setDob(e.target.value)}
           onBlur={handleBlur}
           required
         />
-        {errors.dob && <p className='text-red-500'>{errors.dob}</p>}
+        {errors.dob && (
+          <p className='mb-4 indent-0.5 font-bold text-red-500'>{errors.dob}</p>
+        )}
         <Input
           name='location'
           placeholder='Location (City, Country)'
           fullWidth
-          className='mb-4'
+          className={`${errors.location ? "mb-0" : "mb-4"}`}
           value={location}
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setLocation(e.target.value)
@@ -223,13 +243,16 @@ const Form = () => {
           onBlur={handleBlur}
           required
         />
-        {errors.location && <p className='text-red-500'>{errors.location}</p>}
+        {errors.location && (
+          <p className='mb-4 indent-0.5 font-bold text-red-500'>
+            {errors.location}
+          </p>
+        )}
+
         <Button
           type='submit'
           disabled={!isFormValid}
-          className={`mt-8 ${!isFormValid ? "text-gray-400" : "hover:bg-slate-300 text-black"}`}
-
-          // style={{ color: !isFormValid ? "lightgray" : "black" }}
+          className={`mt-7 ${!isFormValid ? "text-gray-400" : "hover:bg-slate-300 text-black "}`}
         >
           Next
         </Button>
