@@ -31,7 +31,7 @@ const AboutSection = () => {
               width='560'
               height='315'
               src='https://www.youtube.com/embed/c84st3J2znQ?si=Jlind0gUS46WUH24'
-              title='YouTube video player'
+              title='YouTube Video Player'
               allowFullScreen
               allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
               referrerPolicy='strict-origin-when-cross-origin'
@@ -41,6 +41,7 @@ const AboutSection = () => {
           {/* Spotify Embed */}
           <div style={{ width: "560px", borderRadius: "12px" }}>
             <iframe
+              title='Spotify Album Embed'
               src='https://open.spotify.com/embed/album/72FBV70oygMH6ELBZ4Zod6?utm_source=generator'
               width='100%'
               height='352'
