@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState, useRef } from "react";
-import { useLicense } from "@/components/context/LicenseContext";
+import { useLicense } from "@/context/LicenseContext";
 import { useRouter } from "next/navigation";
 import { HiUser } from "react-icons/hi2";
 import { Button } from "@react95/core";

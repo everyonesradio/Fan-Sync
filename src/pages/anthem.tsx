@@ -4,8 +4,8 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 // ** Custom Components
-import { useSpotify } from "@/components/context/SpotifyContext";
-import { useLicense } from "@/components/context/LicenseContext";
+import { useSpotify } from "@/context/SpotifyContext";
+import { useLicense } from "@/context/LicenseContext";
 import MediaPlayer from "@/components/MediaPlayer";
 
 // ** Third-Party Imports
