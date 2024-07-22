@@ -1,7 +1,7 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Input, Button } from "@react95/core";
-import { useLicense } from "@/components/context/LicenseContext";
+import { useLicense } from "@/context/LicenseContext";
 interface FormErrors {
   fullname?: string;
   email?: string;
@@ -20,15 +20,6 @@ const Form = () => {
   const [location, setLocation] = useState("");
   const [errors, setErrors] = useState<FormErrors>({});
   const [isFormValid, setIsFormValid] = useState(false);
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
-
-  // useEffect(() => {
-  //   if (!isInitialLoad) {
-  //     validateForm();
-  //   } else {
-  //     setIsInitialLoad(false);
-  //   }
-  // }, [fullname, email, username, dob, location]);
 
   // Validate form
   const validateForm = () => {
