@@ -75,7 +75,7 @@ const Anthem: React.FC = () => {
       <h1 className='font-bold text-5xl text-center text-white p-8'>
         Choose Your SGaWD Anthem
       </h1>
-      <div>
+      <div className='mb-4 '>
         <Input
           placeholder='Your Anthem'
           value={searchQuery}
@@ -85,13 +85,20 @@ const Anthem: React.FC = () => {
             }
           }}
           onChange={handleSearch}
-          className='mb-4'
         />
-        <Button onClick={handleSearch} className='hover:bg-slate-300 mb-4'>
+        <Button
+          onClick={handleSearch}
+          className='hover:bg-slate-300 ml-1'
+          style={{
+            boxShadow: "none",
+            paddingTop: "3px",
+            paddingBottom: "6px",
+          }}
+        >
           Search
         </Button>
         {searchQuery && (
-          <div className='max-h-64 overflow-auto scrollbar-hide'>
+          <div className='max-h-64 overflow-auto scrollbar-hide mt-2 p-1'>
             <List>
               {searchResults.length > 0 ? (
                 searchResults.map((item, index) => (
