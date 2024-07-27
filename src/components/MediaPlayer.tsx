@@ -5,6 +5,7 @@ import Image from "next/image";
 import { upperCase } from "@/util/upper-case";
 // ** Types
 import { Catalog } from "@/types/catalog";
+import searchQuery from "@/pages/anthem";
 
 type MediaPlayerProps = {
   selectedAnthem: Catalog;
@@ -41,7 +42,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
   return (
     <div className='max-w-sm rounded overflow-hidden shadow-lg m-4 bg-white'>
       <Image
-        className='w-full'
+        className='w-full h-64 object-cover object-center'
         src={selectedAnthem.images[0].url}
         alt='Album Cover'
         width={100}
@@ -51,6 +52,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
         <div className='font-bold text-xl mb-2'>{selectedAnthem.name}</div>
         <p className='text-gray-700 text-base'>
           {upperCase(selectedAnthem.album_type)} -{" "}
+          {upperCase(selectedAnthem.album_name)}{" "}
           {selectedAnthem.release_date.split("-")[0]}
         </p>
         {

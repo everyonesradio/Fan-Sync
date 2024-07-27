@@ -44,13 +44,13 @@ const Anthem: React.FC = () => {
 
   useEffect(() => {
     const originalAlbums = artistCatalog.items;
-    const uniqueSongs = handleSearch();
+    //const uniqueSongs = handleSearch();
     // Filter the original albums based on the search query
     if (searchQuery) {
       // Filter results based on album name or song name
       const filteredResults = originalAlbums.filter((result) =>
-        result.album_name.toLowerCase().includes(searchQuery.toLowerCase()) //|| 
-        //result.name.toLowerCase().includes(searchQuery.toLowerCase())
+        result.album_name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+        result.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setSearchResults(filteredResults);
       // remove duplicate songs
@@ -60,7 +60,6 @@ const Anthem: React.FC = () => {
           track.name.toLowerCase().includes(searchQuery.toLowerCase());
       
       }*/
-      
     } else {
       setSearchResults(originalAlbums); // reset the search results to the original list
     }
@@ -99,18 +98,17 @@ const Anthem: React.FC = () => {
       <h1 className='font-bold text-5xl text-center text-white p-8'>
         Choose Your SGaWD Anthem
       </h1>
-      <div className='mb-4 '>
+      <div className='mb-4'>
         <Input
           placeholder='Your Anthem'
           value={searchQuery}
           onKeyDown={(e: any) => {
             if (e.key == "Enter") {
               handleSearch();
-              //console.log("queryResult:", searchQuery);
             }
           }}
           onChange={handleKeyDown}
-          className='mb-4'
+          className='mb-4 w-72'
         />
         <Button
           onClick={handleSearch}
