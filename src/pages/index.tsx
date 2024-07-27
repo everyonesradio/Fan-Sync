@@ -78,6 +78,7 @@ export const getServerSideProps: GetServerSideProps<
                 name: artist.name,
               })
             ),
+            album_name: album.name,
             images: album.images,
             album_type: album.album_type,
             album_group: album.album_group,
@@ -96,6 +97,7 @@ export const getServerSideProps: GetServerSideProps<
               id: artist.id,
               name: artist.name,
             })),
+            album_name: album.name,
             images: album.images,
             album_type: album.album_type,
             album_group: album.album_group,

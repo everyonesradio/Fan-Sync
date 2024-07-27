@@ -2,18 +2,14 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
 // ** Custom Components
 import { useSpotify } from "@/context/SpotifyContext";
 import { useLicense } from "@/context/LicenseContext";
 import MediaPlayer from "@/components/MediaPlayer";
-
 // ** Third-Party Imports
 import { Input, List, Button } from "@react95/core";
-
 // ** Util Imports
 import { upperCase } from "@/util/upper-case";
-
 // ** Types
 import { Catalog } from "@/types/catalog";
 
@@ -25,23 +21,51 @@ const Anthem: React.FC = () => {
   const { licenseID } = useLicense();
   const router = useRouter();
 
+  const handleKeyDown = (event: any) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+  };
+
+  const handleSearch = () => {
+    const originalAlbums = artistCatalog.items;
+    //const searchQuery = userSearch;
+    //remove duplicate songs
+    const songName = new Set();
+    originalAlbums.forEach((track) => {
+      if(!songName.has(track.name) && track.album_type === "album"){ 
+        songName.add(track);
+      }
+    });
+    //const uniqueSongs = [...songName];
+    //console.log("uniqueSongs:", uniqueSongs);
+    return songName;
+    // Filter the original albums based on the search query
+  };
+
   useEffect(() => {
     const originalAlbums = artistCatalog.items;
+    const uniqueSongs = handleSearch();
     // Filter the original albums based on the search query
     if (searchQuery) {
+      // Filter results based on album name or song name
       const filteredResults = originalAlbums.filter((result) =>
-        result.name.toLowerCase().includes(searchQuery.toLowerCase())
+        result.album_name.toLowerCase().includes(searchQuery.toLowerCase()) //|| 
+        //result.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setSearchResults(filteredResults);
+      // remove duplicate songs
+
+     /* if (filteredResults[0]?.name == uniqueSongs.values().next().value.name) {
+        const artistTracks = filteredResults.filter((track)) => 
+          track.name.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      }*/
+      
     } else {
       setSearchResults(originalAlbums); // reset the search results to the original list
     }
   }, [artistCatalog, searchQuery]);
-
-  const handleSearch = (e: any) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-  };
+  
 
   const handleNext = async () => {
     if (!selectedAnthem) {
@@ -79,12 +103,14 @@ const Anthem: React.FC = () => {
         <Input
           placeholder='Your Anthem'
           value={searchQuery}
-          onKeyPress={(e: any) => {
+          onKeyDown={(e: any) => {
             if (e.key == "Enter") {
-              handleSearch(e);
+              handleSearch();
+              //console.log("queryResult:", searchQuery);
             }
           }}
-          onChange={handleSearch}
+          onChange={handleKeyDown}
+          className='mb-4'
         />
         <Button
           onClick={handleSearch}
@@ -120,7 +146,10 @@ const Anthem: React.FC = () => {
                       <div className='flex flex-col items-start font-bold pl-2'>
                         <span>{item.name}</span>
                         <span>
-                          {upperCase(item.album_type)} -{" "}
+                          {upperCase(item.album_type)} - {""}
+                          {upperCase(item.album_name)} {""}
+                        </span>
+                        <span>
                           {item.release_date.split("-")[0]}
                         </span>
                       </div>

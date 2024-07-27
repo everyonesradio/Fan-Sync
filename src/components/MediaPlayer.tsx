@@ -1,10 +1,8 @@
 // ** React/Next.js Imports
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
-
 // ** Util Imports
 import { upperCase } from "@/util/upper-case";
-
 // ** Types
 import { Catalog } from "@/types/catalog";
 
@@ -13,15 +11,16 @@ type MediaPlayerProps = {
 };
 
 const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
-  const audioRef = useRef<HTMLAudioElement>(null);
-  console.log(selectedAnthem);
+  const audioRef = useRef<HTMLAudioElement>(selectedAnthem?.preview_url ? new Audio(selectedAnthem?.preview_url) : null); 
 
   useEffect(() => {
     // Capture the current value of the ref
     let audioElement = audioRef.current;
+    console.log("Audio element:", audioElement);
 
     // Check if the audio element is available and not null
     if (audioElement && selectedAnthem?.preview_url) {
+      console.log("Audio element:", audioElement);
       // Play the audio automatically
       audioElement.play();
     }
@@ -54,11 +53,10 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
           {upperCase(selectedAnthem.album_type)} -{" "}
           {selectedAnthem.release_date.split("-")[0]}
         </p>
-        {/* Audio Playback: Flagged for now
+        {
         <audio ref={audioRef} style={{ display: 'none' }}>
           <source src={selectedAnthem.preview_url} type="audio/mpeg" />
-          Your browser does not support the audio element.
-        </audio> */}
+        </audio>}
       </div>
     </div>
   );
