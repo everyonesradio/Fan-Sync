@@ -6,10 +6,15 @@ import { HiUser } from "react-icons/hi2";
 import { Button } from "@react95/core";
 
 const Upload = () => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [imageUpload, setImageUpload] = useState<FileList | null>(null);
   const [imageURL, setImageURL] = useState<string | null>(null);
   const { licenseID } = useLicense();
   const router = useRouter();
+
+  const handleImage = () => {
+    fileInputRef.current?.click();
+  };
 
   const upload = async (files: FileList | null) => {
     if (files && files.length > 0) {
@@ -56,12 +61,6 @@ const Upload = () => {
     }
   };
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleDivClick = () => {
-    fileInputRef.current?.click();
-  };
-
   return (
     <div className='flex min-h-screen bg-black flex-col items-center justify-evenly p-24'>
       <div className='container mt-5'>
@@ -71,7 +70,7 @@ const Upload = () => {
         <div className='col-lg-8 offset-lg-2'>
           <button
             className='photo-bg flex justify-center items-center w-50 h-50 bg-white rounded-full'
-            onClick={handleDivClick}
+            onClick={handleImage}
           >
             {imageURL ? (
               <Image
@@ -89,7 +88,6 @@ const Upload = () => {
           <input
             type='file'
             ref={fileInputRef}
-            style={{ display: "none" }}
             onChange={(e) => {
               setImageUpload(e.target.files);
               upload(e.target.files);

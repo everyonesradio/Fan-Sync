@@ -1,4 +1,4 @@
-export interface FanData {
+export type FanData = {
   uuid: string;
   profile_picture: string;
   dob: string;
