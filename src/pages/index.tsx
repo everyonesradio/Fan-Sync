@@ -10,7 +10,7 @@ import CardSection from "@/views/CardSection";
 
 // ** Spotify Imports
 import SpotifyAPI from "@/lib/spotify";
-import { useSpotify } from "@/components/context/SpotifyContext";
+import { useSpotify } from "@/context/SpotifyContext";
 
 // ** Types
 import { ArtistCatalog } from "@/types/catalog";

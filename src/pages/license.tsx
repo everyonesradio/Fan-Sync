@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 // ** Custom Components
-import { useLicense } from "@/components/context/LicenseContext";
+import { useLicense } from "@/context/LicenseContext";
 import FanLicense from "@/components/FanLicense";
 
 // ** Types

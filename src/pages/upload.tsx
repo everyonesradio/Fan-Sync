@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useState, useRef } from "react";
-import { useLicense } from "@/components/context/LicenseContext";
+import { useLicense } from "@/context/LicenseContext";
 import { useRouter } from "next/navigation";
 import { HiUser } from "react-icons/hi2";
 import { Button } from "@react95/core";
@@ -63,13 +63,13 @@ const Upload = () => {
   };
 
   return (
-    <div className='flex min-h-screen bg-black flex-col items-center justify-between p-24'>
+    <div className='flex min-h-screen bg-black flex-col items-center justify-evenly p-24'>
       <div className='container mt-5'>
         <h1 className='font-bold text-5xl text-center p-8 text-white'>
           Upload Your Photo
         </h1>
         <div className='col-lg-8 offset-lg-2'>
-          <div
+          <button
             className='photo-bg flex justify-center items-center w-50 h-50 bg-white rounded-full'
             onClick={handleDivClick}
           >
@@ -84,7 +84,7 @@ const Upload = () => {
             ) : (
               <HiUser size={200} />
             )}
-          </div>
+          </button>
           {/* Hidden file input */}
           <input
             type='file'
@@ -98,8 +98,10 @@ const Upload = () => {
         </div>
       </div>
       <Button
-        className='hover:bg-slate-300'
+        className={`${!imageUpload ? "" : "hover:bg-slate-300 w-52"} `}
         onClick={() => router.push("/form")}
+        disabled={!imageUpload}
+        style={{ color: !imageUpload ? "lightgray" : "black" }}
       >
         Next
       </Button>

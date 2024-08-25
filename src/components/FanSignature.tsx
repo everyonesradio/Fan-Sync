@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import SignatureCanvas from "react-signature-canvas";
-import { useLicense } from "@/components/context/LicenseContext";
+import { useLicense } from "@/context/LicenseContext";
 import { Frame, Button } from "@react95/core";
 
 const FanSignature = () => {
