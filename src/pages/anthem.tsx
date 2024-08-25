@@ -25,6 +25,8 @@ const Anthem: React.FC = () => {
   const { licenseID } = useLicense();
   const router = useRouter();
 
+  console.log("licenseID");
+
   useEffect(() => {
     const originalAlbums = artistCatalog.items;
     // Filter the original albums based on the search query
