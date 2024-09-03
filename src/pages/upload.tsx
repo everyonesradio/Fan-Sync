@@ -4,50 +4,54 @@ import { useLicense } from "@/context/LicenseContext";
 import { useRouter } from "next/navigation";
 import { HiUser } from "react-icons/hi2";
 import { Button } from "@react95/core";
+import { useImageContext } from "@/context/ImageContext";
 
 const Upload = () => {
   const [imageUpload, setImageUpload] = useState<FileList | null>(null);
   const [imageURL, setImageURL] = useState<string | null>(null);
   const { licenseID } = useLicense();
   const router = useRouter();
+  const { setImageUrl: setGlobalImageUrl } = useImageContext();
 
   const upload = async (files: FileList | null) => {
     if (files && files.length > 0) {
-      const formData = new FormData();
-      formData.append("file", files[0]);
+      // const formData = new FormData();
+      // formData.append("file", files[0]);
+
+      const fileUrl = URL.createObjectURL(files[0]);
 
       try {
-        const response = await fetch("/api/storage", {
-          method: "POST",
-          body: formData,
-        });
+        // const response = await fetch("/api/storage", {
+        //   method: "POST",
+        //   body: formData,
+        // });
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+        // if (!response.ok) {
+        //   throw new Error(`HTTP error! status: ${response.status}`);
+        // }
 
-        const data = await response.json();
-        setImageURL(data.fileURL);
+        // const data = await response.json();
+        setImageURL(fileUrl);
 
         // Use the licenseID from the context instead of generating a new one
-        if (!licenseID) {
-          throw new Error("License ID is not set");
-        }
+        // if (!licenseID) {
+        //   throw new Error("License ID is not set");
+        // }
 
         // Send the licenseID and imageURL to the server to update the MongoDB document
-        const updateResponse = await fetch("/api/createLicense", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ licenseID, imageURL: data.fileURL }),
-        });
+        // const updateResponse = await fetch("/api/createLicense", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        //   body: JSON.stringify({ licenseID, imageURL: data.fileURL }),
+        // });
 
-        if (!updateResponse.ok) {
-          throw new Error(`Update error! status: ${updateResponse.status}`);
-        }
+        // if (!updateResponse.ok) {
+        //   throw new Error(`Update error! status: ${updateResponse.status}`);
+        // }
 
-        await updateResponse.json();
+        // await updateResponse.json();
       } catch (error) {
         console.error("Error:", error);
       }
