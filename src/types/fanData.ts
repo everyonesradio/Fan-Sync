@@ -20,4 +20,4 @@ export type FanData = {
     release_date: string;
   };
   signature: string;
-}
+};

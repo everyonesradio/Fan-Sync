@@ -119,7 +119,9 @@ export const getServerSideProps: GetServerSideProps<
   }
 };
 
-const Home = ({ items }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const Home = ({
+  items,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { setArtistCatalog } = useSpotify();
 
   useEffect(() => {
