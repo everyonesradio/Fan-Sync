@@ -2,6 +2,7 @@ import React, { useState, useEffect, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Input, Button } from "@react95/core";
 import { useLicense } from "@/context/LicenseContext";
+import { useFormContext } from "@/context/FormDataContext";
 interface FormErrors {
   fullname?: string;
   email?: string;
@@ -13,6 +14,7 @@ interface FormErrors {
 const Form = () => {
   const router = useRouter();
   const { licenseID } = useLicense();
+  const { formData } = useFormContext();
   const [fullname, setFullname] = useState("");
   const [username, setUsername] = useState("@");
   const [email, setEmail] = useState("");
@@ -116,11 +118,34 @@ const Form = () => {
     validateField(name, value);
   };
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    validateForm();
-    if (isFormValid) {
-      const response = await fetch("/api/updateUserInfo", {
+  const executeRequests = async () => {
+    try {
+      const uploadImageResponse = await fetch("/api/storage", {
+        method: "POST",
+        body: formData,
+      });
+      if (!uploadImageResponse.ok) {
+        throw new Error(
+          `Upload Image Error! status: ${uploadImageResponse.status}`
+        );
+      }
+      const { fileURL } = await uploadImageResponse.json();
+
+      const createLicenseResponse = await fetch("/api/createLicense", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ licenseID, imageURL: fileURL }),
+      });
+      if (!createLicenseResponse.ok) {
+        throw new Error(
+          `Create License Error! status: ${createLicenseResponse.status}`
+        );
+      }
+      await createLicenseResponse.json();
+
+      const userInfoResponse = await fetch("/api/updateUserInfo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -134,12 +159,30 @@ const Form = () => {
           location,
         }),
       });
-      if (response.ok) {
+      if (userInfoResponse.ok) {
         router.push("/anthem");
       } else {
         // Handle error
-        console.error("Failed to update user info");
+        throw new Error(
+          `Save User Info Error! status: ${userInfoResponse.status}`
+        );
       }
+    } catch (error) {
+      throw new Error(`Error in making all requests, ${error}`);
+    }
+  };
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    validateForm();
+    if (isFormValid) {
+      if (!licenseID) {
+        throw new Error("License ID is not set");
+      }
+      if (!formData) {
+        throw new Error("Image Data is missing");
+      }
+      executeRequests();
     } else {
       console.error("Form entries are invalid. Please fix them");
     }
