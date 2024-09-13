@@ -1,7 +1,14 @@
-import React, { useRef, useState } from "react";
-import SignatureCanvas from "react-signature-canvas";
-import { useLicense } from "@/context/LicenseContext";
+// ** React/Next.js Imports
+import React, { useRef } from "react";
+
+// ** React95 Imports
 import { Frame, Button } from "@react95/core";
+
+// ** Custom Components, Hooks, Utils, etc.
+import { useLicense } from "@/context/LicenseContext";
+
+// ** Third-Party Imports
+import SignatureCanvas from "react-signature-canvas";
 
 const FanSignature = () => {
   const sigCanvas = useRef<SignatureCanvas>(null);

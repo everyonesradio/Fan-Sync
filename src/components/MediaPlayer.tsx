@@ -2,10 +2,8 @@
 import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 
-// ** Util Imports
+// ** Custom Components, Hooks, Utils, etc.
 import { upperCase } from "@/util/upper-case";
-
-// ** Types
 import { Catalog } from "@/types/catalog";
 
 type MediaPlayerProps = {

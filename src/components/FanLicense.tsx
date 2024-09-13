@@ -2,17 +2,13 @@
 import React from "react";
 import Image from "next/image";
 
-// ** Custom Components
+// ** Custom Components, Hooks, Utils, etc.
 import Card from "@/components/3DLicenseCard";
-
-// ** Third-Party Imports
-import { FaSpotify } from "react-icons/fa";
-
-// ** Util Imports
 import { upperCase } from "@/util/upper-case";
-
-// ** Types
 import { FanData } from "@/types/fanData";
+
+// ** Icon Imports
+import { FaSpotify } from "react-icons/fa";
 
 interface FanLicenseProps {
   fanData: FanData | null;

@@ -1,9 +1,12 @@
-//import { useEffect } from "react";
+// ** React/Next.js Imports
+import React from "react";
 import { useRouter } from "next/navigation";
-//import { animate, motion, useMotionValue } from "framer-motion";
-import Card from "@/components/Card";
-//import useMeasure from "react-use-measure";
+
+// ** React95 Imports
 import { Button } from "@react95/core";
+
+// ** Custom Components, Hooks, Utils, etc.
+import Card from "@/components/Card";
 
 const CardSection = () => {
   const router = useRouter();
@@ -15,39 +18,6 @@ const CardSection = () => {
     "/images/card-5.png",
     "/images/card-6.png",
   ];
-
-  /*let [ref, { width }] = useMeasure();
-  const xTranslation = useMotionValue(0);
-  
-  useEffect(() => {
-    let controls: any;
-    let intervalId: NodeJS.Timeout;
-    const finalPosition = -(width / 2) - 6;
-    
-    controls = animate(xTranslation, [0, finalPosition], {
-      ease: "linear",
-      duration: 12,
-      repeat: Infinity,
-      repeatType: static,
-      repeatDelay: 0,
-    });
-
-    // Trying Automatic cycling logic
-    const automateCarousel = () => { 
-      const currPosition = xTranslation.get();
-      const nextPosition = currPosition + width;
-      xTranslation.set(nextPosition);
-    };
-
-    intervalId = setInterval(automateCarousel, 1000);
-
-    return () => {
-      if (controls) {
-        controls.stop();
-      }
-      clearInterval(intervalId);
-    };
-  }, [width]);*/
 
   return (
     <div className='snap-start bg-[#D9D9D9] w-screen h-screen flex items-center justify-center text-8xl'>
