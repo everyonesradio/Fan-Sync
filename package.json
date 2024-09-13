@@ -28,7 +28,6 @@
     "eslint-config-next": "^13.1.6",
     "firebase": "^10.8.0",
     "formidable": "^3.5.1",
-    "framer-motion": "^7.10.3",
     "lodash": "^4.17.21",
     "maath": "^0.5.2",
     "mongodb": "^6.3.0",
