@@ -1,8 +1,14 @@
+// ** React/Next.js Imports
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
+
+// ** React95 Imports
 import { Input, Button } from "@react95/core";
+
+// ** Custom Components, Hooks, Utils, etc.
 import { useLicense } from "@/context/LicenseContext";
 import { useFormContext } from "@/context/FormDataContext";
+
 interface FormErrors {
   fullname?: string;
   email?: string;
@@ -204,7 +210,6 @@ const Form = () => {
             setFullname(e.target.value)
           }
           onBlur={handleBlur}
-          // onfocusout={handleBlur}
           required
         />
         {errors.fullname && (

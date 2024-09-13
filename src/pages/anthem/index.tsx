@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-// ** Custom Components
+// ** Custom Components, Hooks, Utils, etc.
 import { useSpotify } from "@/context/SpotifyContext";
 import { useLicense } from "@/context/LicenseContext";
 import MediaPlayer from "@/components/MediaPlayer";

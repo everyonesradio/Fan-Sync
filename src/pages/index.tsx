@@ -2,17 +2,12 @@
 import React, { useEffect } from "react";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 
-// ** Custom Components
+// ** Custom Components, Hooks, Utils, etc.
+import { useSpotify } from "@/context/SpotifyContext";
+import SpotifyAPI from "@/lib/spotify";
 import WelcomeSection from "@/views/WelcomeSection";
 import AboutSection from "@/views/AboutSection";
-import ProjectSection from "@/views/ProjectSection";
 import CardSection from "@/views/CardSection";
-
-// ** Spotify Imports
-import SpotifyAPI from "@/lib/spotify";
-import { useSpotify } from "@/context/SpotifyContext";
-
-// ** Types
 import { ArtistCatalog } from "@/types/catalog";
 
 // Fetch artist albums

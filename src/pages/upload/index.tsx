@@ -1,10 +1,17 @@
+// ** React/Next.js Imports
 import Image from "next/image";
-import { useState, useRef } from "react";
-import { useLicense } from "@/context/LicenseContext";
+import React, { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { HiUser } from "react-icons/hi2";
+
+// ** React95 Imports
 import { Button } from "@react95/core";
+
+// ** Custom Components, Hooks, Utils, etc.
+import { useLicense } from "@/context/LicenseContext";
 import { useFormContext } from "@/context/FormDataContext";
+
+// ** Icon Imports
+import { HiUser } from "react-icons/hi2";
 
 const Upload = () => {
   const [imageURL, setImageURL] = useState<string | null>(null);

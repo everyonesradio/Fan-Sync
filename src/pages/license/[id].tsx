@@ -2,11 +2,9 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
-// ** Custom Components
+// ** Custom Components, Hooks, Utils, etc.
 import { useLicense } from "@/context/LicenseContext";
 import FanLicense from "@/components/FanLicense";
-
-// ** Types
 import { FanData } from "@/types/fanData";
 
 const license = [

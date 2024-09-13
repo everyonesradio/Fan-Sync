@@ -1,10 +1,17 @@
+// ** React/Next.js Imports
 import React from "react";
-import FanSignature from "@/components/FanSignature";
 import { useRouter } from "next/navigation";
+
+// ** React95 Imports
 import { Button } from "@react95/core";
+
+// ** Custom Components, Hooks, Utils, etc.
+import FanSignature from "@/components/FanSignature";
+import { useLicense } from "@/context/LicenseContext";
 
 const Signature = () => {
   const router = useRouter();
+  const { licenseID } = useLicense();
 
   return (
     <div className='min-h-screen flex flex-col bg-black items-center justify-center'>
@@ -14,7 +21,7 @@ const Signature = () => {
       <FanSignature />
       <Button
         className='hover:bg-slate-300'
-        onClick={() => router.push("/license")}
+        onClick={() => router.push(`/license/${licenseID}`)}
       >
         Next
       </Button>
