@@ -1,7 +1,12 @@
+// ** React/Next.js Imports
 import React from "react";
 import { useRouter } from "next/navigation";
-import Card from "@/components/Card";
+
+// ** React95 Imports
 import { Button } from "@react95/core";
+
+// ** Custom Components, Hooks, Utils, etc.
+import Card from "@/components/Card";
 
 const CardSection = () => {
   const router = useRouter();

@@ -1,10 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { storage } from "@/lib/firebase/firebase";
+import { storage } from "@lib/firebase";
 import {
   formidableConfig,
   formidablePromise,
   fileConsumer,
-} from "@/lib/formidable";
+} from "@lib/formidable";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default async function filePOST(

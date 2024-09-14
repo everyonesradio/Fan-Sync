@@ -1,4 +1,7 @@
+// ** React/Next.js Imports
 import React from "react";
+
+// ** Third-Party Imports
 import PropTypes from "prop-types";
 
 export default class ParallaxCard extends React.Component {
