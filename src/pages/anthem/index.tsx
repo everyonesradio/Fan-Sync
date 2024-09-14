@@ -3,30 +3,27 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-// ** Custom Components
+// ** React95 Imports
+import { Input, List, Button } from "@react95/core";
+
+// ** Custom Components, Hooks, Utils, etc.
 import { useSpotify } from "@/context/SpotifyContext";
 import { useLicense } from "@/context/LicenseContext";
 import MediaPlayer from "@/components/MediaPlayer";
-
-// ** Third-Party Imports
-import { Input, List, Button } from "@react95/core";
-
-// ** Util Imports
-import { upperCase } from "@/util/upper-case";
-
-// ** Types
 import { Catalog } from "@/types/catalog";
+import { upperCase } from "@/utils/upper-case";
+import { api } from "@/utils/trpc";
 
 const Anthem: React.FC = () => {
+  const router = useRouter();
+  const { licenseID } = useLicense();
+  const { artistCatalog } = useSpotify();
+  const { mutateAsync: updateAnthem } = api.fans.anthem.useMutation();
+
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<Catalog[]>([]);
-  const [selectedAnthem, setSelectedAnthem] = useState<Catalog | null>(null);
-  const { artistCatalog } = useSpotify();
-  const { licenseID } = useLicense();
-  const router = useRouter();
-
-  console.log("licenseID");
-
+  const [selectedAnthem, setSelectedAnthem] = useState<any>(null);
+  
   useEffect(() => {
     const originalAlbums = artistCatalog.items;
     // Filter the original albums based on the search query
@@ -45,26 +42,22 @@ const Anthem: React.FC = () => {
     setSearchQuery(query);
   };
 
-  const handleNext = async () => {
+  const handleSubmit = async () => {
     if (!selectedAnthem) {
       alert("Please select an anthem first.");
       return;
     }
 
     try {
-      const data = await fetch("/api/updateAnthem", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ licenseID, selectedAnthem }),
+      const data = await updateAnthem({ 
+        uuid: licenseID!, 
+        anthem: selectedAnthem 
       });
 
-      if (!data.ok) {
+      if (!data) {
         throw new Error("Failed to save anthem");
       }
 
-      await data.json();
       router.push("/signature");
     } catch (error) {
       console.error("Error saving anthem:", error);
@@ -140,7 +133,7 @@ const Anthem: React.FC = () => {
         )}
       </div>
       {selectedAnthem && <MediaPlayer selectedAnthem={selectedAnthem} />}
-      <Button className='hover:bg-slate-300' onClick={handleNext}>
+      <Button className='hover:bg-slate-300' onClick={handleSubmit}>
         Next
       </Button>
     </div>
