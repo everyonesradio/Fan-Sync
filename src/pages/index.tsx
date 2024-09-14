@@ -4,7 +4,7 @@ import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 
 // ** Custom Components, Hooks, Utils, etc.
 import { useSpotify } from "@/context/SpotifyContext";
-import SpotifyAPI from "@/lib/spotify";
+import SpotifyAPI from "@lib/spotify";
 import WelcomeSection from "@/views/WelcomeSection";
 import AboutSection from "@/views/AboutSection";
 import CardSection from "@/views/CardSection";

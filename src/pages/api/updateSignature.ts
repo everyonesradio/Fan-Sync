@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import clientPromise from "@/lib/mongodb";
-import { storage } from "@/lib/firebase/firebase";
+import clientPromise from "@lib/mongodb";
+import { storage } from "@lib/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default async function handler(
