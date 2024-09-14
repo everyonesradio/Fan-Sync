@@ -1,7 +1,15 @@
+// ** React/Next.js Imports
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
+
+// ** React95 Imports
 import { Input, Button } from "@react95/core";
+
+// ** Custom Components, Hooks, Utils, etc.
 import { useLicense } from "@/context/LicenseContext";
+import { useFormContext } from "@/context/FormDataContext";
+import { api } from "@/utils/trpc";
+
 interface FormErrors {
   fullname?: string;
   email?: string;
@@ -13,6 +21,9 @@ interface FormErrors {
 const Form = () => {
   const router = useRouter();
   const { licenseID } = useLicense();
+  const { formData } = useFormContext();
+  const { mutateAsync: newFan } = api.fans.create.useMutation();
+
   const [fullname, setFullname] = useState("");
   const [username, setUsername] = useState("@");
   const [email, setEmail] = useState("");
@@ -116,30 +127,51 @@ const Form = () => {
     validateField(name, value);
   };
 
+  const executeRequests = async () => {
+    try {
+      const uploadImageResponse = await fetch("/api/storage", {
+        method: "POST",
+        body: formData,
+      });
+      if (!uploadImageResponse.ok) {
+        throw new Error(
+          `Upload Image Error! status: ${uploadImageResponse.status}`
+        );
+      }
+      const { fileURL } = await uploadImageResponse.json();
+
+      const response = await newFan({
+        uuid: licenseID!,
+        fullname,
+        username,
+        email,
+        dob,
+        location,
+        profilePicture: fileURL,
+      });
+
+      if (response) {
+        router.push("/anthem");
+      } else {
+        // Handle error
+        throw new Error("Server error!");
+      }
+    } catch (error) {
+      throw new Error(`Error in making requests, ${error}`);
+    }
+  };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     validateForm();
     if (isFormValid) {
-      const response = await fetch("/api/updateUserInfo", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          uuid: licenseID,
-          fullname,
-          username,
-          email,
-          dob,
-          location,
-        }),
-      });
-      if (response.ok) {
-        router.push("/anthem");
-      } else {
-        // Handle error
-        console.error("Failed to update user info");
+      if (!licenseID) {
+        throw new Error("License ID is not set");
       }
+      if (!formData) {
+        throw new Error("Image Data is missing");
+      }
+      executeRequests();
     } else {
       console.error("Form entries are invalid. Please fix them");
     }
@@ -161,7 +193,6 @@ const Form = () => {
             setFullname(e.target.value)
           }
           onBlur={handleBlur}
-          // onfocusout={handleBlur}
           required
         />
         {errors.fullname && (

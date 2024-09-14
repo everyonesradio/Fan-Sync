@@ -1,3 +1,4 @@
+// ** React/Next.js Imports
 import React from "react";
 import Image from "next/image";
 
@@ -17,9 +18,6 @@ const WelcomeSection = () => {
         <h1 className='relative ml-40 z-10 text-[#100D03] text-left text-5xl left-0 top-0 flex w-full justify-start italic font-bold lg:static lg:w-auto lg:rounded-xl lg:p-4'>
           MEET SGaWD...
         </h1>
-        {/*<div className='bg-green-500 z-10 p-4 mt-4 w-full text-white text-xl font-semibold'>
-          Scrollable Content Here
-        </div>*/}
       </div>
     </div>
   );
