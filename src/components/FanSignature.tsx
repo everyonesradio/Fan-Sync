@@ -4,31 +4,32 @@ import React, { useRef } from "react";
 // ** React95 Imports
 import { Frame, Button } from "@react95/core";
 
-// ** Custom Components, Hooks, Utils, etc.
-import { useLicense } from "@/context/LicenseContext";
-
 // ** Third-Party Imports
 import SignatureCanvas from "react-signature-canvas";
 
+// ** Custom Components, Hooks, Utils, etc.
+import { useLicense } from "@/context/LicenseContext";
+import { api } from "@/utils/trpc";
+
 const FanSignature = () => {
-  const sigCanvas = useRef<SignatureCanvas>(null);
   const { licenseID } = useLicense();
+  const { mutateAsync: updateSignature } = api.fans.signature.useMutation();
+  const sigCanvas = useRef<SignatureCanvas>(null);
 
   const saveSignature = async () => {
     const trimmedCanvas = sigCanvas.current?.getTrimmedCanvas();
     const image = trimmedCanvas ? trimmedCanvas.toDataURL("image/png") : null;
 
-    // Call API route to save the signature image and update the MongoDB document
-    const response = await fetch("/api/updateSignature", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ imageURL: image, uuid: licenseID }),
-    });
-
-    if (!response.ok) {
-      console.error("Failed to update signature");
+    try {
+      if (image) {
+        await updateSignature({
+          uuid: licenseID!,
+          signature: image
+        })
+      }
+    } catch (error) {
+      console.error("Error updating signature:", error);
+      throw error;
     }
   };
 

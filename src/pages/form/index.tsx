@@ -8,6 +8,7 @@ import { Input, Button } from "@react95/core";
 // ** Custom Components, Hooks, Utils, etc.
 import { useLicense } from "@/context/LicenseContext";
 import { useFormContext } from "@/context/FormDataContext";
+import { api } from "@/utils/trpc";
 
 interface FormErrors {
   fullname?: string;
@@ -21,6 +22,8 @@ const Form = () => {
   const router = useRouter();
   const { licenseID } = useLicense();
   const { formData } = useFormContext();
+  const { mutateAsync: newFan } = api.fans.create.useMutation();
+
   const [fullname, setFullname] = useState("");
   const [username, setUsername] = useState("@");
   const [email, setEmail] = useState("");
@@ -137,44 +140,24 @@ const Form = () => {
       }
       const { fileURL } = await uploadImageResponse.json();
 
-      const createLicenseResponse = await fetch("/api/createLicense", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ licenseID, imageURL: fileURL }),
+      const response = await newFan({
+        uuid: licenseID!,
+        fullname,
+        username,
+        email,
+        dob,
+        location,
+        profilePicture: fileURL,
       });
-      if (!createLicenseResponse.ok) {
-        throw new Error(
-          `Create License Error! status: ${createLicenseResponse.status}`
-        );
-      }
-      await createLicenseResponse.json();
 
-      const userInfoResponse = await fetch("/api/updateUserInfo", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          uuid: licenseID,
-          fullname,
-          username,
-          email,
-          dob,
-          location,
-        }),
-      });
-      if (userInfoResponse.ok) {
+      if (response) {
         router.push("/anthem");
       } else {
         // Handle error
-        throw new Error(
-          `Save User Info Error! status: ${userInfoResponse.status}`
-        );
+        throw new Error("Server error!");
       }
     } catch (error) {
-      throw new Error(`Error in making all requests, ${error}`);
+      throw new Error(`Error in making requests, ${error}`);
     }
   };
 

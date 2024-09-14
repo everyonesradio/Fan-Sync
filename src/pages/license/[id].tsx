@@ -1,11 +1,11 @@
 // ** React/Next.js Imports
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 
 // ** Custom Components, Hooks, Utils, etc.
 import { useLicense } from "@/context/LicenseContext";
 import FanLicense from "@/components/FanLicense";
-import { FanData } from "@/types/fanData";
+import { api } from "@/utils/trpc";
 
 const license = [
   "/images/licenses/001.png",
@@ -18,33 +18,16 @@ const license = [
 
 const License = () => {
   const { licenseID } = useLicense();
-  const [fanData, setFanData] = useState<FanData | null>(null);
+  const { data: fanData } = api.fans.get.useQuery(
+    { uuid: String(licenseID) },
+    { enabled: !!licenseID }
+  );
+
   const [selectedBg, setSelectedBg] = useState<string | null>(license[0]);
 
   const handleImageClick = (image: string) => {
     setSelectedBg(image);
   };
-
-  useEffect(() => {
-    const fetchFanData = async () => {
-      if (licenseID) {
-        try {
-          const response = await fetch(
-            `/api/getFanData?licenseID=${licenseID}`
-          );
-          if (!response.ok) {
-            throw new Error("Failed to fetch fan data");
-          }
-          const data = await response.json();
-          setFanData(data);
-        } catch (error) {
-          console.error("Error fetching fan data:", error);
-        }
-      }
-    };
-
-    fetchFanData();
-  }, [licenseID]);
 
   return (
     <div className='min-h-screen flex flex-col bg-black items-center justify-center'>
