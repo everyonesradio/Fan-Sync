@@ -9,7 +9,6 @@ import WelcomeSection from "@/views/WelcomeSection";
 import AboutSection from "@/views/AboutSection";
 import CardSection from "@/views/CardSection";
 import { ArtistCatalog } from "@/types/catalog";
-import { ignore } from "antd/es/theme/useToken";
 
 // Fetch artist albums
 const fetchAlbums = async (artistId: string): Promise<any[]> => {
@@ -167,7 +166,6 @@ const Home = ({
       <div className='snap-y snap-mandatory h-screen w-screen overflow-scroll scrollbar-hide'>
         <WelcomeSection />
         <AboutSection />
-        {/* <ProjectSection /> */}
         <CardSection />
       </div>
     </main>
