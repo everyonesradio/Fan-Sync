@@ -23,15 +23,13 @@ function App({ Component, pageProps }: AppProps) {
       <Analytics />
       <ThemeProvider theme={"blackAndWhite"}>
         <GlobalStyle />
-        <FormDataProvider>
-          <LicenseProvider>
-            <SpotifyProvider>
-              <div className='overflow-x-hidden'>
-                <Component {...pageProps} />
-              </div>
-            </SpotifyProvider>
-          </LicenseProvider>
-        </FormDataProvider>
+        <LicenseProvider>
+          <SpotifyProvider>
+            <div className='overflow-x-hidden'>
+              <Component {...pageProps} />
+            </div>
+          </SpotifyProvider>
+        </LicenseProvider>
       </ThemeProvider>
     </>
   );

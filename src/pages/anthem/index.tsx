@@ -26,21 +26,27 @@ const Anthem: React.FC = () => {
   
   useEffect(() => {
     const originalAlbums = artistCatalog.items;
+    //const uniqueSongs = handleSearch();
     // Filter the original albums based on the search query
     if (searchQuery) {
+      // Filter results based on album name or song name
       const filteredResults = originalAlbums.filter((result) =>
+        result.album_name.toLowerCase().includes(searchQuery.toLowerCase()) || 
         result.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setSearchResults(filteredResults);
+      // remove duplicate songs
+
+     /* if (filteredResults[0]?.name == uniqueSongs.values().next().value.name) {
+        const artistTracks = filteredResults.filter((track)) => 
+          track.name.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      }*/
     } else {
       setSearchResults(originalAlbums); // reset the search results to the original list
     }
   }, [artistCatalog, searchQuery]);
-
-  const handleSearch = (e: any) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-  };
+  
 
   const handleSubmit = async () => {
     if (!selectedAnthem) {
@@ -70,19 +76,20 @@ const Anthem: React.FC = () => {
       <h1 className='font-bold text-5xl text-center text-white p-8'>
         Choose Your SGaWD Anthem
       </h1>
-      <div className='mb-4 '>
+      <div className='mb-4'>
         <Input
           placeholder='Your Anthem'
           value={searchQuery}
-          onKeyPress={(e: any) => {
+          onKeyDown={(e: any) => {
             if (e.key == "Enter") {
-              handleSearch(e);
+              //handleSearch();
             }
           }}
-          onChange={handleSearch}
+          //onChange={handleKeyDown}
+          className='mb-4 w-72'
         />
         <Button
-          onClick={handleSearch}
+          //onClick={handleSearch}
           className='hover:bg-slate-300 ml-1'
           style={{
             boxShadow: "none",
@@ -115,7 +122,10 @@ const Anthem: React.FC = () => {
                       <div className='flex flex-col items-start font-bold pl-2'>
                         <span>{item.name}</span>
                         <span>
-                          {upperCase(item.album_type)} -{" "}
+                          {upperCase(item.album_type)} - {""}
+                          {upperCase(item.album_name)} {""}
+                        </span>
+                        <span>
                           {item.release_date.split("-")[0]}
                         </span>
                       </div>

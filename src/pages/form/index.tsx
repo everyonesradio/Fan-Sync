@@ -171,7 +171,6 @@ const Form = () => {
       if (!formData) {
         throw new Error("Image Data is missing");
       }
-      executeRequests();
     } else {
       console.error("Form entries are invalid. Please fix them");
     }

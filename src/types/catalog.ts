@@ -15,6 +15,7 @@ export type Catalog = {
   preview_url: string;
   track_url: string;
   artists: Artist[];
+  album_name: string;
   images: Image[];
   album_type: string;
   album_group: string;
