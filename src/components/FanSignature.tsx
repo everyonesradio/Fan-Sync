@@ -24,8 +24,8 @@ const FanSignature = () => {
       if (image) {
         await updateSignature({
           uuid: licenseID!,
-          signature: image
-        })
+          signature: image,
+        });
       }
     } catch (error) {
       console.error("Error updating signature:", error);

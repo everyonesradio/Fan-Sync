@@ -9,6 +9,7 @@ import WelcomeSection from "@/views/WelcomeSection";
 import AboutSection from "@/views/AboutSection";
 import CardSection from "@/views/CardSection";
 import { ArtistCatalog } from "@/types/catalog";
+import { ignore } from "antd/es/theme/useToken";
 
 // Fetch artist albums
 const fetchAlbums = async (artistId: string): Promise<any[]> => {
@@ -73,12 +74,44 @@ export const getServerSideProps: GetServerSideProps<
                 name: artist.name,
               })
             ),
+            album_name: album.name,
             images: album.images,
             album_type: album.album_type,
             album_group: album.album_group,
             release_date: album.release_date,
           });
         }
+        // if track appears as a single and also in an album,
+        // implement logic to select the track that appears on the album
+      } else if (album.album_group === "album") {
+        // && tracksResponse.length > 1) {
+        console.log("IN");
+        const albumTracks = tracksResponse.find(
+          (track) =>
+            track.album_type === "album" && track.artist.id === artistId
+        );
+        console.log("Album Tracks:", albumTracks);
+        if (albumTracks) {
+          console.log("IN");
+          allTracks.push({
+            id: albumTracks.id,
+            name: albumTracks.name,
+            preview_url: albumTracks.preview_url,
+            track_url: albumTracks.external_urls.spotify,
+            artists: albumTracks.artists.map(
+              (artist: { id: any; name: any }) => ({
+                id: artist.id,
+                name: artist.name,
+              })
+            ),
+            album_name: album.name,
+            images: album.images,
+            album_type: album.album_type,
+            album_group: album.album_group,
+            release_date: album.release_date,
+          });
+        }
+        console.log("Album Tracks:", allTracks);
       } else {
         // For other albums, add track/album details to artist catalog
         tracksResponse.forEach((track) => {
@@ -91,6 +124,7 @@ export const getServerSideProps: GetServerSideProps<
               id: artist.id,
               name: artist.name,
             })),
+            album_name: album.name,
             images: album.images,
             album_type: album.album_type,
             album_group: album.album_group,
@@ -99,7 +133,6 @@ export const getServerSideProps: GetServerSideProps<
         });
       }
     }
-
     const artistCatalog: ArtistCatalog = {
       items: allTracks,
     };
