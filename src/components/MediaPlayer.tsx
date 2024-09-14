@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 
 // ** Custom Components, Hooks, Utils, etc.
-import { upperCase } from "@/util/upper-case";
+import { upperCase } from "@/utils/upper-case";
 import { Catalog } from "@/types/catalog";
 
 type MediaPlayerProps = {
