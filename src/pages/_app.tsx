@@ -1,13 +1,22 @@
-import "@/styles/globals.css";
-import "@react95/icons/icons.css";
+// ** React/Next.js Imports
 import type { AppProps } from "next/app";
-import { ThemeProvider, GlobalStyle } from "@react95/core";
-import { LicenseProvider } from "@/context/LicenseContext";
-import { SpotifyProvider } from "@/context/SpotifyContext";
-import Meta from "@/components/Meta";
 import { Analytics } from "@vercel/analytics/react";
 
-export default function App({ Component, pageProps }: AppProps) {
+// ** React95 Imports
+import { ThemeProvider, GlobalStyle } from "@react95/core";
+
+// ** Custom Components, Hooks, Utils, etc.
+import Meta from "@/components/Meta";
+import { LicenseProvider } from "@/context/LicenseContext";
+import { SpotifyProvider } from "@/context/SpotifyContext";
+import { FormDataProvider } from "@/context/FormDataContext";
+import { api } from "@/utils/trpc";
+
+// ** Styles
+import "@/styles/globals.css";
+import "@react95/icons/icons.css";
+
+function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Meta />
@@ -25,3 +34,5 @@ export default function App({ Component, pageProps }: AppProps) {
     </>
   );
 }
+
+export default api.withTRPC(App);

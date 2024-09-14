@@ -1,29 +1,32 @@
 {
   "compilerOptions": {
-    "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": ".",
     "paths": {
+      "@lib/*": ["./lib/*"],
+      "@public/*": ["./public/*"],
       "@/*": ["./src/*"]
     }
   },
   "include": [
-    "../next-env.d.ts",
+    ".eslintrc.cjs",
+    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/components/test.js"
+    "**/*.cjs",
+    "**/*.js",
+    "**/*.mjs",
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

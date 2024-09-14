@@ -3,6 +3,12 @@ export type Artist = {
   name: string;
 };
 
+export type Image = {
+  url: string;
+  height: number;
+  width: number;
+};
+
 export type Catalog = {
   id: string;
   name: string;
@@ -10,7 +16,7 @@ export type Catalog = {
   track_url: string;
   artists: Artist[];
   album_name: string;
-  images: { url: string }[];
+  images: Image[];
   album_type: string;
   album_group: string;
   release_date: string;
