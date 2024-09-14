@@ -81,12 +81,14 @@ export const getServerSideProps: GetServerSideProps<
             release_date: album.release_date,
           });
         }
-      // if track appears as a single and also in an album,
-      // implement logic to select the track that appears on the album
-      } else if (album.album_group === "album"){ // && tracksResponse.length > 1) {
+        // if track appears as a single and also in an album,
+        // implement logic to select the track that appears on the album
+      } else if (album.album_group === "album") {
+        // && tracksResponse.length > 1) {
         console.log("IN");
-        const albumTracks = tracksResponse.find((track) =>
-          track.album_type === "album" && track.artist.id === artistId
+        const albumTracks = tracksResponse.find(
+          (track) =>
+            track.album_type === "album" && track.artist.id === artistId
         );
         console.log("Album Tracks:", albumTracks);
         if (albumTracks) {
@@ -118,12 +120,10 @@ export const getServerSideProps: GetServerSideProps<
             name: track.name,
             preview_url: track.preview_url,
             track_url: track.external_urls.spotify,
-            artists: track.artists.map(
-              (artist: { id: any; name: any }) => ({
-                id: artist.id,
-                name: artist.name,
-              })
-            ),
+            artists: track.artists.map((artist: { id: any; name: any }) => ({
+              id: artist.id,
+              name: artist.name,
+            })),
             album_name: album.name,
             images: album.images,
             album_type: album.album_type,

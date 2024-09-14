@@ -15,7 +15,7 @@ export const fansRouter = createTRPCRouter({
     .query(async ({ ctx, input }) => {
       const fanData = await ctx.prisma.fan.findUnique({
         where: {
-          uuid: input.uuid
+          uuid: input.uuid,
         },
       });
 
@@ -36,7 +36,7 @@ export const fansRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const exists = await ctx.prisma.fan.findUnique({
-        where: {uuid: input.uuid},
+        where: { uuid: input.uuid },
       });
 
       if (exists) {
@@ -77,7 +77,7 @@ export const fansRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const fanAnthem = await ctx.prisma.fan.update({
-        where: {uuid: input.uuid},
+        where: { uuid: input.uuid },
         data: {
           ...input,
         },
@@ -86,7 +86,7 @@ export const fansRouter = createTRPCRouter({
       return fanAnthem;
     }),
 
-    signature: publicProcedure
+  signature: publicProcedure
     .input(
       z.object({
         uuid: z.string(),
@@ -95,7 +95,7 @@ export const fansRouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       const fanSignature = await ctx.prisma.fan.update({
-        where: {uuid: input.uuid},
+        where: { uuid: input.uuid },
         data: {
           ...input,
         },

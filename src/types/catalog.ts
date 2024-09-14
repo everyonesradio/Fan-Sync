@@ -4,9 +4,9 @@ export type Artist = {
 };
 
 export type Image = {
-  url:   string;
+  url: string;
   height: number;
-  width:  number;
+  width: number;
 };
 
 export type Catalog = {

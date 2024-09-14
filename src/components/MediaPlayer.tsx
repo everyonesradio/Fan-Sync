@@ -12,7 +12,9 @@ type MediaPlayerProps = {
 };
 
 const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
-  const audioRef = useRef<HTMLAudioElement>(selectedAnthem?.preview_url ? new Audio(selectedAnthem?.preview_url) : null); 
+  const audioRef = useRef<HTMLAudioElement>(
+    selectedAnthem?.preview_url ? new Audio(selectedAnthem?.preview_url) : null
+  );
 
   useEffect(() => {
     // Capture the current value of the ref
@@ -56,9 +58,10 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
           {selectedAnthem.release_date.split("-")[0]}
         </p>
         {
-        <audio ref={audioRef} style={{ display: 'none' }}>
-          <source src={selectedAnthem.preview_url} type="audio/mpeg" />
-        </audio>}
+          <audio ref={audioRef} style={{ display: "none" }}>
+            <source src={selectedAnthem.preview_url} type='audio/mpeg' />
+          </audio>
+        }
       </div>
     </div>
   );
