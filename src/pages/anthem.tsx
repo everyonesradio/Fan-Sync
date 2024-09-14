@@ -21,26 +21,7 @@ const Anthem: React.FC = () => {
   const { licenseID } = useLicense();
   const router = useRouter();
 
-  const handleKeyDown = (event: any) => {
-    const query = event.target.value;
-    setSearchQuery(query);
-  };
-
-  const handleSearch = () => {
-    const originalAlbums = artistCatalog.items;
-    //const searchQuery = userSearch;
-    //remove duplicate songs
-    const songName = new Set();
-    originalAlbums.forEach((track) => {
-      if(!songName.has(track.name) && track.album_type === "album"){ 
-        songName.add(track);
-      }
-    });
-    //const uniqueSongs = [...songName];
-    //console.log("uniqueSongs:", uniqueSongs);
-    return songName;
-    // Filter the original albums based on the search query
-  };
+  console.log("licenseID");
 
   useEffect(() => {
     const originalAlbums = artistCatalog.items;
@@ -104,14 +85,14 @@ const Anthem: React.FC = () => {
           value={searchQuery}
           onKeyDown={(e: any) => {
             if (e.key == "Enter") {
-              handleSearch();
+              //handleSearch();
             }
           }}
-          onChange={handleKeyDown}
+          //onChange={handleKeyDown}
           className='mb-4 w-72'
         />
         <Button
-          onClick={handleSearch}
+          //onClick={handleSearch}
           className='hover:bg-slate-300 ml-1'
           style={{
             boxShadow: "none",
