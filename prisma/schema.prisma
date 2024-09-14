@@ -17,26 +17,26 @@ model Fan {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   uuid           String   @unique
   profilePicture String
-  timestamp      DateTime
+  timestamp      DateTime?
   dob            String
   email          String
   fullname       String
   location       String
   username       String
-  signature      String
-  anthem         Anthem
+  signature      String?
+  anthem         Anthem?
 }
 
 type Anthem {
   id          String
   name        String
-  previewUrl  String   @map("preview_url")
-  trackUrl    String   @map("track_url")
+  preview_url  String
+  track_url    String
   artists     Artist[]
   images      Image[]
-  albumType   String   @map("album_type")
-  albumGroup  String   @map("album_group")
-  releaseDate String   @map("release_date")
+  album_type   String
+  album_group  String
+  release_date String
 }
 
 type Artist {
