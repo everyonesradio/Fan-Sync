@@ -1,9 +1,9 @@
 // ** React/Next.js Imports
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 // ** Custom Components, Hooks, Utils, etc.
-import { useLicense } from "@/context/LicenseContext";
 import FanLicense from "@/components/FanLicense";
 import { api } from "@/utils/trpc";
 
@@ -17,7 +17,8 @@ const license = [
 ];
 
 const License = () => {
-  const { licenseID } = useLicense();
+  const router = useRouter();
+  const licenseID = router.query.id as string;
   const { data: fanData } = api.fans.get.useQuery(
     { uuid: String(licenseID) },
     { enabled: !!licenseID }
