@@ -112,7 +112,7 @@ export const getServerSideProps: GetServerSideProps<
         }
         console.log("Album Tracks:", allTracks);
       } else {
-        // For other albums, add track/album details to artist catalog
+        // For other albums, add all tracks to artist catalog
         tracksResponse.forEach((track) => {
           allTracks.push({
             id: track.id,

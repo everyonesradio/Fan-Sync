@@ -5,7 +5,6 @@ import Image from "next/image";
 // ** Custom Components, Hooks, Utils, etc.
 import { upperCase } from "@/utils/upper-case";
 import { Catalog } from "@/types/catalog";
-import searchQuery from "@/pages/anthem";
 
 type MediaPlayerProps = {
   selectedAnthem: Catalog;
