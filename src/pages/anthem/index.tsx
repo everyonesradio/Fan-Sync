@@ -5,14 +5,15 @@ import { useRouter } from "next/navigation";
 
 // ** React95 Imports
 import { Input, List, Button } from "@react95/core";
+import { SccviewIcon } from "@react95/icons";
 
 // ** Custom Components, Hooks, Utils, etc.
-import { useSpotify } from "@/context/SpotifyContext";
-import { useLicense } from "@/context/LicenseContext";
 import MediaPlayer from "@/components/MediaPlayer";
+import { useLicense } from "@/context/LicenseContext";
+import { useSpotify } from "@/context/SpotifyContext";
 import { Catalog } from "@/types/catalog";
-import { upperCase } from "@/utils/upper-case";
 import { api } from "@/utils/trpc";
+import { upperCase } from "@/utils/upper-case";
 
 const Anthem: React.FC = () => {
   const router = useRouter();
@@ -70,28 +71,22 @@ const Anthem: React.FC = () => {
       <h1 className='font-bold text-5xl text-center text-white p-8'>
         Choose Your SGaWD Anthem
       </h1>
-      <div className='mb-4 '>
-        <Input
-          placeholder='Your Anthem'
-          value={searchQuery}
-          onKeyPress={(e: any) => {
-            if (e.key == "Enter") {
-              handleSearch(e);
-            }
-          }}
-          onChange={handleSearch}
-        />
-        <Button
-          onClick={handleSearch}
-          className='hover:bg-slate-300 ml-1'
-          style={{
-            boxShadow: "none",
-            paddingTop: "3px",
-            paddingBottom: "6px",
-          }}
-        >
-          Search
-        </Button>
+      <div className='mb-4'>
+        <div className="relative mb-4">
+          <Input
+            placeholder='Your Anthem'
+            value={searchQuery}
+            onKeyPress={(e: any) => {
+              if (e.key == "Enter") {
+                handleSearch(e);
+              }
+            }}
+            onChange={handleSearch}
+          />
+          <div className="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none">
+            <SccviewIcon variant='16x16_4'/>
+          </div>
+        </div>
         {searchQuery && (
           <div className='max-h-64 overflow-auto scrollbar-hide mt-2 p-1'>
             <List>
