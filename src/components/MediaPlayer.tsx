@@ -53,7 +53,6 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
         <div className='font-bold text-xl mb-2'>{selectedAnthem.name}</div>
         <p className='text-gray-700 text-base'>
           {upperCase(selectedAnthem.album_type)} -{" "}
-          {upperCase(selectedAnthem.album_name)}{" "}
           {selectedAnthem.release_date.split("-")[0]}
         </p>
         {
