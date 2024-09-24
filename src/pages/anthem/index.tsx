@@ -23,10 +23,10 @@ const Anthem: React.FC = () => {
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<Catalog[]>([]);
-  const [selectedAnthem, setSelectedAnthem] = useState<any>(null);
+  const [selectedAnthem, setSelectedAnthem] = useState<Catalog | null>(null);
   
   useEffect(() => {
-    const originalAlbums = artistCatalog.items;
+    const originalAlbums = artistCatalog.items; 
     // Filter the original albums based on the search query
     if (searchQuery) {
       const filteredResults = originalAlbums.filter((result) =>
@@ -38,7 +38,7 @@ const Anthem: React.FC = () => {
     }
   }, [artistCatalog, searchQuery]);
 
-  const handleSearch = (e: any) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;
     setSearchQuery(query);
   };
@@ -76,9 +76,9 @@ const Anthem: React.FC = () => {
           <Input
             placeholder='Your Anthem'
             value={searchQuery}
-            onKeyPress={(e: any) => {
-              if (e.key == "Enter") {
-                handleSearch(e);
+            onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
+              if (e.key === "Enter") {
+                handleSearch(e as unknown as React.ChangeEvent<HTMLInputElement>);
               }
             }}
             onChange={handleSearch}
