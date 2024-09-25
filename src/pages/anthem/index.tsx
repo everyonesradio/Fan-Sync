@@ -30,6 +30,7 @@ const Anthem: React.FC = () => {
     // Filter the original albums based on the search query
     if (searchQuery) {
       const filteredResults = originalAlbums.filter((result) =>
+        //result.album_name.toLowerCase().includes(searchQuery.toLowerCase()) || 
         result.name.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setSearchResults(filteredResults);

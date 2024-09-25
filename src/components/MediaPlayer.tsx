@@ -11,13 +11,11 @@ type MediaPlayerProps = {
 };
 
 const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
-  const audioRef = useRef<HTMLAudioElement>(
-    selectedAnthem?.preview_url ? new Audio(selectedAnthem?.preview_url) : null
-  );
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     // Capture the current value of the ref
-    const audioElement = audioRef.current;
+    const audioElement = selectedAnthem?.preview_url? new Audio(selectedAnthem.preview_url): null;
     console.log("Audio element:", audioElement);
 
     // Check if the audio element is available and not null
@@ -35,6 +33,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
     // Use the captured value in the cleanup function
     return () => {
       if (audioElement) {
+        audioElement.pause();
         audioElement.removeEventListener("ended", handleAudioEnded);
       }
     };

@@ -90,6 +90,7 @@ ArtistCatalog
               })
             ),
             images: album.images,
+            album_name: album.album_name || null,
             album_type: album.album_type,
             album_group: album.album_group,
             release_date: album.release_date,
@@ -110,6 +111,7 @@ ArtistCatalog
               })
             ),
             images: album.images,
+            album_name: album.album_name || null,
             album_type: album.album_type,
             album_group: album.album_group,
             release_date: album.release_date,
@@ -120,9 +122,11 @@ ArtistCatalog
 
     // Remove duplicate tracks, prioritizing album tracks
     const uniqueTracks = removeDuplicateTracks(allTracks);
+    //console.log(uniqueTracks);
 
     const artistCatalog: ArtistCatalog = {
       items: uniqueTracks,
+
     };
 
     return {
