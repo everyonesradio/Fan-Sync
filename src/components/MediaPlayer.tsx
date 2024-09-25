@@ -18,11 +18,8 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
       ? new Audio(selectedAnthem.preview_url)
       : null;
 
-    console.log("Audio element:", audioElement);
-
     // Check if the audio element is available and not null
     if (audioElement && selectedAnthem?.preview_url) {
-      console.log("Audio element:", audioElement);
       // Play the audio automatically
       audioElement.play();
     }
