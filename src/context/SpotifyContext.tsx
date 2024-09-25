@@ -1,13 +1,15 @@
 import React, {
   createContext,
-  ReactNode,
+  type ReactNode,
   useContext,
   useState,
   useMemo,
   useEffect,
 } from "react";
-import type { ArtistCatalog } from "@/types/catalog";
+
 import { debounce } from "lodash";
+
+import type { ArtistCatalog } from "@/types/catalog";
 
 interface SpotifyContextType {
   artistCatalog: ArtistCatalog;

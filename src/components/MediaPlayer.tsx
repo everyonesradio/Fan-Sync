@@ -1,24 +1,23 @@
 // ** React/Next.js Imports
-import React, { useEffect, useRef } from "react";
 import Image from "next/image";
+import React, { useEffect, useRef } from "react";
 
 // ** Custom Components, Hooks, Utils, etc.
+import type { Catalog } from "@/types/catalog";
 import { upperCase } from "@/utils/upper-case";
-import { Catalog } from "@/types/catalog";
-import searchQuery from "@/pages/anthem";
 
 type MediaPlayerProps = {
   selectedAnthem: Catalog;
 };
 
 const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
-  const audioRef = useRef<HTMLAudioElement>(
-    selectedAnthem?.preview_url ? new Audio(selectedAnthem?.preview_url) : null
-  );
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Capture the current value of the ref
-    let audioElement = audioRef.current;
+    const audioElement = selectedAnthem?.preview_url
+      ? new Audio(selectedAnthem.preview_url)
+      : null;
+
     console.log("Audio element:", audioElement);
 
     // Check if the audio element is available and not null
@@ -36,6 +35,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
     // Use the captured value in the cleanup function
     return () => {
       if (audioElement) {
+        audioElement.pause();
         audioElement.removeEventListener("ended", handleAudioEnded);
       }
     };
@@ -54,14 +54,13 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
         <div className='font-bold text-xl mb-2'>{selectedAnthem.name}</div>
         <p className='text-gray-700 text-base'>
           {upperCase(selectedAnthem.album_type)} -{" "}
-          {upperCase(selectedAnthem.album_name)}{" "}
           {selectedAnthem.release_date.split("-")[0]}
         </p>
-        {
+        {selectedAnthem.preview_url && (
           <audio ref={audioRef} style={{ display: "none" }}>
             <source src={selectedAnthem.preview_url} type='audio/mpeg' />
           </audio>
-        }
+        )}
       </div>
     </div>
   );

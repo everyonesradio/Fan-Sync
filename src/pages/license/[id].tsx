@@ -1,7 +1,7 @@
 // ** React/Next.js Imports
-import React, { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import React, { useState } from "react";
 
 // ** Custom Components, Hooks, Utils, etc.
 import FanLicense from "@/components/FanLicense";

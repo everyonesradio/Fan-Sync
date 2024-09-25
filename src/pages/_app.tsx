@@ -1,15 +1,17 @@
 // ** React/Next.js Imports
 import type { AppProps } from "next/app";
+
+import { ThemeProvider, GlobalStyle } from "@react95/core";
+
 import { Analytics } from "@vercel/analytics/react";
 
 // ** React95 Imports
-import { ThemeProvider, GlobalStyle } from "@react95/core";
 
 // ** Custom Components, Hooks, Utils, etc.
 import Meta from "@/components/Meta";
+import { FormDataProvider } from "@/context/FormDataContext";
 import { LicenseProvider } from "@/context/LicenseContext";
 import { SpotifyProvider } from "@/context/SpotifyContext";
-import { FormDataProvider } from "@/context/FormDataContext";
 import { api } from "@/utils/trpc";
 
 // ** Styles

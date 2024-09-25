@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useMemo } from "react";
+
 import { v4 as uuidv4 } from "uuid";
 
 interface LicenseContextValue {
@@ -12,7 +13,9 @@ interface LicenseProviderProps {
 
 const LicenseContext = createContext<LicenseContextValue>({
   licenseID: null,
-  setLicenseID: () => {},
+  setLicenseID: () => {
+    /* no-op */
+  },
 });
 
 export const useLicense = () => useContext(LicenseContext);

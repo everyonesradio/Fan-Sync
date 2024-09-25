@@ -1,6 +1,6 @@
 // ** React/Next.js Imports
-import React from "react";
 import Image from "next/image";
+import React from "react";
 
 // ** Custom Components, Hooks, Utils, etc.
 import Card from "@/components/3DLicenseCard";
