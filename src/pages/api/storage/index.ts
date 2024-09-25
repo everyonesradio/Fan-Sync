@@ -1,11 +1,13 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
+
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 import { storage } from "@lib/firebase";
 import {
   formidableConfig,
   formidablePromise,
   fileConsumer,
 } from "@lib/formidable";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export default async function filePOST(
   req: NextApiRequest,
@@ -18,7 +20,7 @@ export default async function filePOST(
   });
   const file = files.file;
   const fileBuffer = Buffer.concat(chunks);
-  if (!file || !file[0]) {
+  if (!file?.[0]) {
     return res.status(400).json({ error: "No File Provided" });
   }
   if (file[0].size > 5 * 1024 * 1024) {

@@ -9,12 +9,12 @@ export interface FanData {
     name: string;
     preview_url: string;
     track_url: string;
-    artists: Array<{ id: string; name: string }>;
-    images: Array<{
+    artists: { id: string; name: string }[];
+    images: {
       height: { $numberInt: string };
       url: string;
       width: { $numberInt: string };
-    }>;
+    }[];
     album_type: string;
     album_group: string;
     release_date: string;

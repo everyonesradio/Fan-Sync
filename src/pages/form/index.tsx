@@ -1,13 +1,13 @@
 // ** React/Next.js Imports
-import React, { useState, useEffect, ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
+import React, { useState, useEffect, type ChangeEvent } from "react";
 
 // ** React95 Imports
 import { Input, Button } from "@react95/core";
 
 // ** Custom Components, Hooks, Utils, etc.
-import { useLicense } from "@/context/LicenseContext";
 import { useFormContext } from "@/context/FormDataContext";
+import { useLicense } from "@/context/LicenseContext";
 import { api } from "@/utils/trpc";
 
 interface FormErrors {
@@ -34,7 +34,7 @@ const Form = () => {
 
   // Validate form
   const validateForm = () => {
-    let errors = {} as FormErrors;
+    const errors = {} as FormErrors;
 
     if (!fullname && fullname.length === 0) {
       errors.fullname = "Full name is required";
@@ -69,7 +69,7 @@ const Form = () => {
   };
 
   const validateField = (name: string, value: string) => {
-    let fieldErrors = { ...errors };
+    const fieldErrors = { ...errors };
     switch (name) {
       case "fullname":
         if (!value) {
