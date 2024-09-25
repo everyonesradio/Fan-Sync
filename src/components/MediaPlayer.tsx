@@ -14,8 +14,10 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Capture the current value of the ref
-    const audioElement = selectedAnthem?.preview_url? new Audio(selectedAnthem.preview_url): null;
+    const audioElement = selectedAnthem?.preview_url
+      ? new Audio(selectedAnthem.preview_url)
+      : null;
+
     console.log("Audio element:", audioElement);
 
     // Check if the audio element is available and not null
@@ -54,11 +56,11 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
           {upperCase(selectedAnthem.album_type)} -{" "}
           {selectedAnthem.release_date.split("-")[0]}
         </p>
-        {
+        {selectedAnthem.preview_url && (
           <audio ref={audioRef} style={{ display: "none" }}>
             <source src={selectedAnthem.preview_url} type='audio/mpeg' />
           </audio>
-        }
+        )}
       </div>
     </div>
   );

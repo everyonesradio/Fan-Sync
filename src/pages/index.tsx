@@ -55,7 +55,7 @@ const removeDuplicateTracks = (tracks: any[]): any[] => {
 };
 
 export const getServerSideProps: GetServerSideProps<
-ArtistCatalog
+  ArtistCatalog
 > = async () => {
   try {
     // Get all tracks in an artist's catalog
@@ -90,7 +90,7 @@ ArtistCatalog
               })
             ),
             images: album.images,
-            album_name: album.album_name || null,
+            album_name: album.name,
             album_type: album.album_type,
             album_group: album.album_group,
             release_date: album.release_date,
@@ -111,7 +111,7 @@ ArtistCatalog
               })
             ),
             images: album.images,
-            album_name: album.album_name || null,
+            album_name: album.name,
             album_type: album.album_type,
             album_group: album.album_group,
             release_date: album.release_date,
