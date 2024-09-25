@@ -1,14 +1,14 @@
 // ** React/Next.js Imports
-import React, { useEffect } from "react";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
+import React, { useEffect } from "react";
 
 // ** Custom Components, Hooks, Utils, etc.
 import { useSpotify } from "@/context/SpotifyContext";
-import SpotifyAPI from "@lib/spotify";
-import WelcomeSection from "@/views/WelcomeSection";
+import type { ArtistCatalog } from "@/types/catalog";
 import AboutSection from "@/views/AboutSection";
 import CardSection from "@/views/CardSection";
-import { ArtistCatalog } from "@/types/catalog";
+import WelcomeSection from "@/views/WelcomeSection";
+import SpotifyAPI from "@lib/spotify";
 
 // Fetch artist albums
 const fetchAlbums = async (artistId: string): Promise<any[]> => {
@@ -40,10 +40,13 @@ const fetchTracks = async (albumId: string): Promise<any[]> => {
 
 const removeDuplicateTracks = (tracks: any[]): any[] => {
   const uniqueTracks = new Map();
-  
-  tracks.forEach(track => {
+
+  tracks.forEach((track) => {
     const existingTrack = uniqueTracks.get(track.name);
-    if (!existingTrack || (existingTrack.album_type !== 'album' && track.album_type === 'album')) {
+    if (
+      !existingTrack ||
+      (existingTrack.album_type !== "album" && track.album_type === "album")
+    ) {
       uniqueTracks.set(track.name, track);
     }
   });
@@ -52,7 +55,7 @@ const removeDuplicateTracks = (tracks: any[]): any[] => {
 };
 
 export const getServerSideProps: GetServerSideProps<
-  ArtistCatalog
+ArtistCatalog
 > = async () => {
   try {
     // Get all tracks in an artist's catalog
@@ -60,7 +63,7 @@ export const getServerSideProps: GetServerSideProps<
     const artistName = "SGaWD";
 
     const albumsResponse = await fetchAlbums(artistId);
-    let allTracks: any[] = [];
+    const allTracks: any[] = [];
 
     for (const album of albumsResponse) {
       const tracksResponse = await fetchTracks(album.id);
@@ -100,10 +103,12 @@ export const getServerSideProps: GetServerSideProps<
             name: track.name,
             preview_url: track.preview_url,
             track_url: track.external_urls.spotify,
-            artists: track.artists.map((artist: { id: string; name: string }) => ({
-              id: artist.id,
-              name: artist.name,
-            })),
+            artists: track.artists.map(
+              (artist: { id: string; name: string }) => ({
+                id: artist.id,
+                name: artist.name,
+              })
+            ),
             images: album.images,
             album_type: album.album_type,
             album_group: album.album_group,

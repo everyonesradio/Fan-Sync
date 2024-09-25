@@ -1,10 +1,10 @@
 // ** React/Next.js Imports
-import React, { useEffect, useRef } from "react";
 import Image from "next/image";
+import React, { useEffect, useRef } from "react";
 
 // ** Custom Components, Hooks, Utils, etc.
+import type { Catalog } from "@/types/catalog";
 import { upperCase } from "@/utils/upper-case";
-import { Catalog } from "@/types/catalog";
 
 type MediaPlayerProps = {
   selectedAnthem: Catalog;
@@ -17,7 +17,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
 
   useEffect(() => {
     // Capture the current value of the ref
-    let audioElement = audioRef.current;
+    const audioElement = audioRef.current;
     console.log("Audio element:", audioElement);
 
     // Check if the audio element is available and not null

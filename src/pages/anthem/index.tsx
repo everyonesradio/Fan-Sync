@@ -1,7 +1,7 @@
 // ** React/Next.js Imports
-import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
 
 // ** React95 Imports
 import { Input, List, Button } from "@react95/core";
@@ -11,7 +11,7 @@ import { SccviewIcon } from "@react95/icons";
 import MediaPlayer from "@/components/MediaPlayer";
 import { useLicense } from "@/context/LicenseContext";
 import { useSpotify } from "@/context/SpotifyContext";
-import { Catalog } from "@/types/catalog";
+import type { Catalog } from "@/types/catalog";
 import { api } from "@/utils/trpc";
 import { upperCase } from "@/utils/upper-case";
 
@@ -24,9 +24,9 @@ const Anthem: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<Catalog[]>([]);
   const [selectedAnthem, setSelectedAnthem] = useState<Catalog | null>(null);
-  
+
   useEffect(() => {
-    const originalAlbums = artistCatalog.items; 
+    const originalAlbums = artistCatalog.items;
     // Filter the original albums based on the search query
     if (searchQuery) {
       const filteredResults = originalAlbums.filter((result) =>
@@ -50,9 +50,9 @@ const Anthem: React.FC = () => {
     }
 
     try {
-      const data = await updateAnthem({ 
-        uuid: licenseID!, 
-        anthem: selectedAnthem 
+      const data = await updateAnthem({
+        uuid: licenseID!,
+        anthem: selectedAnthem,
       });
 
       if (!data) {
@@ -72,19 +72,21 @@ const Anthem: React.FC = () => {
         Choose Your SGaWD Anthem
       </h1>
       <div className='mb-4'>
-        <div className="relative mb-4">
+        <div className='relative mb-4'>
           <Input
             placeholder='Your Anthem'
             value={searchQuery}
             onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
               if (e.key === "Enter") {
-                handleSearch(e as unknown as React.ChangeEvent<HTMLInputElement>);
+                handleSearch(
+                  e as unknown as React.ChangeEvent<HTMLInputElement>
+                );
               }
             }}
             onChange={handleSearch}
           />
-          <div className="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none">
-            <SccviewIcon variant='16x16_4'/>
+          <div className='absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none'>
+            <SccviewIcon variant='16x16_4' />
           </div>
         </div>
         {searchQuery && (

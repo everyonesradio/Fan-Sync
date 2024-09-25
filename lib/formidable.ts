@@ -1,6 +1,8 @@
 import { Writable } from "stream";
+
+import type { NextApiRequest } from "next";
+
 import formidable from "formidable";
-import { NextApiRequest } from "next";
 
 export const formidableConfig = {
   maxFields: 7,
