@@ -69,6 +69,7 @@ export const fansRouter = createTRPCRouter({
           images: z.array(
             z.object({ url: z.string(), height: z.number(), width: z.number() })
           ),
+          album_name: z.string(),
           album_type: z.string(),
           album_group: z.string(),
           release_date: z.string(),

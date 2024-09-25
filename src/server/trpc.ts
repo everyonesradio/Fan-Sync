@@ -22,7 +22,7 @@ import prisma from "@lib/prisma";
  * @see https://trpc.io/docs/context
  */
 export const createTRPCContext = async (opts: CreateNextContextOptions) => {
-  const { req, res } = opts;
+  const { req: _req, res: _res } = opts;
 
   return {
     prisma,

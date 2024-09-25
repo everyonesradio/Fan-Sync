@@ -1,6 +1,6 @@
 // ** React/Next.js Imports
 import { useRouter } from "next/navigation";
-import React, { useState, useEffect, type ChangeEvent } from "react";
+import React, { useState, type ChangeEvent } from "react";
 
 // ** React95 Imports
 import { Input, Button } from "@react95/core";
@@ -157,7 +157,7 @@ const Form = () => {
         throw new Error("Server error!");
       }
     } catch (error) {
-      throw new Error(`Error in making requests, ${error}`);
+      console.error("Error making requests:", error);
     }
   };
 

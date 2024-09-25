@@ -14,7 +14,7 @@ export default async function filePOST(
   res: NextApiResponse
 ) {
   const chunks: never[] = [];
-  const { fields, files } = await formidablePromise(req, {
+  const { fields: _fields, files } = await formidablePromise(req, {
     ...formidableConfig,
     fileWriteStreamHandler: () => fileConsumer(chunks),
   });
@@ -47,7 +47,6 @@ export default async function filePOST(
     return res.status(500).send(tmp);
   }
 }
-
 // Disable parsing the body by Next.js default behavior
 export const config = {
   api: {

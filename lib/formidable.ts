@@ -21,7 +21,7 @@ export function formidablePromise(
     const form = formidable(opts);
     form.parse(req, (err, fields, files) => {
       if (err) {
-        return reject(err);
+        return reject(new Error(err.message));
       }
       return accept({ fields, files });
     });
