@@ -34,6 +34,7 @@ type Anthem {
   track_url    String
   artists     Artist[]
   images      Image[]
+  album_name   String
   album_type   String
   album_group  String
   release_date String

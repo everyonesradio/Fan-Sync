@@ -1,25 +1,28 @@
 // ** React/Next.js Imports
-import React, { useEffect, useRef } from "react";
 import Image from "next/image";
+import React, { useEffect, useRef } from "react";
 
 // ** Custom Components, Hooks, Utils, etc.
+import type { Catalog } from "@/types/catalog";
 import { upperCase } from "@/utils/upper-case";
-import { Catalog } from "@/types/catalog";
 
 type MediaPlayerProps = {
   selectedAnthem: Catalog;
 };
 
 const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
-  const audioRef = useRef<HTMLAudioElement>(null);
-  console.log(selectedAnthem);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Capture the current value of the ref
-    let audioElement = audioRef.current;
+    const audioElement = selectedAnthem?.preview_url
+      ? new Audio(selectedAnthem.preview_url)
+      : null;
+
+    console.log("Audio element:", audioElement);
 
     // Check if the audio element is available and not null
     if (audioElement && selectedAnthem?.preview_url) {
+      console.log("Audio element:", audioElement);
       // Play the audio automatically
       audioElement.play();
     }
@@ -32,6 +35,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
     // Use the captured value in the cleanup function
     return () => {
       if (audioElement) {
+        audioElement.pause();
         audioElement.removeEventListener("ended", handleAudioEnded);
       }
     };
@@ -40,7 +44,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
   return (
     <div className='max-w-sm rounded overflow-hidden shadow-lg m-4 bg-white'>
       <Image
-        className='w-full'
+        className='w-full h-64 object-cover object-center'
         src={selectedAnthem.images[0].url}
         alt='Album Cover'
         width={100}
@@ -52,11 +56,11 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
           {upperCase(selectedAnthem.album_type)} -{" "}
           {selectedAnthem.release_date.split("-")[0]}
         </p>
-        {/* Audio Playback: Flagged for now
-        <audio ref={audioRef} style={{ display: 'none' }}>
-          <source src={selectedAnthem.preview_url} type="audio/mpeg" />
-          Your browser does not support the audio element.
-        </audio> */}
+        {selectedAnthem.preview_url && (
+          <audio ref={audioRef} style={{ display: "none" }}>
+            <source src={selectedAnthem.preview_url} type='audio/mpeg' />
+          </audio>
+        )}
       </div>
     </div>
   );

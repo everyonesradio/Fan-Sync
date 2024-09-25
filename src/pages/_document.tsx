@@ -3,8 +3,9 @@ import Document, {
   Head,
   Main,
   NextScript,
-  DocumentContext,
+  type DocumentContext,
 } from "next/document";
+
 import { ServerStyleSheet } from "styled-components";
 
 class MyDocument extends Document {

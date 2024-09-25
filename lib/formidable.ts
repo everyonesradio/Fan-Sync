@@ -1,6 +1,8 @@
 import { Writable } from "stream";
+
+import type { NextApiRequest } from "next";
+
 import formidable from "formidable";
-import { NextApiRequest } from "next";
 
 export const formidableConfig = {
   maxFields: 7,
@@ -19,7 +21,7 @@ export function formidablePromise(
     const form = formidable(opts);
     form.parse(req, (err, fields, files) => {
       if (err) {
-        return reject(err);
+        return reject(new Error(err.message));
       }
       return accept({ fields, files });
     });

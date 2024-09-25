@@ -1,14 +1,14 @@
 // ** React/Next.js Imports
-import React, { useEffect } from "react";
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
+import React, { useEffect } from "react";
 
 // ** Custom Components, Hooks, Utils, etc.
 import { useSpotify } from "@/context/SpotifyContext";
-import SpotifyAPI from "@lib/spotify";
-import WelcomeSection from "@/views/WelcomeSection";
+import type { ArtistCatalog } from "@/types/catalog";
 import AboutSection from "@/views/AboutSection";
 import CardSection from "@/views/CardSection";
-import { ArtistCatalog } from "@/types/catalog";
+import WelcomeSection from "@/views/WelcomeSection";
+import SpotifyAPI from "@lib/spotify";
 
 // Fetch artist albums
 const fetchAlbums = async (artistId: string): Promise<any[]> => {
@@ -38,6 +38,22 @@ const fetchTracks = async (albumId: string): Promise<any[]> => {
   }
 };
 
+const removeDuplicateTracks = (tracks: any[]): any[] => {
+  const uniqueTracks = new Map();
+
+  tracks.forEach((track) => {
+    const existingTrack = uniqueTracks.get(track.name);
+    if (
+      !existingTrack ||
+      (existingTrack.album_type !== "album" && track.album_type === "album")
+    ) {
+      uniqueTracks.set(track.name, track);
+    }
+  });
+
+  return Array.from(uniqueTracks.values());
+};
+
 export const getServerSideProps: GetServerSideProps<
   ArtistCatalog
 > = async () => {
@@ -47,7 +63,7 @@ export const getServerSideProps: GetServerSideProps<
     const artistName = "SGaWD";
 
     const albumsResponse = await fetchAlbums(artistId);
-    let allTracks: any[] = [];
+    const allTracks: any[] = [];
 
     for (const album of albumsResponse) {
       const tracksResponse = await fetchTracks(album.id);
@@ -68,12 +84,13 @@ export const getServerSideProps: GetServerSideProps<
             preview_url: featureTrack.preview_url,
             track_url: featureTrack.external_urls.spotify,
             artists: featureTrack.artists.map(
-              (artist: { id: any; name: any }) => ({
+              (artist: { id: string; name: string }) => ({
                 id: artist.id,
                 name: artist.name,
               })
             ),
             images: album.images,
+            album_name: album.name,
             album_type: album.album_type,
             album_group: album.album_group,
             release_date: album.release_date,
@@ -87,11 +104,14 @@ export const getServerSideProps: GetServerSideProps<
             name: track.name,
             preview_url: track.preview_url,
             track_url: track.external_urls.spotify,
-            artists: track.artists.map((artist: { id: any; name: any }) => ({
-              id: artist.id,
-              name: artist.name,
-            })),
+            artists: track.artists.map(
+              (artist: { id: string; name: string }) => ({
+                id: artist.id,
+                name: artist.name,
+              })
+            ),
             images: album.images,
+            album_name: album.name,
             album_type: album.album_type,
             album_group: album.album_group,
             release_date: album.release_date,
@@ -100,8 +120,13 @@ export const getServerSideProps: GetServerSideProps<
       }
     }
 
+    // Remove duplicate tracks, prioritizing album tracks
+    const uniqueTracks = removeDuplicateTracks(allTracks);
+    //console.log(uniqueTracks);
+
     const artistCatalog: ArtistCatalog = {
-      items: allTracks,
+      items: uniqueTracks,
+
     };
 
     return {
@@ -134,7 +159,6 @@ const Home = ({
       <div className='snap-y snap-mandatory h-screen w-screen overflow-scroll scrollbar-hide'>
         <WelcomeSection />
         <AboutSection />
-        {/* <ProjectSection /> */}
         <CardSection />
       </div>
     </main>
