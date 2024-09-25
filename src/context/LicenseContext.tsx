@@ -13,7 +13,9 @@ interface LicenseProviderProps {
 
 const LicenseContext = createContext<LicenseContextValue>({
   licenseID: null,
-  setLicenseID: () => {},
+  setLicenseID: () => {
+    /* no-op */
+  },
 });
 
 export const useLicense = () => useContext(LicenseContext);
