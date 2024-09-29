@@ -2,6 +2,9 @@
 import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
 import React, { useEffect } from "react";
 
+// ** Third-Party Imports
+import type { Anthem } from "@prisma/client";
+
 // ** Custom Components, Hooks, Utils, etc.
 import { useSpotify } from "@/context/SpotifyContext";
 import type { ArtistCatalog } from "@/types/catalog";
@@ -63,7 +66,7 @@ export const getServerSideProps: GetServerSideProps<
     const artistName = "SGaWD";
 
     const albumsResponse = await fetchAlbums(artistId);
-    const allTracks: any[] = [];
+    const allTracks: Anthem[] = [];
 
     for (const album of albumsResponse) {
       const tracksResponse = await fetchTracks(album.id);
@@ -90,7 +93,7 @@ export const getServerSideProps: GetServerSideProps<
               })
             ),
             images: album.images,
-            album_name: album.name,
+            album_name: album.name || "",
             album_type: album.album_type,
             album_group: album.album_group,
             release_date: album.release_date,
@@ -111,7 +114,7 @@ export const getServerSideProps: GetServerSideProps<
               })
             ),
             images: album.images,
-            album_name: album.name,
+            album_name: album.name || "",
             album_type: album.album_type,
             album_group: album.album_group,
             release_date: album.release_date,
@@ -122,11 +125,9 @@ export const getServerSideProps: GetServerSideProps<
 
     // Remove duplicate tracks, prioritizing album tracks
     const uniqueTracks = removeDuplicateTracks(allTracks);
-    //console.log(uniqueTracks);
 
     const artistCatalog: ArtistCatalog = {
       items: uniqueTracks,
-
     };
 
     return {
