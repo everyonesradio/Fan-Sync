@@ -36,7 +36,6 @@ const Home = () => {
         });
 
         setEmail('');
-        setErrorMessage('');
 
         toast.success(res.message, {
           position: "bottom-right",
