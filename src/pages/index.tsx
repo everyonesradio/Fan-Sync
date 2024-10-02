@@ -72,7 +72,9 @@ const Home = () => {
           alt='FanSync Home Image'
           width={650}
           height={650}
-          objectFit='contain'
+          style={{
+            objectFit: "contain",
+          }}
         />
       </div>
     </main>
