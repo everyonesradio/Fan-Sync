@@ -1,13 +1,18 @@
 // ** React/Next.js Imports
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+// ** Third-Party Imports
+import { ToastContainer, toast } from "react-toastify";
 
 // ** Custom Components, Hooks, Utils, etc.
 import { api } from "@/utils/trpc";
 
 const Home = () => {
   const { mutateAsync: waitlistEntry } = api.waitlist.add.useMutation();
+
   const [email, setEmail] = useState<string>();
+  const [errorMessage, setErrorMessage] = useState<string>();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -15,17 +20,58 @@ const Home = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Validation checks
+    const emailRegex = /^[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$/;
+
+    if (!email || !emailRegex.test(email)) {
+      setErrorMessage("Please enter a valid email address!");
+      return;
+    }
     
     if (email) {
       try {
-        await waitlistEntry({
+        const res = await waitlistEntry({
           email: email,
         });
+
+        setEmail('');
+        setErrorMessage('');
+
+        toast.success(res.message, {
+          position: "bottom-right",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+          theme: "colored",
+        });
       } catch (error) {
-        console.error("Error making requests:", error);
+        console.error("Server error:", error);
       }
     }
   };
+
+  useEffect(() => {
+    // Error handling with react-toastify
+    if (errorMessage) {
+      toast.error(errorMessage, {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+
+    // Reset error message
+    setErrorMessage("");
+  }, [errorMessage]);
 
   return (
     <main className='flex min-h-screen bg-black p-16'>
@@ -47,7 +93,7 @@ const Home = () => {
             </label>
             <input
               autoComplete='email'
-              className='text-accent-500 block h-10 w-full focus:invalid:border-red-400 focus:invalid:text-red-500 focus:invalid:ring-red-500 appearance-none px-4 py-2 placeholder-zinc-400 duration-200 focus:outline-none focus:ring-zinc-300 sm:text-sm'
+              className='text-accent-500 block h-10 w-full appearance-none px-4 py-2 placeholder-zinc-400 duration-200 focus:outline-none focus:ring-zinc-300 sm:text-sm'
               pattern='[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$'
               id='email-address'
               name='email'
@@ -77,6 +123,18 @@ const Home = () => {
           }}
         />
       </div>
+      <ToastContainer
+          position='bottom-right'
+          autoClose={1800}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable={false}
+          pauseOnHover
+          theme='colored'
+        />
     </main>
   );
 };
