@@ -1,5 +1,6 @@
 // ** React/Next.js Imports
 import type { AppProps } from "next/app";
+import React from "react";
 
 import { ThemeProvider, GlobalStyle } from "@react95/core";
 
@@ -17,6 +18,7 @@ import { api } from "@/utils/trpc";
 // ** Styles
 import "@/styles/globals.css";
 import "@react95/icons/icons.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App({ Component, pageProps }: AppProps) {
   return (
