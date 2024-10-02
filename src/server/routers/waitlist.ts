@@ -20,7 +20,7 @@ export const waitlistRouter = createTRPCRouter({
       });
 
       return {
-        message: "You've been added to the waitlist!",
+        message: "Added to waitlist!",
       };
     }),
 });

@@ -5,6 +5,7 @@ import Document, {
   NextScript,
   type DocumentContext,
 } from "next/document";
+import React from "react";
 
 import { ServerStyleSheet } from "styled-components";
 
@@ -45,6 +46,7 @@ class MyDocument extends Document {
         <link rel='preload' href='/images/card-4.png' as='image' />
         <link rel='preload' href='/images/card-5.png' as='image' />
         <link rel='preload' href='/images/card-6.png' as='image' />
+        <link rel='preload' href='/images/home-page/image.png' as='image' />
         <body>
           <Main />
           <NextScript />
