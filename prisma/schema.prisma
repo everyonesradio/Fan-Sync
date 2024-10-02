@@ -14,8 +14,8 @@ datasource db {
 }
 
 model Fan {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  uuid           String   @unique
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  uuid           String    @unique
   profilePicture String
   timestamp      DateTime?
   dob            String
@@ -27,13 +27,19 @@ model Fan {
   anthem         Anthem?
 }
 
+model Waitlist {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  email     String
+  timestamp DateTime?
+}
+
 type Anthem {
-  id          String
-  name        String
+  id           String
+  name         String
   preview_url  String
   track_url    String
-  artists     Artist[]
-  images      Image[]
+  artists      Artist[]
+  images       Image[]
   album_name   String
   album_type   String
   album_group  String
