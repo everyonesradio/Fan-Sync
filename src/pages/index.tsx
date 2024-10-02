@@ -92,14 +92,10 @@ const Home = () => {
               Email address
             </label>
             <input
-              autoComplete='email'
               className='text-accent-500 block h-10 w-full appearance-none px-4 py-2 placeholder-zinc-400 duration-200 focus:outline-none focus:ring-zinc-300 sm:text-sm'
-              pattern='[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$'
               id='email-address'
               name='email'
               placeholder='johndoe@example.com'
-              required
-              type='email'
               value={email}
               onChange={handleEmailChange}
             />
