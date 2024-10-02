@@ -1,165 +1,79 @@
 // ** React/Next.js Imports
-import type { InferGetServerSidePropsType, GetServerSideProps } from "next";
-import React, { useEffect } from "react";
+import Image from "next/image";
+import React, { useState } from "react";
 
 // ** Custom Components, Hooks, Utils, etc.
-import { useSpotify } from "@/context/SpotifyContext";
-import type { ArtistCatalog } from "@/types/catalog";
-import AboutSection from "@/views/AboutSection";
-import CardSection from "@/views/CardSection";
-import WelcomeSection from "@/views/WelcomeSection";
-import SpotifyAPI from "@lib/spotify";
+import { api } from "@/utils/trpc";
 
-// Fetch artist albums
-const fetchAlbums = async (artistId: string): Promise<any[]> => {
-  try {
-    const response = await SpotifyAPI.artists.albums(
-      artistId,
-      undefined,
-      undefined,
-      50,
-      0
-    );
-    return response.items;
-  } catch (error) {
-    console.error("Failed to fetch albums:", error);
-    return [];
-  }
-};
+const Home = () => {
+  const { mutateAsync: waitlistEntry } = api.waitlist.add.useMutation();
+  const [email, setEmail] = useState<string>();
 
-// Fetch tracks for an album
-const fetchTracks = async (albumId: string): Promise<any[]> => {
-  try {
-    const response = await SpotifyAPI.albums.tracks(albumId, undefined, 50, 0);
-    return response.items;
-  } catch (error) {
-    console.error(`Failed to fetch tracks for album ${albumId}:`, error);
-    return [];
-  }
-};
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
 
-const removeDuplicateTracks = (tracks: any[]): any[] => {
-  const uniqueTracks = new Map();
-
-  tracks.forEach((track) => {
-    const existingTrack = uniqueTracks.get(track.name);
-    if (
-      !existingTrack ||
-      (existingTrack.album_type !== "album" && track.album_type === "album")
-    ) {
-      uniqueTracks.set(track.name, track);
-    }
-  });
-
-  return Array.from(uniqueTracks.values());
-};
-
-export const getServerSideProps: GetServerSideProps<
-  ArtistCatalog
-> = async () => {
-  try {
-    // Get all tracks in an artist's catalog
-    const artistId = "4ufHiOJK9tL0y3QfNwGJ6l";
-    const artistName = "SGaWD";
-
-    const albumsResponse = await fetchAlbums(artistId);
-    const allTracks: any[] = [];
-
-    for (const album of albumsResponse) {
-      const tracksResponse = await fetchTracks(album.id);
-
-      // If the album contains a track that the artist appears on,
-      // implement logic to select the track that the artist is featured on
-      if (album.album_group === "appears_on" && tracksResponse.length > 1) {
-        const featureTrack = tracksResponse.find((track) =>
-          track.artists.some(
-            (artist: { id: string; name: string }) =>
-              artist.id === artistId && artist.name === artistName
-          )
-        );
-        if (featureTrack) {
-          allTracks.push({
-            id: featureTrack.id,
-            name: featureTrack.name,
-            preview_url: featureTrack.preview_url,
-            track_url: featureTrack.external_urls.spotify,
-            artists: featureTrack.artists.map(
-              (artist: { id: string; name: string }) => ({
-                id: artist.id,
-                name: artist.name,
-              })
-            ),
-            images: album.images,
-            album_name: album.name,
-            album_type: album.album_type,
-            album_group: album.album_group,
-            release_date: album.release_date,
-          });
-        }
-      } else {
-        // For other albums, add track/album details to artist catalog
-        tracksResponse.forEach((track) => {
-          allTracks.push({
-            id: track.id,
-            name: track.name,
-            preview_url: track.preview_url,
-            track_url: track.external_urls.spotify,
-            artists: track.artists.map(
-              (artist: { id: string; name: string }) => ({
-                id: artist.id,
-                name: artist.name,
-              })
-            ),
-            images: album.images,
-            album_name: album.name,
-            album_type: album.album_type,
-            album_group: album.album_group,
-            release_date: album.release_date,
-          });
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    if (email) {
+      try {
+        await waitlistEntry({
+          email: email,
         });
+      } catch (error) {
+        console.error("Error making requests:", error);
       }
     }
-
-    // Remove duplicate tracks, prioritizing album tracks
-    const uniqueTracks = removeDuplicateTracks(allTracks);
-    //console.log(uniqueTracks);
-
-    const artistCatalog: ArtistCatalog = {
-      items: uniqueTracks,
-
-    };
-
-    return {
-      props: artistCatalog,
-    };
-  } catch (e) {
-    console.error(e);
-    return {
-      props: { items: [] },
-    };
-  }
-};
-
-const Home = ({
-  items,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { setArtistCatalog } = useSpotify();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchedData: ArtistCatalog = { items };
-      setArtistCatalog(fetchedData);
-    };
-
-    fetchData();
-  }, [items, setArtistCatalog]);
+  };
 
   return (
-    <main>
-      <div className='snap-y snap-mandatory h-screen w-screen overflow-scroll scrollbar-hide'>
-        <WelcomeSection />
-        <AboutSection />
-        <CardSection />
+    <main className='flex min-h-screen bg-black p-16'>
+      <div className='flex flex-col w-1/2'>
+        <div className='flex items-center mb-10 space-x-4'>
+          <div className='w-10 h-10 rounded-full bg-white'></div>
+          <div className='w-96 h-10 bg-white rounded-full'></div>
+          <div className='w-48 h-10 bg-black border-4 border-white rounded-full'></div>
+        </div>
+        <h1 className='text-white text-9xl font-bold mb-8'>FanSync</h1>
+        <div className='text-white text-3xl font-medium mt-6'>
+          <p>A platform where you can take full</p>
+          <p>control of your fanbase</p>
+        </div>
+        <form onSubmit={handleSubmit} method='POST' className='mt-32 max-w-sm'>
+          <div className='flex flex-col gap-2 lg:flex-row'>
+            <label className='sr-only' htmlFor='email-address'>
+              Email address
+            </label>
+            <input
+              autoComplete='email'
+              className='text-accent-500 block h-10 w-full focus:invalid:border-red-400 focus:invalid:text-red-500 focus:invalid:ring-red-500 appearance-none px-4 py-2 placeholder-zinc-400 duration-200 focus:outline-none focus:ring-zinc-300 sm:text-sm'
+              pattern='[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$'
+              id='email-address'
+              name='email'
+              placeholder='johndoe@example.com'
+              required
+              type='email'
+              value={email}
+              onChange={handleEmailChange}
+            />
+            <button
+              className='flex h-10 shrink-0 items-center justify-center gap-2 border-2 border-[#E5E900] px-4 py-2 text-sm font-semibold text-white transition-all hover:bg-[#E5E900] hover:text-black'
+              type='submit'
+            >
+              <span>Join the waitlist</span>
+            </button>
+          </div>
+        </form>
+      </div>
+      <div className='w-1/2 flex items-center justify-center'>
+        <Image
+          src='/images/home-page/image.png'
+          alt='FanSync Home Image'
+          width={650}
+          height={650}
+          objectFit='contain'
+        />
       </div>
     </main>
   );
