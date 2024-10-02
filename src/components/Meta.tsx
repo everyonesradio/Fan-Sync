@@ -3,7 +3,7 @@ import Head from "next/head";
 const Meta = () => {
   return (
     <Head>
-      <title>FanSync | SGaWD</title>
+      <title>FanSync</title>
       <meta
         name='description'
         content='Get your license today and join the community.'
