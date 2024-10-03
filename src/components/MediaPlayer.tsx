@@ -55,6 +55,7 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
         {selectedAnthem.preview_url && (
           <audio ref={audioRef} style={{ display: "none" }}>
             <source src={selectedAnthem.preview_url} type='audio/mpeg' />
+            <track kind='captions' src='' label='English captions' />
           </audio>
         )}
       </div>
