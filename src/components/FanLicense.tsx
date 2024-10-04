@@ -4,13 +4,16 @@ import React from "react";
 
 // ** Custom Components, Hooks, Utils, etc.
 import Card from "@/components/3DLicenseCard";
+import type { FansRouterOutputs } from "@/types/api";
 import { upperCase } from "@/utils/upper-case";
 
 // ** Icon Imports
 import { FaSpotify } from "react-icons/fa";
 
+type FanType = NonNullable<FansRouterOutputs["get"]>;
+
 interface Props {
-  fanData: any;
+  fanData: FanType;
   selectedBg: string | null;
 }
 
@@ -43,9 +46,12 @@ const FanLicense: React.FC<Props> = ({ fanData, selectedBg }) => {
         color: "rgba(245, 101, 101, 0)",
         transition: "background-image 0.4s ease-in-out",
       }}
-      onClick={() => window.open(fanData.anthem?.track_url, "_blank")}
+      onClick={() =>
+        fanData.anthem?.track_url &&
+        window.open(fanData.anthem.track_url, "_blank")
+      }
     >
-      <div>
+      <>
         <div className='flex flex-col space-y-2 items-center text-white'>
           <Image
             src={fanData.profilePicture}
@@ -61,17 +67,18 @@ const FanLicense: React.FC<Props> = ({ fanData, selectedBg }) => {
           <div className='flex items-center space-x-2 bg-black rounded-full border-2 border-white py-1 px-7'>
             <div className='space-y-1'>
               <p className='truncate font-bold'>
-                &quot;{truncateString(fanData.anthem?.name, 20)}&quot;
+                &quot;{truncateString(fanData.anthem?.name || "", 20)}&quot;
               </p>
               <p>
-                {fanData.anthem?.release_date.split("-")[0]} -{" "}
-                {upperCase(fanData.anthem?.album_type)}
+                {fanData.anthem?.release_date?.split("-")[0]} -{" "}
+                {fanData.anthem?.album_type &&
+                  upperCase(fanData.anthem.album_type)}
               </p>
             </div>
             <FaSpotify className='text-3xl' />
           </div>
         </div>
-      </div>
+      </>
     </Card>
   );
 };
