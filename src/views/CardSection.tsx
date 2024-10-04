@@ -24,8 +24,8 @@ const CardSection = () => {
       <div className='flex flex-col items-center justify-center space-y-4'>
         <h3 className='font-medium p-8'>Join the Seddy Siren Club</h3>
         <div className='left-0 flex gap-12 overflow-hidden'>
-          {[...cards].map((item, idx) => (
-            <Card card={item} key={idx} />
+          {cards.map((item) => (
+            <Card card={item} key={`card-${item}`} />
           ))}
         </div>
         <div className='flex flex-col items-center justify-center space-y-2'>

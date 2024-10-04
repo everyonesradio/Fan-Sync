@@ -10,19 +10,19 @@ const AboutSection = () => {
         </h1>
         <span className='text-white text-xl py-6'>
           <div className='text-white text-xl py-6'>
-            Miami-based Nigerian rap sensation SGaWD has become a household name
-            and a force to be reckoned with. The female rapper emerges at the
-            forefront of a new generation of Nigerian artists pioneering a new
-            wave of African music, captivating her global audience with her bold
-            fusion of rap, house, electronica, and afrobeats.
+            SGaWD has become a household name and a force to be reckoned with.
+            The female MC emerges at the forefront of a new generation of
+            Nigerian artists pioneering a new wave of African music, captivating
+            her global audience with her bold fusion of rap, house, electronica,
+            and afrobeats.
           </div>
           <div className='text-white text-xl py-6'>
-            With her latest EP, ‘Tha GaWD – Side A’, SGaWD showcases her
-            versatility as both a rapper and singer, seamlessly transitioning
-            between melodic flows and captivating vocals. The 7-track EP
-            reflects SGaWD’s growth as an artist and a woman navigating the
-            complexities of the music industry, embodying her journey of
-            self-discovery and artistic freedom.
+            With her latest EP, ‘Tha GaWD – Side A’, SGaWD presents a genre
+            bending masterclass that seamlessly transitions between melodic
+            flows and captivating vocals. The 7-track EP reflects SGaWD’s growth
+            as an artist and a woman navigating the complexities of the music
+            industry, embodying her journey of self-discovery and artistic
+            freedom.
           </div>
         </span>
         <div className='flex items-center justify-center gap-12'>
