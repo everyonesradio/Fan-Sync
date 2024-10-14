@@ -69,7 +69,7 @@ export const getServerSideProps: GetServerSideProps<
     const allTracks: Anthem[] = [];
 
     for (const album of albumsResponse) {
-      const tracksResponse = await fetchTracks(album.id);
+      const tracksResponse = await fetchTracks(album.id as string);
 
       // If the album contains a track that the artist appears on,
       // implement logic to select the track that the artist is featured on
