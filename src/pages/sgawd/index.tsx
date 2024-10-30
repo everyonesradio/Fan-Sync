@@ -157,7 +157,7 @@ const Home = ({
 
   return (
     <main>
-      <div className='snap-y snap-mandatory h-screen w-screen overflow-scroll scrollbar-hide'>
+      <div className='snap-y snap-mandatory h-screen w-screen overflow-scroll scrollbar-hide overflow-x-hidden'>
         <WelcomeSection />
         <AboutSection />
         <CardSection />
