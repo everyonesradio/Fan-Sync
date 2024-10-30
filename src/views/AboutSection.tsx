@@ -4,28 +4,28 @@ import React from "react";
 const AboutSection = () => {
   return (
     <div className='snap-start bg-black w-screen h-screen flex items-center justify-center'>
-      <div className='flex flex-col m-16 p-12 space-y-8'>
-        <h1 className='text-6xl font-bold text-white'>
+      <div className='flex flex-col w-full sm:m-16 sm:p-12 space-y-8'>
+        <h1 className='text-2xl sm:text-6xl font-bold text-white'>
           ...a trailblazing rap sensation on the rise
         </h1>
-        <span className='text-white text-xl py-6'>
-          <div className='text-white text-xl py-6'>
+        <div className='text-white text-md sm:text-xl space-y-6'>
+          <span>
             SGaWD has become a household name and a force to be reckoned with.
             The female MC emerges at the forefront of a new generation of
             Nigerian artists pioneering a new wave of African music, captivating
             her global audience with her bold fusion of rap, house, electronica,
             and afrobeats.
-          </div>
-          <div className='text-white text-xl py-6'>
+          </span>
+          <span>
             With her latest EP, ‘Tha GaWD – Side A’, SGaWD presents a genre
             bending masterclass that seamlessly transitions between melodic
             flows and captivating vocals. The 7-track EP reflects SGaWD’s growth
             as an artist and a woman navigating the complexities of the music
             industry, embodying her journey of self-discovery and artistic
             freedom.
-          </div>
-        </span>
-        <div className='flex items-center justify-center gap-12'>
+          </span>
+        </div>
+        <div className='sm:flex items-center justify-center gap-12 hidden'>
           {/* YouTube Video Embed */}
           <div>
             <iframe

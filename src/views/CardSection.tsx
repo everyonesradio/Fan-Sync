@@ -27,7 +27,7 @@ const CardSection = () => {
       <div className='flex flex-col items-center justify-center space-y-4'>
         <h3 className='font-medium p-8'>Join the Seddy Siren Club</h3>
         <Marquee speed={100} autoFill={true}>
-          <div className='flex gap-12 pr-12 overflow-hidden'>
+          <div className='flex gap-2 pr-2 sm:gap-12 sm:pr-12 overflow-hidden'>
             {cards.map((item) => (
               <Card card={item} key={`card-${item}`} />
             ))}
