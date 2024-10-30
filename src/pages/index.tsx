@@ -92,7 +92,9 @@ const Home = () => {
       </div>
       <div className='flex flex-col md:flex-row'>
         <div className='flex flex-col w-full md:w-1/2 mb-8 md:mb-0'>
-          <h1 className='text-white text-7xl sm:text-7xl md:text-9xl font-bold mb-4 sm:mb-8'>FanSync</h1>
+          <h1 className='text-white text-7xl sm:text-7xl md:text-9xl font-bold mb-4 sm:mb-8'>
+            FanSync
+          </h1>
           <div className='text-white text-xl sm:text-2xl md:text-3xl font-medium mt-4 sm:mt-6'>
             <p>A platform where you can take full</p>
             <p>control of your fanbase</p>
@@ -132,8 +134,8 @@ const Home = () => {
             priority={true}
             style={{
               objectFit: "contain",
-              maxWidth: '100%',
-              height: 'auto',
+              maxWidth: "100%",
+              height: "auto",
             }}
           />
         </div>
