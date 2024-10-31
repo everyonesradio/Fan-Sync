@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 /** @type {import('next').NextConfig} */
 const withFonts = require("next-fonts");
 const withTM = require("next-transpile-modules")([
@@ -8,7 +11,18 @@ const withTM = require("next-transpile-modules")([
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["firebasestorage.googleapis.com", "i.scdn.co"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "i.scdn.co",
+        pathname: "**",
+      },
+      {
+        protocol: "https",
+        hostname: "firebasestorage.googleapis.com",
+        pathname: "**",
+      },
+    ],
   },
 };
 
