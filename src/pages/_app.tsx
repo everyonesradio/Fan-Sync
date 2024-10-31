@@ -2,11 +2,11 @@
 import type { AppProps } from "next/app";
 import React from "react";
 
+// ** React95 Imports
 import { ThemeProvider, GlobalStyle } from "@react95/core";
 
+// ** Third-Party Imports
 import { Analytics } from "@vercel/analytics/react";
-
-// ** React95 Imports
 
 // ** Custom Components, Hooks, Utils, etc.
 import Meta from "@/components/Meta";
