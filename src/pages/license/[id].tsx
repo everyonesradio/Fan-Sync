@@ -56,4 +56,5 @@ const License = () => {
     </div>
   );
 };
+
 export default License;
