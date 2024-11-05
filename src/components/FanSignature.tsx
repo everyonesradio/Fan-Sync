@@ -36,7 +36,7 @@ const FanSignature = () => {
   const clearCanvas = () => sigCanvas.current?.clear();
 
   return (
-    <div className='flex flex-col items-center justify-between p-24'>
+    <div className='flex flex-col w-full sm:w-1/2 items-center justify-between p-8 sm:p-16'>
       <div className='container mt-5'>
         <Frame>
           <SignatureCanvas

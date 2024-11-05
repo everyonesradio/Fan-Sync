@@ -13,6 +13,7 @@ const Card: React.FC<CardProps> = ({ card }) => {
         src={card}
         alt='Card Image'
         fill={true}
+        sizes='(max-width: 768px) 200px, (max-width: 1024px) 300px, 200px'
         style={{ objectFit: "contain" }}
       />
     </div>

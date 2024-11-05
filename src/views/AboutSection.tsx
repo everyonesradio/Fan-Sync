@@ -48,7 +48,7 @@ const AboutSection = () => {
               loading='lazy'
             ></iframe>
           </div>
-          </div>
+        </div>
         <div className='hidden space-y-4 sm:flex w-full items-center justify-center sm:space-x-12'>
           {/* YouTube Video Embed */}
           <div>
