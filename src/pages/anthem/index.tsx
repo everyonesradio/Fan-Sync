@@ -70,7 +70,7 @@ const Anthem: React.FC = () => {
 
   return (
     <div className='min-h-screen flex flex-col bg-black items-center justify-center'>
-      <h1 className='font-bold text-5xl text-center text-white p-8'>
+      <h1 className='font-bold text-3xl sm:text-5xl text-center text-white p-8'>
         Choose Your SGaWD Anthem
       </h1>
       <div className='mb-4'>

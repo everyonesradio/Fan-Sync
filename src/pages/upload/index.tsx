@@ -41,7 +41,7 @@ const Upload = () => {
   };
 
   return (
-    <div className='flex min-h-screen bg-black flex-col items-center justify-evenly p-24'>
+    <div className='flex min-h-screen bg-black flex-col items-center justify-evenly p-4 sm:p-24'>
       <div className='container mt-5'>
         <h1 className='font-bold text-5xl text-center p-8 text-white'>
           Upload Your Photo
