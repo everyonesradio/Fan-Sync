@@ -39,13 +39,16 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
 
   return (
     <div className='max-w-sm rounded overflow-hidden shadow-lg m-4 bg-white'>
-      <Image
+      <div className='relative w-full h-48'>
+<Image
         className='w-full h-full object-cover'
         src={selectedAnthem.images[0].url}
         alt='Album Cover'
-        width={100}
-        height={100}
+        width={200}
+        height={200}
+layout="fill"
       />
+</div>
       <div className='px-6 py-4'>
         <div className='font-bold text-xl mb-2'>{selectedAnthem.name}</div>
         <p className='text-gray-700 text-base'>
