@@ -72,9 +72,9 @@ const Anthem: React.FC = () => {
       <h1 className='font-bold text-3xl sm:text-5xl text-center text-white p-8'>
         Choose Your SGaWD Anthem
       </h1>
-      <div className='mb-4'>
+      <div className='relative mb-4'>
         <Input
-          placeholder='Your Anthem'
+          placeholder='Search your favorite SGaWD song'
           value={searchQuery}
           style={{
             width: "min(80vw, 460px)",
@@ -90,8 +90,8 @@ const Anthem: React.FC = () => {
           onChange={handleSearch}
         />
         {searchQuery && (
-          <div className='max-h-64 overflow-auto scrollbar-hide mt-4 z-10'>
-            <List style={{ width: "min(80vw, 460px)" }}>
+          <div className='absolute w-full max-h-64 overflow-auto scrollbar-hide mt-4 z-50'>
+            <List style={{ width: "min(80vw, 460px)", margin: "0 auto" }}>
               {searchResults.length > 0 ? (
                 searchResults.map((item, index) => (
                   <React.Fragment key={item.id}>
