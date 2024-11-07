@@ -5,7 +5,6 @@ import React, { useState, useEffect } from "react";
 
 // ** React95 Imports
 import { Input, List, Button } from "@react95/core";
-import { SccviewIcon } from "@react95/icons";
 
 // ** Custom Components, Hooks, Utils, etc.
 import MediaPlayer from "@/components/MediaPlayer";
@@ -73,27 +72,26 @@ const Anthem: React.FC = () => {
       <h1 className='font-bold text-3xl sm:text-5xl text-center text-white p-8'>
         Choose Your SGaWD Anthem
       </h1>
-      <div className='mb-4'>
-        <div className='relative mb-4'>
-          <Input
-            placeholder='Your Anthem'
-            value={searchQuery}
-            onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
-              if (e.key === "Enter") {
-                handleSearch(
-                  e as unknown as React.ChangeEvent<HTMLInputElement>
-                );
-              }
-            }}
-            onChange={handleSearch}
-          />
-          <div className='absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none'>
-            <SccviewIcon variant='16x16_4' />
-          </div>
-        </div>
+      <div className='relative mb-4'>
+        <Input
+          placeholder='Search your favorite SGaWD song'
+          value={searchQuery}
+          style={{
+            width: "min(80vw, 460px)",
+            height: "min(32px, 48px)",
+            paddingLeft: "8px",
+            paddingRight: "8px",
+          }}
+          onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
+            if (e.key === "Enter") {
+              handleSearch(e as unknown as React.ChangeEvent<HTMLInputElement>);
+            }
+          }}
+          onChange={handleSearch}
+        />
         {searchQuery && (
-          <div className='max-h-64 overflow-auto scrollbar-hide mt-2 p-1'>
-            <List>
+          <div className='absolute w-full max-h-64 overflow-auto scrollbar-hide mt-4 z-50'>
+            <List style={{ width: "min(80vw, 460px)", margin: "0 auto" }}>
               {searchResults.length > 0 ? (
                 searchResults.map((item, index) => (
                   <React.Fragment key={item.id}>
@@ -131,7 +129,9 @@ const Anthem: React.FC = () => {
           </div>
         )}
       </div>
-      {selectedAnthem && <MediaPlayer selectedAnthem={selectedAnthem} />}
+      <div className='flex flex-col items-center justify-center p-8'>
+        {selectedAnthem && <MediaPlayer selectedAnthem={selectedAnthem} />}
+      </div>
       <Button className='hover:bg-slate-300' onClick={handleSubmit}>
         Next
       </Button>
