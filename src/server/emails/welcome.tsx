@@ -34,8 +34,8 @@ export const WelcomeEmail = ({
     <Html lang='en'>
       <Preview>Welcome to FanSync - Your digital fan license awaits!</Preview>
       <Tailwind>
-        <Body className='bg-black font-sans'>
-          <Container className='mx-auto p-10 bg-white rounded-lg max-w-[600px]'>
+        <Body className='font-sans'>
+          <Container className='mx-auto p-10 bg-white max-w-[600px]'>
             <Heading className='text-4xl leading-tight font-bold text-gray-900 text-center my-8'>
               Welcome to FanSync!
             </Heading>
@@ -44,12 +44,13 @@ export const WelcomeEmail = ({
                 Hey {fanName.slice(0, fanName.indexOf(' '))}! 🎵
               </Text>
               <Text className='text-base leading-7 text-gray-800'>
-                Thanks for joining our community.{" "}
+                Thanks for joining the Seddy Siren Club.{" "}
                 {anthem && (
-                  <span className='bg-gray-100 px-2 py-1 rounded font-bold text-black'>
-                    We love that you chose &quot;{anthem}&quot; as your anthem!
+                  <span>
+                    I see you chose &quot;{anthem}&quot; as your anthem.{" "}
                   </span>
                 )}
+                You&apos;ve got great taste!
               </Text>
               <Text className='text-base leading-7 text-gray-800'>
                 Get ready to connect with your favorite artists in a whole new
