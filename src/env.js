@@ -20,6 +20,9 @@ export const env = createEnv({
     FIREBASE_MESSAGING_SENDER_ID: z.string(),
     FIREBASE_APP_ID: z.string(),
     FIREBASE_MEASUREMENT_ID: z.string(),
+
+    SENDGRID_API_KEY: z.string(),
+    DEFAULT_MAIL_FROM: z.string(),
   },
 
   /**
@@ -52,6 +55,9 @@ export const env = createEnv({
     FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID,
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
     FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
+
+    SENDGRID_API_KEY: process.env.SENDGRID_API_KEY,
+    DEFAULT_MAIL_FROM: process.env.DEFAULT_MAIL_FROM,
 
     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
   },
