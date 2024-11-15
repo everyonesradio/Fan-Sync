@@ -41,7 +41,7 @@ export const WelcomeEmail = ({
             </Heading>
             <Section className='p-5'>
               <Text className='text-base leading-7 text-gray-800'>
-                Hey {fanName.split(" ")}! 🎵
+                Hey {fanName.slice(0, fanName.indexOf(' '))}! 🎵
               </Text>
               <Text className='text-base leading-7 text-gray-800'>
                 Thanks for joining our community.{" "}
