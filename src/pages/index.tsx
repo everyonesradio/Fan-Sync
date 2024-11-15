@@ -85,7 +85,7 @@ const Home = () => {
         </div>
         <button
           onClick={() => router.push("/sgawd")}
-          className='flex items-center justify-center h-8 sm:h-10 bg-[#DAE100] px-3 sm:px-6 text-sm sm:text-xl font-bold text-black transition-all hover:bg-[#E5E900]'
+          className='flex items-center justify-center h-8 sm:h-10 bg-[#DAE100] px-3 sm:px-6 text-sm sm:text-xl font-bold text-black transition-all hover:bg-black hover:border-2 hover:border-[#DAE100] hover:text-white'
         >
           <span>DEMO</span>
         </button>
