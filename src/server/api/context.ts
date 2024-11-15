@@ -1,5 +1,5 @@
 // ** Custom Components, Hooks, Utils, etc.
-import { createCallerFactory, createTRPCRouter } from "@/server/trpc";
+import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 
 import { fansRouter } from "./routers/fans";
 import { waitlistRouter } from "./routers/waitlist";
