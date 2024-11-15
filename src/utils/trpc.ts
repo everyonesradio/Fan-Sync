@@ -12,7 +12,7 @@ import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import superjson from "superjson";
 
 // ** Custom Components, Hooks, Utils, etc.
-import type { AppRouter } from "@/server/context";
+import type { AppRouter } from "@/server/api/context";
 
 const getBaseUrl = () => {
   if (typeof window !== "undefined") return ""; // browser should use relative url

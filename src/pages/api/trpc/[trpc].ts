@@ -3,8 +3,8 @@ import * as trpcNext from "@trpc/server/adapters/next";
 
 // ** Custom Components, Hooks, Utils, etc.
 import { env } from "@/env";
-import { appRouter } from "@/server/context";
-import { createTRPCContext } from "@/server/trpc";
+import { appRouter } from "@/server/api/context";
+import { createTRPCContext } from "@/server/api/trpc";
 
 // export API handler
 // @link https://trpc.io/docs/v11/server/adapters

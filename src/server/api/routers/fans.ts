@@ -3,6 +3,9 @@ import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 // ** Custom Components, Hooks, Utils, etc.
+import { WelcomeEmail, WelcomeEmailSubject } from "@/server/emails/welcome";
+import { EmailService } from "@/server/services/email";
+
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const fansRouter = createTRPCRouter({
@@ -103,5 +106,49 @@ export const fansRouter = createTRPCRouter({
       });
 
       return fanSignature;
+    }),
+
+  email: publicProcedure
+    .input(
+      z.object({
+        uuid: z.string(),
+        email: z.string().email(),
+      })
+    )
+    .mutation(async ({ ctx, input }) => {
+      const exists = await ctx.prisma.fan.findUnique({
+        where: { uuid: input.uuid },
+        include: { anthem: true },
+      });
+
+      if (exists) {
+        const result = await EmailService.sendElement(
+          WelcomeEmail({
+            fanName: exists.fullname,
+            anthem: exists.anthem?.name,
+            licenseId: exists.uuid,
+          }),
+          {
+            to: input.email,
+            subject: WelcomeEmailSubject(),
+          }
+        );
+
+        if (!result) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+            message: "Failed to send email",
+          });
+        }
+
+        return {
+          message: "Email sent successfully!",
+        };
+      }
+
+      throw new TRPCError({
+        code: "NOT_FOUND",
+        message: "Fan not found",
+      });
     }),
 });
