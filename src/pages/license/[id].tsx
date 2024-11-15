@@ -1,7 +1,7 @@
 // ** React/Next.js Imports
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 // ** Third-Party Imports
 import { Loader2 } from "lucide-react";
@@ -26,29 +26,12 @@ const License = () => {
     { uuid: String(licenseID) },
     { enabled: !!licenseID }
   );
-  const { mutateAsync: welcomeEmail } = api.fans.email.useMutation();
 
   const [selectedBg, setSelectedBg] = useState<string | null>(license[0]);
 
   const handleImageClick = (image: string) => {
     setSelectedBg(image);
   };
-
-  useEffect(() => {
-    if (fanData) {
-      void (async () => {
-        try {
-          const res = await welcomeEmail({
-            uuid: fanData.uuid,
-            email: fanData.email,
-          });
-          console.log("Welcome email sent successfully:", res);
-        } catch (error) {
-          console.error("Failed to send welcome email:", error);
-        }
-      })();
-    }
-  }, [fanData, welcomeEmail]);
 
   return (
     <div className='min-h-screen flex flex-col bg-black items-center justify-center p-4 sm:p-8'>
