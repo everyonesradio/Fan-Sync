@@ -1,6 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+
 // ** React/Next.js Imports
 import Image from "next/image";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
+
+// ** Third-Party Imports
+import { Howl } from "howler";
 
 // ** Custom Components, Hooks, Utils, etc.
 import type { Catalog } from "@/types/catalog";
@@ -11,31 +18,30 @@ type MediaPlayerProps = {
 };
 
 const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
   useEffect(() => {
-    const audioElement = selectedAnthem?.preview_url
-      ? new Audio(selectedAnthem.preview_url)
-      : null;
+    if (selectedAnthem?.preview_url) {
+      const sound = new Howl({
+        src: [selectedAnthem.preview_url],
+        volume: 0,
+        html5: true,
+        onend: () => {
+          console.log("Audio playback completed");
+        },
+      });
 
-    // Play the audio automatically
-    if (audioElement && selectedAnthem?.preview_url) {
-      audioElement.play();
+      // Play and fade in
+      sound.play();
+      sound.fade(0, 1, 500);
+
+      // Cleanup function
+      return () => {
+        sound.fade(1, 0, 300);
+        setTimeout(() => {
+          sound.unload();
+        }, 300);
+      };
     }
-
-    // Optional: Handle what happens after the audio ends
-    const handleAudioEnded = () => {
-      console.log("Audio ended");
-    };
-
-    // Use the captured value in the cleanup function
-    return () => {
-      if (audioElement) {
-        audioElement.pause();
-        audioElement.removeEventListener("ended", handleAudioEnded);
-      }
-    };
-  }, [selectedAnthem]); // Ensure dependencies are correctly listed
+  }, [selectedAnthem]);
 
   return (
     <div className='w-full bg-white z-10'>
@@ -49,17 +55,13 @@ const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
         />
       </div>
       <div className='px-6 py-4'>
-        <div className='font-bold text-xl mb-2'>{selectedAnthem.name}</div>
+        <div className='font-bold text-xl mb-2 max-w-[300px]'>
+          {selectedAnthem.name}
+        </div>
         <p className='text-gray-700 text-base'>
-          {upperCase(selectedAnthem.album_type)} -
+          {upperCase(selectedAnthem.album_type)} -{" "}
           {selectedAnthem.release_date.split("-")[0]}
         </p>
-        {selectedAnthem.preview_url && (
-          <audio ref={audioRef} style={{ display: "none" }}>
-            <source src={selectedAnthem.preview_url} type='audio/mpeg' />
-            <track kind='captions' src='' label='English captions' />
-          </audio>
-        )}
       </div>
     </div>
   );
