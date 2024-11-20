@@ -41,10 +41,7 @@ const Signature = () => {
         Your Signature
       </h1>
       <FanSignature />
-      <Button
-        className='hover:bg-slate-300'
-        onClick={handleNext}
-      >
+      <Button className='hover:bg-slate-300' onClick={handleNext}>
         Next
       </Button>
     </div>
