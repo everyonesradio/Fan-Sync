@@ -36,6 +36,7 @@
     "antd": "^5.1.7",
     "firebase": "^10.8.0",
     "formidable": "^3.5.1",
+    "howler": "^2.2.4",
     "lodash": "^4.17.21",
     "lucide-react": "^0.454.0",
     "maath": "^0.5.2",
