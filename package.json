@@ -63,6 +63,7 @@
     "@types/eslint": "^9.6.1",
     "@types/firebase": "^3.2.1",
     "@types/formidable": "^3.4.5",
+    "@types/howler": "^2.2.12",
     "@types/lodash": "^4.17.4",
     "@types/node": "^22.5.4",
     "@types/react-signature-canvas": "^1.0.5",
