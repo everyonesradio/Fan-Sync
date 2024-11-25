@@ -10,7 +10,7 @@
     "lint:fix": "next lint --fix",
     "test": "NODE_ENV!=production vitest",
     "prettier": "npx prettier --write ./",
-    "prebuild": "prisma generate && prisma db push",
+    "prebuild": "prisma generate && prisma db push && next build",
     "postinstall": "node fix-spotify-sdk.js"
   },
   "dependencies": {
