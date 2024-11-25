@@ -12,18 +12,18 @@ vi.mock("@/utils/trpc", () => ({
     waitlist: {
       add: {
         useMutation: () => ({
-          mutateAsync: vi.fn()
-        })
-      }
-    }
-  }
+          mutateAsync: vi.fn(),
+        }),
+      },
+    },
+  },
 }));
 
 // Mock next/router
 vi.mock("next/router", () => ({
   useRouter: () => ({
-    push: vi.fn()
-  })
+    push: vi.fn(),
+  }),
 }));
 
 describe("Home Page", () => {
@@ -59,4 +59,5 @@ describe("Home Page", () => {
     // Test valid email
     fireEvent.change(emailInput, { target: { value: "test@example.com" } });
     fireEvent.click(submitButton);
-  });});
+  });
+});

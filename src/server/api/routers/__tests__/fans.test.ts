@@ -1,5 +1,5 @@
 import type { inferProcedureInput } from "@trpc/server";
-import { describe, it, expect, beforeEach, vi } from "vitest";;
+import { describe, it, expect, beforeEach, vi } from "vitest";
 
 import { appRouter, type AppRouter } from "@/server/api/context";
 import prisma from "@lib/prisma";
@@ -7,10 +7,12 @@ import prisma from "@lib/prisma";
 // Mock email service
 vi.mock("@/server/services/email", () => ({
   EmailService: {
-    sendElement: vi.fn().mockResolvedValue([{ 
-      headers: { "x-message-id": "test-message-id" }
-    }])
-  }
+    sendElement: vi.fn().mockResolvedValue([
+      {
+        headers: { "x-message-id": "test-message-id" },
+      },
+    ]),
+  },
 }));
 
 describe("Fans Router Integration Tests", () => {
@@ -52,13 +54,13 @@ describe("Fans Router Integration Tests", () => {
       expect(result).toMatchObject(mockFanData);
     });
 
-    // it("should throw error if fan already exists", async () => {
-    //   type Input = inferProcedureInput<AppRouter["fans"]["create"]>;
-    //   const input: Input = mockFanData;
+    it("should throw error if fan already exists", async () => {
+      type Input = inferProcedureInput<AppRouter["fans"]["create"]>;
+      const input: Input = mockFanData;
 
-    //   await caller.fans.create(input);
-    //   await expect(caller.fans.create(input)).rejects.toThrow("This fan already exists");
-    // });
+      await caller.fans.create(input);
+      await expect(caller.fans.create(input)).rejects.toThrow("This fan already exists");
+    });
   });
 
   describe("get", () => {

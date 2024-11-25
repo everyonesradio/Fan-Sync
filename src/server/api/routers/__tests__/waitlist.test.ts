@@ -8,10 +8,12 @@ import prisma from "@lib/prisma";
 // Mock email service
 vi.mock("@/server/services/email", () => ({
   EmailService: {
-    sendElement: vi.fn().mockResolvedValue([{ 
-      headers: { "x-message-id": "test-message-id" }
-    }])
-  }
+    sendElement: vi.fn().mockResolvedValue([
+      {
+        headers: { "x-message-id": "test-message-id" },
+      },
+    ]),
+  },
 }));
 
 describe("Waitlist Router Integration Tests", () => {
