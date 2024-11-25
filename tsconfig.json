@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -13,10 +17,17 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@lib/*": ["./lib/*"],
-      "@public/*": ["./public/*"],
-      "@/*": ["./src/*"]
-    }
+      "@lib/*": [
+        "./lib/*"
+      ],
+      "@public/*": [
+        "./public/*"
+      ],
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "target": "ES2017"
   },
   "include": [
     ".eslintrc.cjs",
@@ -26,7 +37,10 @@
     "**/*.cjs",
     "**/*.js",
     "**/*.mjs",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "vitest.config.mts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
