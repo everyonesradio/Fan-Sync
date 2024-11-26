@@ -17,15 +17,9 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@lib/*": [
-        "./lib/*"
-      ],
-      "@public/*": [
-        "./public/*"
-      ],
-      "@/*": [
-        "./src/*"
-      ]
+      "@lib/*": ["./lib/*"],
+      "@public/*": ["./public/*"],
+      "@/*": ["./src/*"]
     },
     "target": "ES2017"
   },
