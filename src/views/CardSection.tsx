@@ -9,7 +9,7 @@ import { Button } from "@react95/core";
 import Marquee from "react-fast-marquee";
 
 // ** Custom Components, Hooks, Utils, etc.
-import Card from "@/components/Card";
+import Card from "@/components/card";
 
 const CardSection = () => {
   const router = useRouter();
