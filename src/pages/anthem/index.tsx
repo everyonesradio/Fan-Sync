@@ -7,7 +7,7 @@ import React, { useState, useEffect } from "react";
 import { Input, List, Button } from "@react95/core";
 
 // ** Custom Components, Hooks, Utils, etc.
-import MediaPlayer from "@/components/MediaPlayer";
+import MediaPlayer from "@/components/media-player";
 import { useLicense } from "@/context/LicenseContext";
 import { useSpotify } from "@/context/SpotifyContext";
 import type { Catalog } from "@/types/catalog";
