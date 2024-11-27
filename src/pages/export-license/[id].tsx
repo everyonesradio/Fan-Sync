@@ -36,6 +36,8 @@ const ExportLicense = () => {
     setSelectedBg(image);
   };
 
+  // TODO: Fix license image downloader
+  // image is currently blank
   const takeScreenshot = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
