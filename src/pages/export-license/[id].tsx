@@ -41,12 +41,12 @@ const ExportLicense = () => {
   const takeScreenshot = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    
+
     // Use preserveDrawingBuffer to ensure the canvas content is available
-    const imgData = canvas.toDataURL('image/png')
-    
+    const imgData = canvas.toDataURL("image/png");
+
     // Create and trigger download
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = imgData;
     link.download = `seddy-${licenseID}.png`;
     link.click();
@@ -58,17 +58,21 @@ const ExportLicense = () => {
         Seddy Siren Club
       </h1>
       <div className='w-full h-[500px]'>
-      {!fanData ? (
-        <div className='flex items-center justify-center my-32'>
-          <Loader2 className='h-16 w-16 animate-spin text-white' />
-        </div>
-      ) : (
-        <Canvas camera={{ position: [0, 0, 6], fov: 75 }} gl={{ preserveDrawingBuffer: true }} ref={canvasRef}>
-          <pointLight position={[10, 10, 10]} />
-          <License fanData={fanData} selectedBg={selectedBg} />
-          <OrbitControls makeDefault />
-        </Canvas>
-      )}
+        {!fanData ? (
+          <div className='flex items-center justify-center my-32'>
+            <Loader2 className='h-16 w-16 animate-spin text-white' />
+          </div>
+        ) : (
+          <Canvas
+            camera={{ position: [0, 0, 6], fov: 75 }}
+            gl={{ preserveDrawingBuffer: true }}
+            ref={canvasRef}
+          >
+            <pointLight position={[10, 10, 10]} />
+            <License fanData={fanData} selectedBg={selectedBg} />
+            <OrbitControls makeDefault />
+          </Canvas>
+        )}
       </div>
       <div className='flex justify-around items-center'>
         {license.map((background) => (
@@ -87,9 +91,9 @@ const ExportLicense = () => {
           </button>
         ))}
       </div>
-      <button 
+      <button
         onClick={takeScreenshot}
-        className="px-4 py-2 bg-white text-black rounded-md mt-4"
+        className='px-4 py-2 bg-white text-black rounded-md mt-4'
       >
         Save License Image
       </button>
