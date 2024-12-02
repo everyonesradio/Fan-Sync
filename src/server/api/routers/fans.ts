@@ -66,7 +66,6 @@ export const fansRouter = createTRPCRouter({
         anthem: z.object({
           id: z.string(),
           name: z.string(),
-          preview_url: z.string(),
           track_url: z.string(),
           artists: z.array(z.object({ id: z.string(), name: z.string() })),
           images: z.array(

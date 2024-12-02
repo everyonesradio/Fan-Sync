@@ -36,7 +36,7 @@ model Waitlist {
 type Anthem {
   id           String
   name         String
-  preview_url  String
+  preview_url  String?
   track_url    String
   artists      Artist[]
   images       Image[]
