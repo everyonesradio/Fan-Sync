@@ -22,6 +22,13 @@ export const fansRouter = createTRPCRouter({
         },
       });
 
+      if (!fanData) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "This fan does not exist",
+        });
+      }
+
       return fanData;
     }),
 
@@ -120,34 +127,34 @@ export const fansRouter = createTRPCRouter({
         include: { anthem: true },
       });
 
-      if (exists) {
-        const result = await EmailService.sendElement(
-          WelcomeEmail({
-            fanName: exists.fullname,
-            anthem: exists.anthem?.name,
-            licenseId: exists.uuid,
-          }),
-          {
-            to: input.email,
-            subject: WelcomeEmailSubject(),
-          }
-        );
-
-        if (!result) {
-          throw new TRPCError({
-            code: "INTERNAL_SERVER_ERROR",
-            message: "Failed to send email",
-          });
-        }
-
-        return {
-          message: "Email sent successfully!",
-        };
+      if (!exists) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "This fan does not exist",
+        });
       }
 
-      throw new TRPCError({
-        code: "NOT_FOUND",
-        message: "Fan not found",
-      });
+      const result = await EmailService.sendElement(
+        WelcomeEmail({
+          fanName: exists.fullname,
+          anthem: exists.anthem?.name,
+          licenseId: exists.uuid,
+        }),
+        {
+          to: input.email,
+          subject: WelcomeEmailSubject(),
+        }
+      );
+
+      if (!result) {
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Failed to send email",
+        });
+      }
+
+      return {
+        message: "Email sent successfully!",
+      };
     }),
 });

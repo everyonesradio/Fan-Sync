@@ -6,7 +6,7 @@ import React from "react";
 import { Button } from "@react95/core";
 
 // ** Custom Components, Hooks, Utils, etc.
-import FanSignature from "@/components/FanSignature";
+import FanSignature from "@/components/signature";
 import { useLicense } from "@/context/LicenseContext";
 import { api } from "@/utils/trpc";
 

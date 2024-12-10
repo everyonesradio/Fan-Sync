@@ -3,7 +3,7 @@ import Image from "next/image";
 import React from "react";
 
 // ** Custom Components, Hooks, Utils, etc.
-import Card from "@/components/3DLicenseCard";
+import Card from "@/components/fan-license/3DLicenseCard";
 import type { FansRouterOutputs } from "@/types/api";
 import { upperCase } from "@/utils/upper-case";
 

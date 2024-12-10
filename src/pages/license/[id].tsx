@@ -7,14 +7,14 @@ import React, { useState } from "react";
 import { Loader2 } from "lucide-react";
 
 // ** Custom Components, Hooks, Utils, etc.
-import FanLicense from "@/components/FanLicense";
+import FanLicense from "@/components/fan-license";
 import { api } from "@/utils/trpc";
 
 const license = [
-  "/images/licenses/001.png",
   "/images/licenses/002.png",
   "/images/licenses/003.png",
   "/images/licenses/004.png",
+  "/images/licenses/001.png",
   "/images/licenses/005.png",
   "/images/licenses/006.png",
 ];
