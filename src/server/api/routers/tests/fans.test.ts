@@ -61,7 +61,9 @@ describe("Fans Router Integration Tests", () => {
       const input: Input = mockFanData;
 
       await caller.fans.create(input);
-      await expect(caller.fans.create(input)).rejects.toThrow("This fan already exists");
+      await expect(caller.fans.create(input)).rejects.toThrow(
+        "This fan already exists"
+      );
     });
   });
 

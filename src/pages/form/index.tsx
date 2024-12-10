@@ -18,6 +18,8 @@ interface FormErrors {
   location?: string;
 }
 
+// TODO: Restructure & simplify form submission logic
+
 const Form = () => {
   const router = useRouter();
   const { licenseID } = useLicense();

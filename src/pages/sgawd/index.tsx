@@ -141,7 +141,7 @@ export const getServerSideProps: GetServerSideProps<
   }
 };
 
-const Home = ({
+const SGaWDDemo = ({
   items,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { setArtistCatalog } = useSpotify();
@@ -166,4 +166,4 @@ const Home = ({
   );
 };
 
-export default Home;
+export default SGaWDDemo;
