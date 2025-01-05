@@ -17,6 +17,8 @@ interface Props {
   selectedBg: string | null;
 }
 
+// TODO: Create export license template
+
 const FanLicense: React.FC<Props> = ({ fanData, selectedBg }) => {
   if (!fanData) {
     return <p>Loading fan data...</p>;
@@ -30,6 +32,7 @@ const FanLicense: React.FC<Props> = ({ fanData, selectedBg }) => {
   };
 
   return (
+    <div id='export'>
     <Card
       style={{
         width: "300px",
@@ -64,7 +67,7 @@ const FanLicense: React.FC<Props> = ({ fanData, selectedBg }) => {
           <p>Location: {fanData.location}</p>
           <p>Date of Birth: {fanData.dob}</p>
           <p>NO. {fanData.uuid}</p>
-          <div className='flex items-center space-x-2 bg-black rounded-full border-2 border-white py-1 px-7'>
+          <div className='flex items-center w-auto h-auto space-x-2 bg-black rounded-full border-2 border-white py-1 px-7'>
             <div className='space-y-1'>
               <p className='truncate font-bold'>
                 &quot;{truncateString(fanData.anthem?.name || "", 20)}&quot;
@@ -75,11 +78,12 @@ const FanLicense: React.FC<Props> = ({ fanData, selectedBg }) => {
                   upperCase(fanData.anthem.album_type)}
               </p>
             </div>
-            <FaSpotify className='text-3xl' />
+            <FaSpotify className='text-2xl' />
           </div>
         </div>
       </>
     </Card>
+    </div>
   );
 };
 
