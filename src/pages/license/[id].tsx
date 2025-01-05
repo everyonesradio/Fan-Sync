@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 // ** Third-Party Imports
+import html2canvas from "html2canvas";
 import { Loader2 } from "lucide-react";
 
 // ** Custom Components, Hooks, Utils, etc.
@@ -31,6 +32,22 @@ const License = () => {
 
   const handleImageClick = (image: string) => {
     setSelectedBg(image);
+  };
+
+  const takeScreenshot = async () => {
+    const element = document.getElementById("export");
+    if (element) {
+      const canvas = await html2canvas(element);
+      const data = canvas.toDataURL("image/jpg");
+      const link = document.createElement("a");
+
+      link.href = data;
+      link.download = `fan-license-${licenseID}.jpg`;
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   };
 
   return (
@@ -62,6 +79,12 @@ const License = () => {
           </button>
         ))}
       </div>
+      <button
+        onClick={takeScreenshot}
+        className='px-4 py-2 bg-white text-black rounded-md mt-4'
+      >
+        Save License Image
+      </button>
     </div>
   );
 };
