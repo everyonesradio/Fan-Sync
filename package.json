@@ -11,7 +11,8 @@
     "test": "NODE_ENV=test vitest",
     "prettier": "npx prettier --write ./",
     "prebuild": "prisma generate && prisma db push",
-    "postinstall": "node fix-spotify-sdk.js"
+    "postinstall": "node fix-spotify-sdk.js",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
