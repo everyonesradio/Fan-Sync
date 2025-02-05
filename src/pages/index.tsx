@@ -121,7 +121,7 @@ const Home = () => {
                 className='flex h-10 shrink-0 items-center bg-black justify-center gap-2 border-2 border-[#DAE100] px-4 py-2 text-sm font-semibold text-white transition-all hover:bg-[#DAE100] hover:text-black'
                 type='submit'
               >
-                <span>Join the waitlist</span>
+                Join the waitlist
               </InteractiveHoverButton>
             </div>
           </form>
