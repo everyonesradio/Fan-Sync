@@ -7,6 +7,7 @@ import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 
 // ** Custom Components, Hooks, Utils, etc.
+import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { api } from "@/utils/trpc";
 
 const Home = () => {
@@ -83,12 +84,12 @@ const Home = () => {
           <div className='w-32 sm:w-96 h-6 sm:h-10 bg-white rounded-full'></div>
           <div className='hidden sm:block w-48 h-10 bg-black border-4 border-white rounded-full'></div>
         </div>
-        <button
+        <InteractiveHoverButton
           onClick={() => router.push("/sgawd")}
-          className='flex items-center justify-center h-8 sm:h-10 bg-[#DAE100] px-3 sm:px-6 text-sm sm:text-xl font-bold text-black transition-all hover:bg-black hover:border-2 hover:border-[#DAE100] hover:text-white'
+          className='flex items-center justify-center h-8 sm:h-10 bg-[#DAE100] text-sm sm:text-xl font-bold text-black transition-all hover:bg-black hover:border-2 hover:border-[#DAE100] hover:text-white'
         >
-          <span>DEMO</span>
-        </button>
+          DEMO
+        </InteractiveHoverButton>
       </div>
       <div className='flex flex-col md:flex-row'>
         <div className='flex flex-col w-full md:w-1/2 mb-8 md:mb-0'>
@@ -116,12 +117,12 @@ const Home = () => {
                 value={email}
                 onChange={handleEmailChange}
               />
-              <button
-                className='flex h-10 shrink-0 items-center justify-center gap-2 border-2 border-[#DAE100] px-4 py-2 text-sm font-semibold text-white transition-all hover:bg-[#DAE100] hover:text-black'
+              <InteractiveHoverButton
+                className='flex h-10 shrink-0 items-center bg-black justify-center gap-2 border-2 border-[#DAE100] px-4 py-2 text-sm font-semibold text-white transition-all hover:bg-[#DAE100] hover:text-black'
                 type='submit'
               >
                 <span>Join the waitlist</span>
-              </button>
+              </InteractiveHoverButton>
             </div>
           </form>
         </div>
