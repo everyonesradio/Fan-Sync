@@ -1,11 +1,7 @@
-import { readFile, writeFile } from "fs";
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
+const fs = require("fs");
+const path = require("path");
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-const filePath = join(
+const filePath = path.join(
   __dirname,
   "node_modules",
   "@spotify",
@@ -16,7 +12,7 @@ const filePath = join(
   "SearchEndpoints.d.ts"
 );
 
-readFile(filePath, "utf8", (err, data) => {
+fs.readFile(filePath, "utf8", (err, data) => {
   if (err) {
     console.error("Error reading file:", err);
     return;
@@ -27,7 +23,7 @@ readFile(filePath, "utf8", (err, data) => {
     "<T extends readonly ItemTypes[]>"
   );
 
-  writeFile(filePath, result, "utf8", (err) => {
+  fs.writeFile(filePath, result, "utf8", (err) => {
     if (err) {
       console.error("Error writing file:", err);
     } else {
