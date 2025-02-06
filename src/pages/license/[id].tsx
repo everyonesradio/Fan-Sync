@@ -15,6 +15,7 @@ const license = [
   "/images/licenses/002.png",
   "/images/licenses/003.png",
   "/images/licenses/004.png",
+  "/images/licenses/007.png",
   "/images/licenses/001.png",
   "/images/licenses/005.png",
   "/images/licenses/006.png",
