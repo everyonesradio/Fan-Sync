@@ -63,7 +63,7 @@ const Form = () => {
         );
       }
 
-      const { fileURL } = await uploadImageResponse.json() as UploadResponse;
+      const { fileURL } = (await uploadImageResponse.json()) as UploadResponse;
 
       const response = await newFan({
         uuid: licenseID!,

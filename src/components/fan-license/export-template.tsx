@@ -18,7 +18,6 @@ interface Props {
 }
 
 const ExportTemplate: React.FC<Props> = ({ fanData, selectedBg }) => {
-
   return (
     <div id='export' className='hidden'>
       <div

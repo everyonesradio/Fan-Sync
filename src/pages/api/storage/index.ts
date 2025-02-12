@@ -42,17 +42,17 @@ export default async function filePOST(
 
     return res.status(200).json({ fileURL }); // Return the download URL in the response
   } catch (e: unknown) {
-    let errorMessage = 'An unexpected error occurred';
-    
+    let errorMessage = "An unexpected error occurred";
+
     if (e instanceof Error) {
-        errorMessage = e.message;
-    } else if (typeof e === 'string') {
-        errorMessage = e;
+      errorMessage = e.message;
+    } else if (typeof e === "string") {
+      errorMessage = e;
     }
 
     console.error(errorMessage);
     return res.status(500).json({ error: errorMessage });
-}
+  }
 }
 
 // Disable parsing the body by Next.js default behavior
