@@ -25,7 +25,7 @@ const ExportTemplate: React.FC<Props> = ({ fanData, selectedBg }) => {
   };
 
   return (
-    <div id="export" className="hidden">
+    <div id='export' className='hidden'>
       <div
         style={{
           width: "900px", // Higher resolution for export

@@ -47,6 +47,7 @@ export default async function filePOST(
     return res.status(500).send(tmp);
   }
 }
+
 // Disable parsing the body by Next.js default behavior
 export const config = {
   api: {
