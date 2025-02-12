@@ -5,7 +5,15 @@ import { z } from "zod";
 // ** Custom Components, Hooks, Utils, etc.
 import { WelcomeEmail, WelcomeEmailSubject } from "@/server/emails/welcome";
 import { EmailService } from "@/server/services/email";
+import { ExportService } from "@/server/services/export-license";
+import { StorageService } from "@/server/services/storage";
+import {
+  formidableConfig,
+  formidablePromise,
+  fileConsumer,
+} from "@lib/formidable";
 
+// ** Local Imports
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 export const fansRouter = createTRPCRouter({
@@ -30,6 +38,43 @@ export const fansRouter = createTRPCRouter({
       }
 
       return fanData;
+    }),
+
+  uploadAvatar: publicProcedure
+    .input(
+      z.object({
+        file: z.instanceof(Buffer),
+        filename: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const chunks: never[] = [];
+      const { fields: _fields, files } = await formidablePromise(req, {
+        ...formidableConfig,
+        fileWriteStreamHandler: () => fileConsumer(chunks),
+      });
+      const file = files.file;
+      const fileBuffer = Buffer.concat(chunks);
+
+      if (!file?.[0]) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "No File Provided",
+        });
+      }
+
+      if (file[0].size > 5 * 1024 * 1024) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "File size exceeds the limit of 5 MB.",
+        });
+      }
+
+      const result = await StorageService.uploadFile(
+        fileBuffer,
+        file[0].originalFilename!
+      );
+      return result;
     }),
 
   create: publicProcedure
@@ -156,5 +201,20 @@ export const fansRouter = createTRPCRouter({
       return {
         message: "Email sent successfully!",
       };
+    }),
+
+  exportLicense: publicProcedure
+    .input(
+      z.object({
+        fanData: z.any(),
+        selectedBg: z.string(),
+      })
+    )
+    .mutation(async ({ input }) => {
+      const buffer = await ExportService.generateLicense(
+        input.fanData,
+        input.selectedBg
+      );
+      return buffer;
     }),
 });
