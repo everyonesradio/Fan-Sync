@@ -9,6 +9,7 @@ import { Loader2 } from "lucide-react";
 
 // ** Custom Components, Hooks, Utils, etc.
 import FanLicense from "@/components/fan-license";
+import ExportTemplate from "@/components/fan-license/export-template";
 import { api } from "@/utils/trpc";
 
 const license = [
@@ -56,6 +57,7 @@ const License = () => {
       <h1 className='font-bold text-5xl text-center text-white p-4 sm:p-8 mb-2'>
         Share Your License
       </h1>
+      {/* Preview template */}
       {!fanData ? (
         <div className='flex items-center justify-center my-32'>
           <Loader2 className='h-16 w-16 animate-spin text-white' />
@@ -63,6 +65,10 @@ const License = () => {
       ) : (
         <FanLicense fanData={fanData} selectedBg={selectedBg} />
       )}
+
+      {/* Hidden export template */}
+      {fanData && <ExportTemplate fanData={fanData} selectedBg={selectedBg} />}
+
       <div className='flex justify-around items-center mt-6'>
         {license.map((background) => (
           <button

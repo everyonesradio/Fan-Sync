@@ -3,7 +3,6 @@ import Image from "next/image";
 import React from "react";
 
 // ** Custom Components, Hooks, Utils, etc.
-import Card from "@/components/fan-license/3DLicenseCard";
 import type { FansRouterOutputs } from "@/types/api";
 import { upperCase } from "@/utils/upper-case";
 
@@ -17,11 +16,7 @@ interface Props {
   selectedBg: string | null;
 }
 
-const FanLicense: React.FC<Props> = ({ fanData, selectedBg }) => {
-  if (!fanData) {
-    return <p>Loading fan data...</p>;
-  }
-
+const ExportTemplate: React.FC<Props> = ({ fanData, selectedBg }) => {
   const truncateString = (str: string, maxLength: number) => {
     if (str.length > maxLength) {
       return `${str.substring(0, maxLength)}...`;
@@ -30,35 +25,30 @@ const FanLicense: React.FC<Props> = ({ fanData, selectedBg }) => {
   };
 
   return (
-    <>
-      <Card
+    <div id="export" className="hidden">
+      <div
         style={{
-          width: "300px",
-          height: "450px",
+          width: "900px", // Higher resolution for export
+          height: "1350px",
           backgroundColor: "rgba(245, 101, 101, 0)",
           backgroundImage: `url(${selectedBg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          padding: "1rem",
+          padding: "3rem",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           textAlign: "center",
           color: "rgba(245, 101, 101, 0)",
-          transition: "background-image 0.4s ease-in-out",
         }}
-        onClick={() =>
-          fanData.anthem?.track_url &&
-          window.open(fanData.anthem.track_url, "_blank")
-        }
       >
         <>
-          <div className='flex flex-col space-y-2 items-center text-white'>
+          <div className='flex flex-col space-y-6 items-center text-white'>
             <Image
               src={fanData.profilePicture}
               alt='Profile picture'
-              height={120}
-              width={120}
+              height={360}
+              width={136}
               className='rounded-full aspect-square object-cover border-4 border-white'
             />
             <p className='font-bold text-xl'>{fanData.username}</p>
@@ -80,9 +70,9 @@ const FanLicense: React.FC<Props> = ({ fanData, selectedBg }) => {
             </div>
           </div>
         </>
-      </Card>
-    </>
+      </div>
+    </div>
   );
 };
 
-export default FanLicense;
+export default ExportTemplate;
