@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 // ** Third-Party Imports
-import html2canvas from "html2canvas";
+import download from "downloadjs";
+import * as htmlToImage from "html-to-image";
 import { Loader2 } from "lucide-react";
 
 // ** Custom Components, Hooks, Utils, etc.
@@ -36,21 +37,40 @@ const License = () => {
     setSelectedBg(image);
   };
 
-  const takeScreenshot = async () => {
+  const downloadLicense = async () => {
     const element = document.getElementById("export");
-    if (element) {
-      const canvas = await html2canvas(element);
-      const data = canvas.toDataURL("image/jpg");
-      const link = document.createElement("a");
-
-      link.href = data;
-      link.download = `fan-license-${licenseID}.jpg`;
-
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
+    await htmlToImage.toJpeg(element!).then(function (dataUrl) {
+      download(dataUrl, `fan-license-${licenseID}`, "image/png");
+    });
   };
+
+  /* TODO: Download license via API call
+  const downloadLicense = async () => {
+  try {
+    const response = await fetch('/api/generate-license', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        fanData,
+        selectedBg,
+      }),
+    });
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `fan-license-${licenseID}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } catch (error) {
+    console.error('Error generating license:', error);
+  }
+};
+ */
 
   return (
     <div className='min-h-screen flex flex-col bg-black items-center justify-center p-4 sm:p-8'>
@@ -87,10 +107,10 @@ const License = () => {
         ))}
       </div>
       <button
-        onClick={takeScreenshot}
+        onClick={downloadLicense}
         className='px-4 py-2 bg-white text-black rounded-md mt-4'
       >
-        Save License Image
+        Download License
       </button>
     </div>
   );
