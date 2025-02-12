@@ -4,6 +4,7 @@ import React from "react";
 
 // ** Custom Components, Hooks, Utils, etc.
 import type { FansRouterOutputs } from "@/types/api";
+import { truncateString } from "@/utils/truncate-string";
 import { upperCase } from "@/utils/upper-case";
 
 // ** Icon Imports
@@ -17,12 +18,6 @@ interface Props {
 }
 
 const ExportTemplate: React.FC<Props> = ({ fanData, selectedBg }) => {
-  const truncateString = (str: string, maxLength: number) => {
-    if (str.length > maxLength) {
-      return `${str.substring(0, maxLength)}...`;
-    }
-    return str;
-  };
 
   return (
     <div id='export' className='hidden'>

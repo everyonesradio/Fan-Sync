@@ -5,6 +5,7 @@ import React from "react";
 // ** Custom Components, Hooks, Utils, etc.
 import Card from "@/components/fan-license/3DLicenseCard";
 import type { FansRouterOutputs } from "@/types/api";
+import { truncateString } from "@/utils/truncate-string";
 import { upperCase } from "@/utils/upper-case";
 
 // ** Icon Imports
@@ -21,13 +22,6 @@ const FanLicense: React.FC<Props> = ({ fanData, selectedBg }) => {
   if (!fanData) {
     return <p>Loading fan data...</p>;
   }
-
-  const truncateString = (str: string, maxLength: number) => {
-    if (str.length > maxLength) {
-      return `${str.substring(0, maxLength)}...`;
-    }
-    return str;
-  };
 
   return (
     <>
