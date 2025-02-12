@@ -21,6 +21,10 @@ interface FormInputs {
   location: string;
 }
 
+interface UploadResponse {
+  fileURL: string;
+}
+
 const Form = () => {
   const router = useRouter();
   const { licenseID } = useLicense();
@@ -59,7 +63,7 @@ const Form = () => {
         );
       }
 
-      const { fileURL } = await uploadImageResponse.json();
+      const { fileURL } = await uploadImageResponse.json() as UploadResponse;
 
       const response = await newFan({
         uuid: licenseID!,
