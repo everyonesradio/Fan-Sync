@@ -1,48 +1,36 @@
+"use client";
+
 // ** React/Next.js Imports
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
-// ** React95 Imports
-import { Input, List, Button } from "@react95/core";
-
 // ** Custom Components, Hooks, Utils, etc.
-import MediaPlayer from "@/components/media-player";
 import { useLicense } from "@/context/LicenseContext";
 import { useSpotify } from "@/context/SpotifyContext";
 import type { Catalog } from "@/types/catalog";
 import { api } from "@/utils/trpc";
-import { upperCase } from "@/utils/upper-case";
+
+import AnthemSelection from "./_components/AnthemSelection";
+import SelectedAnthem from "./_components/SelectedAnthem";
 
 const Anthem: React.FC = () => {
   const router = useRouter();
-  const { licenseID } = useLicense();
   const { artistCatalog } = useSpotify();
+
+  const { licenseID } = useLicense();
   const { mutateAsync: updateAnthem } = api.fans.anthem.useMutation();
 
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState<Catalog[]>([]);
   const [selectedAnthem, setSelectedAnthem] = useState<Catalog | null>(null);
+  const [mounted, setMounted] = useState(false);
 
+  // Add this to prevent hydration mismatch
   useEffect(() => {
-    const originalAlbums = artistCatalog.items;
-    // Filter the original albums based on the search query
-    if (searchQuery) {
-      const filteredResults = originalAlbums.filter(
-        (result) =>
-          result.album_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          result.name.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-      setSearchResults(filteredResults);
-    } else {
-      setSearchResults(originalAlbums); // reset the search results to the original list
-    }
-  }, [artistCatalog, searchQuery]);
+    setMounted(true);
+  }, []);
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const query = e.target.value;
-    setSearchQuery(query);
-  };
+  if (!mounted) {
+    return null; // or a loading skeleton
+  }
 
   const handleSubmit = async () => {
     if (!selectedAnthem) {
@@ -68,73 +56,27 @@ const Anthem: React.FC = () => {
   };
 
   return (
-    <div className='min-h-screen flex flex-col bg-black items-center justify-center'>
-      <h1 className='font-bold text-3xl sm:text-5xl text-center text-white p-8'>
-        Choose Your SGaWD Anthem
-      </h1>
-      <div className='relative mb-4'>
-        <Input
-          placeholder='Search your favorite SGaWD song'
-          value={searchQuery}
-          style={{
-            width: "min(80vw, 460px)",
-            height: "min(32px, 48px)",
-            paddingLeft: "8px",
-            paddingRight: "8px",
-          }}
-          onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => {
-            if (e.key === "Enter") {
-              handleSearch(e as unknown as React.ChangeEvent<HTMLInputElement>);
-            }
-          }}
-          onChange={handleSearch}
+    <div className='h-screen w-full bg-black p-8'>
+      <div className='h-full max-w-screen-lg flex flex-col justify-self-center gap-8'>
+        <h1 className='font-bold text-2xl sm:text-5xl text-center text-white my-2'>
+          Choose Your SGaWD Anthem
+        </h1>
+        <AnthemSelection
+          className='flex-1 h-full'
+          tracks={artistCatalog.items}
+          selectedTrack={selectedAnthem}
+          setSelectedTrack={setSelectedAnthem}
         />
-        {searchQuery && (
-          <div className='absolute w-full max-h-64 overflow-auto scrollbar-hide mt-4 z-50'>
-            <List style={{ width: "min(80vw, 460px)", margin: "0 auto" }}>
-              {searchResults.length > 0 ? (
-                searchResults.map((item, index) => (
-                  <React.Fragment key={item.id}>
-                    <List.Item
-                      icon={
-                        <Image
-                          alt='Album Cover'
-                          src={item.images[0].url}
-                          width={40}
-                          height={40}
-                        />
-                      }
-                      onClick={() => {
-                        setSelectedAnthem(item);
-                        setSearchQuery("");
-                      }}
-                    >
-                      <div className='flex flex-col items-start font-bold pl-2'>
-                        <span>{item.name}</span>
-                        <span>
-                          {upperCase(item.album_type)} -{" "}
-                          {item.release_date.split("-")[0]}
-                        </span>
-                      </div>
-                    </List.Item>
-                    {index !== searchResults.length - 1 && <List.Divider />}
-                  </React.Fragment>
-                ))
-              ) : (
-                <div className='p-4 text-center text-gray-500'>
-                  Item not found
-                </div>
-              )}
-            </List>
+        {selectedAnthem && (
+          <div className='w-full'>
+            <SelectedAnthem
+              track={selectedAnthem}
+              onConfirm={handleSubmit}
+              onClear={() => setSelectedAnthem(null)}
+            />
           </div>
         )}
       </div>
-      <div className='flex flex-col items-center justify-center p-8'>
-        {selectedAnthem && <MediaPlayer selectedAnthem={selectedAnthem} />}
-      </div>
-      <Button className='hover:bg-slate-300' onClick={handleSubmit}>
-        Next
-      </Button>
     </div>
   );
 };
