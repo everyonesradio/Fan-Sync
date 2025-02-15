@@ -16,6 +16,22 @@ import {
 // ** Local Imports
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
+/**
+ * The `fansRouter` defines the tRPC API route related to fan management in the FanSync application.
+ * It provides procedures for creating, retrieving, and updating fan data, as well as handling related operations.
+ *
+ * Features:
+ * - `get`: Retrieves a fan's data by their unique identifier (UUID). Throws a `NOT_FOUND` error if the fan does not exist.
+ * - `uploadAvatar`: Handles the upload of a fan's avatar image, validating file size and uploading to storage.
+ * - `create`: Creates a new fan record with provided details, ensuring no duplicate entries by UUID.
+ * - `anthem`: Updates a fan's anthem information, including track details and associated metadata.
+ * - `signature`: Updates a fan's signature information.
+ * - `email`: Sends a welcome email to the fan, including their anthem details and license ID.
+ * - `exportLicense`: Generates and returns a license document for the fan based on provided data and background selection.
+ *
+ * @returns A tRPC router object with defined procedures for fan-related operations.
+ */
+
 export const fansRouter = createTRPCRouter({
   get: publicProcedure
     .input(

@@ -17,6 +17,14 @@ type MediaPlayerProps = {
   selectedAnthem: Catalog;
 };
 
+/**
+ * The `MediaPlayer` component displays the selected anthem's album cover, name, and release date.
+ * The component also handles audio using the Howler library.
+ *
+ * @param selectedAnthem - The selected anthem object, which contains the necessary data to render the media player.
+ * @returns A React component that displays the media player.
+ */
+
 const MediaPlayer: React.FC<MediaPlayerProps> = ({ selectedAnthem }) => {
   useEffect(() => {
     if (selectedAnthem?.preview_url) {

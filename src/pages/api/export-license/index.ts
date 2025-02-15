@@ -3,6 +3,15 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import chromium from "chrome-aws-lambda";
 import puppeteer from "puppeteer-core";
 
+/**
+ * This is the `export-license` API endpoint for handling request to export a license as a JPEG image.
+ * --> also think about generating video, gifs, etc.
+ * This function is the request handler for the `/api/export-license` endpoint. It takes the `fanData` and `selectedBg` from the request body, launches a Puppeteer-powered headless Chrome browser, injects the license template HTML, takes a screenshot of the rendered page, and sends the JPEG image data back in the response.
+ *
+ * @param req - The Next.js API request object.
+ * @param res - The Next.js API response object.
+ */
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

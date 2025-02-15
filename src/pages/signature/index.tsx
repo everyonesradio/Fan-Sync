@@ -10,6 +10,14 @@ import FanSignature from "@/components/signature";
 import { useLicense } from "@/context/LicenseContext";
 import { api } from "@/utils/trpc";
 
+/**
+ * The `Signature` component handles the signature creation process for fan licenses.
+ * It renders a form for users to sign their license and provides a "Next" button
+ * to proceed to the next step after signing.
+ *
+ * @returns JSX.Element A React component rendering the signature form and next button.
+ */
+
 const Signature = () => {
   const router = useRouter();
   const { licenseID } = useLicense();

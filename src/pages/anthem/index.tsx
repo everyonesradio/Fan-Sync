@@ -14,6 +14,22 @@ import type { Catalog } from "@/types/catalog";
 import { api } from "@/utils/trpc";
 import { upperCase } from "@/utils/upper-case";
 
+/**
+ * The `Anthem` component allows users to search for and select an anthem from a catalog of songs.
+ * It provides a search input to filter songs by name or album name, displays the search results,
+ * and allows users to select a song as their anthem. Once a song is selected, it can be played
+ * using the MediaPlayer component. The selected anthem can be submitted, which triggers an update
+ * to the user's profile and navigates to the signature page.
+ *
+ * Features:
+ * - Search for songs by name or album name.
+ * - Display search results with album cover images.
+ * - Select a song as an anthem.
+ * - Play the selected anthem using the MediaPlayer component.
+ * - Submit the selected anthem to update the user's profile.
+ * - Custom hooks and utilities for context and API interactions.
+ */
+
 const Anthem: React.FC = () => {
   const router = useRouter();
   const { licenseID } = useLicense();

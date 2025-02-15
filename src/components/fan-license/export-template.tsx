@@ -17,6 +17,15 @@ interface Props {
   selectedBg: string | null;
 }
 
+/**
+ * The `ExportTemplate` component renders the exported image of the fan license, including their profile picture, 
+ * username, location, date of birth, unique ID, and their favorite song details.
+ * 
+ * @param fanData - An object that contains the fan information.
+ * @param selectedBg - The background image URL to be used for the export template.
+ * @returns A React component that renders the export template.
+ */
+
 const ExportTemplate: React.FC<Props> = ({ fanData, selectedBg }) => {
   return (
     <div id='export' className='hidden'>

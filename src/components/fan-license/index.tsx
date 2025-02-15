@@ -17,6 +17,14 @@ interface Props {
   fanData: FanType;
   selectedBg: string | null;
 }
+/**
+ * The `FanLicense` component renders a card-like UI element that displays information about a fan, 
+ * including their profile picture, username, location, date of birth, and a unique identifier (UUID). It also displays information about the fan's "anthem", which includes the name, release date, and album type.
+ *
+ * @param fanData - An object that contains the fan information.
+ * @param selectedBg - The background image URL to be used for the fan license.
+ * When the card is clicked, it will open the URL of the fan's anthem track in a new tab, if the `track_url` property is available in the `fanData` object.
+ */
 
 const FanLicense: React.FC<Props> = ({ fanData, selectedBg }) => {
   if (!fanData) {
