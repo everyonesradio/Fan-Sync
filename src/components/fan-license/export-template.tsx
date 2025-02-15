@@ -18,9 +18,9 @@ interface Props {
 }
 
 /**
- * The `ExportTemplate` component renders the exported image of the fan license, including their profile picture, 
+ * The `ExportTemplate` component renders the exported image of the fan license, including their profile picture,
  * username, location, date of birth, unique ID, and their favorite song details.
- * 
+ *
  * @param fanData - An object that contains the fan information.
  * @param selectedBg - The background image URL to be used for the export template.
  * @returns A React component that renders the export template.

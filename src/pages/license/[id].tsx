@@ -26,14 +26,14 @@ const license = [
 /**
  * The `License` component allows users to view and download their fan license with a selected background.
  * It fetches fan data based on the license ID from the URL and provides options to choose a background for the license.
- * 
+ *
  * Features:
  * - Fetches fan data using the license ID from the URL.
  * - Displays a loading spinner while fetching data.
  * - Allows users to select a background image for their license.
  * - Renders a preview of the fan license with the selected background.
  * - Provides functionality to download the license as an image.
- * 
+ *
  * @param {string} router.query.id - The unique identifier for the fan license, extracted from the URL.
  */
 

@@ -18,7 +18,7 @@ interface Props {
   selectedBg: string | null;
 }
 /**
- * The `FanLicense` component renders a card-like UI element that displays information about a fan, 
+ * The `FanLicense` component renders a card-like UI element that displays information about a fan,
  * including their profile picture, username, location, date of birth, and a unique identifier (UUID). It also displays information about the fan's "anthem", which includes the name, release date, and album type.
  *
  * @param fanData - An object that contains the fan information.

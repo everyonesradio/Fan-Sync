@@ -28,7 +28,7 @@ interface UploadResponse {
 /**
  * The `Form` component is responsible for collecting fan data.
  * It integrates with React Hook Form for form validation and submission handling.
- * 
+ *
  * Features:
  * - Input fields for full name, email, username, date of birth, and location.
  * - Validation for required fields and specific input patterns.
@@ -36,7 +36,7 @@ interface UploadResponse {
  * - Submits the form data along with an uploaded image to create a new fan record.
  * - Navigates to the anthem page upon successful submission.
  * - Utilizes custom hooks for accessing form data and license context.
- * 
+ *
  * @params None
  */
 
