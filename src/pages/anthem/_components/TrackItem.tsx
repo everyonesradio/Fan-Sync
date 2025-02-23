@@ -19,6 +19,10 @@ const TrackItem: React.FC<Props> = ({
   // isSelected,
   className,
 }) => {
+  if (!track) {
+    return null;
+  }
+
   return (
     <div
       onClick={() => onSelect(track)}

@@ -2,6 +2,7 @@
 
 import React from "react";
 
+
 import type { Catalog } from "@/types/catalog";
 import { cn } from "@lib/utils";
 
@@ -18,7 +19,7 @@ const TrackList: React.FC<Props> = ({
   selectedTrack,
   onTrackSelect,
 }) => {
-  if (!tracks.length) {
+  if (!tracks?.length) {
     return (
       <div className='p-4 text-center text-gray-500'>No tracks available</div>
     );

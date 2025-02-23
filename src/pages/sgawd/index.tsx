@@ -24,13 +24,13 @@ export const getServerSideProps: GetServerSideProps<
 };
 
 const SGaWDDemo = ({
-  items,
+  items = [],
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { setArtistCatalog } = useSpotify();
 
   useEffect(() => {
     const fetchData = async () => {
-      const fetchedData: ArtistCatalog = { items };
+      const fetchedData: ArtistCatalog = { items: items || [] };
       setArtistCatalog(fetchedData);
     };
 
