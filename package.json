@@ -46,7 +46,7 @@
     "lucide-react": "^0.454.0",
     "maath": "^0.5.2",
     "next": "^15.1.6",
-    "puppeteer-core": "^24.2.0",
+    "puppeteer-core": "^10.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-fast-marquee": "^1.6.5",
