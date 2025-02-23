@@ -10,7 +10,6 @@ import { cn } from "@lib/utils";
 import SearchModal from "./SearchModal";
 import TrackList from "./TrackList";
 
-
 interface Props {
   tracks: Catalog[];
   className?: string;

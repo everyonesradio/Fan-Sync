@@ -1,7 +1,10 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type {
+  NextApiRequest as _NextApiRequest,
+  NextApiResponse as _NextApiResponse,
+} from "next";
 
 import chromium from "chrome-aws-lambda";
-import puppeteer from "puppeteer-core";
+import { Puppeteer } from "puppeteer-core";
 
 /**
  * This is the `export-license` API endpoint for handling request to export a license as a JPEG image.
