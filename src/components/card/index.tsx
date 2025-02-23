@@ -5,6 +5,13 @@ import React from "react";
 interface CardProps {
   card: string;
 }
+/**
+ * The `Card` component renders a card with an image.
+ *
+ * @param {CardProps} props - The props for the Card component.
+ * @param {string} props.card - The URL of the image to be displayed in the card.
+ * @returns {JSX.Element} - The rendered Card component.
+ */
 
 const Card: React.FC<CardProps> = ({ card }) => {
   return (

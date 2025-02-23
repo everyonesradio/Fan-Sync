@@ -10,6 +10,20 @@ import { ToastContainer, toast } from "react-toastify";
 import { InteractiveHoverButton } from "@/components/ui/interactive-hover-button";
 import { api } from "@/utils/trpc";
 
+/**
+ * The `Home` component serves as the landing page for the FanSync application.
+ * It provides an interface for users to learn about the platform and join the waitlist.
+ *
+ * Features:
+ * - Displays the FanSync branding and a brief description of the platform.
+ * - Includes an email input form for users to join the waitlist.
+ * - Validates the email input and provides feedback using `react-toastify`.
+ * - Utilizes custom components like `InteractiveHoverButton` for enhanced UI interactions.
+ * - Handles form submission to add users to the waitlist via a tRPC mutation.
+ *
+ * @returns A React component representing the home page of the application.
+ */
+
 const Home = () => {
   const router = useRouter();
   const [email, setEmail] = useState<string>();
@@ -121,7 +135,7 @@ const Home = () => {
                 className='flex h-10 shrink-0 items-center bg-black justify-center gap-2 border-2 border-[#DAE100] px-4 py-2 text-sm font-semibold text-white transition-all hover:bg-[#DAE100] hover:text-black'
                 type='submit'
               >
-                <span>Join the waitlist</span>
+                Join the waitlist
               </InteractiveHoverButton>
             </div>
           </form>

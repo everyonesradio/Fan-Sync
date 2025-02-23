@@ -4,21 +4,38 @@ import { useRouter } from "next/router";
 import React, { useState } from "react";
 
 // ** Third-Party Imports
-import html2canvas from "html2canvas";
+import download from "downloadjs";
+import * as htmlToImage from "html-to-image";
 import { Loader2 } from "lucide-react";
 
 // ** Custom Components, Hooks, Utils, etc.
 import FanLicense from "@/components/fan-license";
+import ExportTemplate from "@/components/fan-license/export-template";
 import { api } from "@/utils/trpc";
 
 const license = [
   "/images/licenses/002.png",
   "/images/licenses/003.png",
   "/images/licenses/004.png",
+  "/images/licenses/007.png",
   "/images/licenses/001.png",
   "/images/licenses/005.png",
   "/images/licenses/006.png",
 ];
+
+/**
+ * The `License` component allows users to view and download their fan license with a selected background.
+ * It fetches fan data based on the license ID from the URL and provides options to choose a background for the license.
+ *
+ * Features:
+ * - Fetches fan data using the license ID from the URL.
+ * - Displays a loading spinner while fetching data.
+ * - Allows users to select a background image for their license.
+ * - Renders a preview of the fan license with the selected background.
+ * - Provides functionality to download the license as an image.
+ *
+ * @param {string} router.query.id - The unique identifier for the fan license, extracted from the URL.
+ */
 
 const License = () => {
   const router = useRouter();
@@ -34,27 +51,47 @@ const License = () => {
     setSelectedBg(image);
   };
 
-  const takeScreenshot = async () => {
+  const downloadLicense = async () => {
     const element = document.getElementById("export");
-    if (element) {
-      const canvas = await html2canvas(element);
-      const data = canvas.toDataURL("image/jpg");
-      const link = document.createElement("a");
-
-      link.href = data;
-      link.download = `fan-license-${licenseID}.jpg`;
-
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
+    await htmlToImage.toJpeg(element!).then(function (dataUrl) {
+      download(dataUrl, `fan-license-${licenseID}`, "image/png");
+    });
   };
+
+  /* TODO: Download license via API call
+  const downloadLicense = async () => {
+  try {
+    const response = await fetch('/api/generate-license', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        fanData,
+        selectedBg,
+      }),
+    });
+
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `fan-license-${licenseID}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  } catch (error) {
+    console.error('Error generating license:', error);
+  }
+};
+ */
 
   return (
     <div className='min-h-screen flex flex-col bg-black items-center justify-center p-4 sm:p-8'>
       <h1 className='font-bold text-5xl text-center text-white p-4 sm:p-8 mb-2'>
         Share Your License
       </h1>
+      {/* Preview template */}
       {!fanData ? (
         <div className='flex items-center justify-center my-32'>
           <Loader2 className='h-16 w-16 animate-spin text-white' />
@@ -62,6 +99,10 @@ const License = () => {
       ) : (
         <FanLicense fanData={fanData} selectedBg={selectedBg} />
       )}
+
+      {/* Hidden export template */}
+      {fanData && <ExportTemplate fanData={fanData} selectedBg={selectedBg} />}
+
       <div className='flex justify-around items-center mt-6'>
         {license.map((background) => (
           <button
@@ -80,10 +121,10 @@ const License = () => {
         ))}
       </div>
       <button
-        onClick={takeScreenshot}
+        onClick={downloadLicense}
         className='px-4 py-2 bg-white text-black rounded-md mt-4'
       >
-        Save License Image
+        Download License
       </button>
     </div>
   );

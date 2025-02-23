@@ -12,7 +12,7 @@ export type Image = {
 export type Catalog = {
   id: string;
   name: string;
-  preview_url: string;
+  preview_url: string | null;
   track_url: string;
   artists: Artist[];
   images: Image[];

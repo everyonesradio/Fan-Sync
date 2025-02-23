@@ -2,6 +2,14 @@ import React, { useState } from "react";
 
 import QRcode from "react-qr-code";
 
+/**
+ * The `QRCodeGenerator` component generates a QR code based on user input.
+ * It allows the user to enter a value, background color, foreground color, and size for the QR code.
+ * The generated QR code is displayed on the page.
+ *
+ * Assign to fan id
+ */
+
 const QRCodeGenerator = () => {
   const [value, setValue] = useState<string>("");
   const [background, setBackground] = useState<string>("#FFFFFF");

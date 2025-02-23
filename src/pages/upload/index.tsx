@@ -12,6 +12,19 @@ import { useFormContext } from "@/context/FormDataContext";
 // ** Icon Imports
 import { HiUser } from "react-icons/hi2";
 
+/**
+ * The `Upload` component is responsible for handling the client-side image upload process.
+ * It takes a `FileList` or `null` as input and performs the following steps:
+ * 1. Checks if a file has been selected by the user.
+ * 2. Creates a `FormData` object and appends the selected file to it.
+ * 3. Sets the `FormData` object in the `FormDataContext` for further processing.
+ * 4. Generates a temporary URL for the selected file and updates the `imageURL` state to display the image preview.
+ * 5. If no file is selected, it alerts the user to select a file.
+ * 6. Handles any errors that may occur during the upload process and logs them to the console.
+ *
+ * @param files - The selected files to be uploaded, or `null` if no files are selected.
+ */
+
 const Upload = () => {
   const [imageURL, setImageURL] = useState<string | null>(null);
   const router = useRouter();

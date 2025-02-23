@@ -4,6 +4,15 @@ import React from "react";
 // ** Third-Party Imports
 import PropTypes from "prop-types";
 
+/**
+ * The `3DLicenseCard` component provides a 3D parallax effect for a card-like UI element.
+ * It supports various props to customize the appearance and behavior of the card, such as:
+ * - `isStatic`: whether the card should have a static appearance without the parallax effect
+ * - `borderRadius`: the border radius of the card
+ * - `shineStrength`: the strength of the shine effect on the card
+ * - `cursorPointer`: whether the cursor should change to a pointer when hovering over the card
+ */
+
 export default class ParallaxCard extends React.Component {
   static propTypes = {
     isStatic: PropTypes.bool,

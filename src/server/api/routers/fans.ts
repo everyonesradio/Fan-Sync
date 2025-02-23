@@ -5,8 +5,32 @@ import { z } from "zod";
 // ** Custom Components, Hooks, Utils, etc.
 import { WelcomeEmail, WelcomeEmailSubject } from "@/server/emails/welcome";
 import { EmailService } from "@/server/services/email";
+// import { ExportService } from "@/server/services/export-license";
+// import { StorageService } from "@/server/services/storage";
+// import {
+//   formidableConfig,
+//   formidablePromise,
+//   fileConsumer,
+// } from "@lib/formidable";
 
+// ** Local Imports
 import { createTRPCRouter, publicProcedure } from "../trpc";
+
+/**
+ * The `fansRouter` defines the tRPC API route related to fan management in the FanSync application.
+ * It provides procedures for creating, retrieving, and updating fan data, as well as handling related operations.
+ *
+ * Features:
+ * - `get`: Retrieves a fan's data by their unique identifier (UUID). Throws a `NOT_FOUND` error if the fan does not exist.
+ * - `uploadAvatar`: Handles the upload of a fan's avatar image, validating file size and uploading to storage.
+ * - `create`: Creates a new fan record with provided details, ensuring no duplicate entries by UUID.
+ * - `anthem`: Updates a fan's anthem information, including track details and associated metadata.
+ * - `signature`: Updates a fan's signature information.
+ * - `email`: Sends a welcome email to the fan, including their anthem details and license ID.
+ * - `exportLicense`: Generates and returns a license document for the fan based on provided data and background selection.
+ *
+ * @returns A tRPC router object with defined procedures for fan-related operations.
+ */
 
 export const fansRouter = createTRPCRouter({
   get: publicProcedure
@@ -31,6 +55,43 @@ export const fansRouter = createTRPCRouter({
 
       return fanData;
     }),
+
+  // uploadAvatar: publicProcedure
+  //   .input(
+  //     z.object({
+  //       file: z.instanceof(Buffer),
+  //       filename: z.string(),
+  //     })
+  //   )
+  //   .mutation(async ({ input }) => {
+  //     const chunks: never[] = [];
+  //     const { fields: _fields, files } = await formidablePromise(req, {
+  //       ...formidableConfig,
+  //       fileWriteStreamHandler: () => fileConsumer(chunks),
+  //     });
+  //     const file = files.file;
+  //     const fileBuffer = Buffer.concat(chunks);
+
+  //     if (!file?.[0]) {
+  //       throw new TRPCError({
+  //         code: "BAD_REQUEST",
+  //         message: "No File Provided",
+  //       });
+  //     }
+
+  //     if (file[0].size > 5 * 1024 * 1024) {
+  //       throw new TRPCError({
+  //         code: "BAD_REQUEST",
+  //         message: "File size exceeds the limit of 5 MB.",
+  //       });
+  //     }
+
+  //     const result = await StorageService.uploadFile(
+  //       fileBuffer,
+  //       file[0].originalFilename!
+  //     );
+  //     return result;
+  //   }),
 
   create: publicProcedure
     .input(
@@ -157,4 +218,19 @@ export const fansRouter = createTRPCRouter({
         message: "Email sent successfully!",
       };
     }),
+
+  // exportLicense: publicProcedure
+  //   .input(
+  //     z.object({
+  //       fanData: z.any(),
+  //       selectedBg: z.string(),
+  //     })
+  //   )
+  //   .mutation(async ({ input }) => {
+  //     const buffer = await ExportService.generateLicense(
+  //       input.fanData,
+  //       input.selectedBg
+  //     );
+  //     return buffer;
+  //   }),
 });

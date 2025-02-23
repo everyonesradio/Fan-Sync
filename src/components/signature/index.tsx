@@ -11,6 +11,17 @@ import SignatureCanvas from "react-signature-canvas";
 import { useLicense } from "@/context/LicenseContext";
 import { api } from "@/utils/trpc";
 
+/**
+ * The `FanSignature` component provides a canvas for users to draw their signature and save it to their license.
+ *
+ * The component uses the `react-signature-canvas` library to handle the signature drawing functionality.
+ * When the user clicks the "Save" button, the component calls the `updateSignature` API
+ * to update the user's license with the drawn signature.
+ *
+ * The component also provides a "Clear" button to allow the user to clear the signature canvas.
+ * TODO: Add signature to fan license
+ */
+
 const FanSignature = () => {
   const { licenseID } = useLicense();
   const { mutateAsync: updateSignature } = api.fans.signature.useMutation();

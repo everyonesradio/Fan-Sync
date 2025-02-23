@@ -5,7 +5,7 @@ import React from "react";
 import { ArrowRight } from "lucide-react";
 
 // ** Custom Components, Hooks, Utils, etc.
-import { cn } from "@/lib/utils";
+import { cn } from "@lib/utils";
 
 type InteractiveHoverButtonProps =
   React.ButtonHTMLAttributes<HTMLButtonElement>;
