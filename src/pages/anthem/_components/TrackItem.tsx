@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 
-import { cn } from "@/lib/utils";
 import type { Catalog } from "@/types/catalog";
 import { upperCase } from "@/utils/upper-case";
+import { cn } from "@lib/utils";
 
 interface Props {
   track: Catalog;

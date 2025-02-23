@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import { cn } from "@/lib/utils";
 import type { Catalog } from "@/types/catalog";
+import { cn } from "@lib/utils";
 
 import TrackItem from "./TrackItem";
 

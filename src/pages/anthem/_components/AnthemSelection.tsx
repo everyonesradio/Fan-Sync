@@ -4,11 +4,12 @@ import { useState, useEffect } from "react";
 
 import { Tab, Tabs } from "@react95/core";
 
-import { cn } from "@/lib/utils";
 import type { Catalog } from "@/types/catalog";
+import { cn } from "@lib/utils";
 
 import SearchModal from "./SearchModal";
 import TrackList from "./TrackList";
+
 
 interface Props {
   tracks: Catalog[];
