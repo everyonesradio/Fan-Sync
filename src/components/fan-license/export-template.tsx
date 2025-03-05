@@ -69,6 +69,7 @@ const ExportTemplate: React.FC<Props> = ({ fanData, selectedBg }) => {
                     upperCase(fanData.anthem.album_type)}
                 </p>
               </div>
+              {/* @ts-expect-error - Ignoring TypeScript error for react-icons */}
               <FaSpotify className='text-2xl' />
             </div>
           </div>

@@ -73,6 +73,7 @@ const Upload = () => {
                 className='rounded-full aspect-square object-cover'
               />
             ) : (
+              /* @ts-expect-error - Ignoring TypeScript error for react-icons */
               <HiUser size={200} />
             )}
           </button>
